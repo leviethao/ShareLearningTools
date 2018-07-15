@@ -12,12 +12,14 @@ import VueYouTubeEmbed from 'vue-youtube-embed'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuebar from 'vuebar'
 
 Vue.config.productionTip = false
 
 // Vue.use(Vuetify)
 Vue.use(VueYouTubeEmbed)
 Vue.use(BootstrapVue)
+Vue.use(Vuebar)
 
 // Vue.component('panel', Panel)
 

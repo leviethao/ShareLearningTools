@@ -6,7 +6,7 @@ var UserSchema = new Schema({
   power: {type: String, default: 'user', max: 20},
   name: {type: String, required: true, max: 100},
   gender: {type: String, default: 'Nam'},
-  avatar: {type: String, default: ''},
+  avatar: {type: String, default: 'images/defaultAvatar.png'},
   dateOfBirth: {type: Date, default: Date.now()},
   address: {type: String, default: ''},
   phoneNumber: {type: String, default: ''}

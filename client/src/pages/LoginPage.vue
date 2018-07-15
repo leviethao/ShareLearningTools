@@ -49,7 +49,7 @@
 import AuthenticationService from '../services/AuthenticationService'
 
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   data () {
     return {
       name: '',
@@ -115,8 +115,8 @@ export default {
       if (input.value.length < 1) {
         this.errors.name = 'Tên người dùng không được để trống'
         this.isNameError = true
-      } else if (input.value.length > 30) {
-        this.errors.name = 'Tên người dùng phải <= 30 ký tự'
+      } else if (input.value.length > 32) {
+        this.errors.name = 'Tên người dùng phải <= 32 ký tự'
         this.isNameError = true
       } else {
         this.errors.name = ''
