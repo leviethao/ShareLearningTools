@@ -6,8 +6,8 @@
         <catalog/>
       </div>
       <div id="home-center">
-        <post/>
-        <post/>
+        <post postid="p1"/>
+        <post postid="p2"/>
       </div>
       <div id="home-right-hand-side">
         <tool-category-selector id="tool-category-filter"/>

@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div :id="postid" class="post">
 
     <div class="post-container">
 
@@ -25,10 +25,13 @@
       </div>
 
       <div class="post-footer">
-        <div class="post-footer-btn-left post-footer-btn" @click="onBtnCmtClicked"><span>Bình luận</span></div>
-        <div class="post-footer-btn-right post-footer-btn" @click="onBtnContactClicked"><span>Liên hệ</span></div>
+        <button class="post-footer-btn-left post-footer-btn" @click="onBtnCmtClicked"><span>Bình luận</span></button>
+        <button :id="`contact-btn-${postid}`" class="post-footer-btn-right post-footer-btn"><span>Liên hệ</span></button>
       </div>
 
+      <!-- contact popover -->
+      <contact-popover :target="`contact-btn-${postid}`" :container="postid" />
+      
     </div>
 
     <!-- comment box -->
@@ -155,20 +158,23 @@
 
 <script>
 import AutoSizeTextarea from './AutoSizeTextarea'
+import ContactPopover from './ContactPopover'
 
 export default {
   components: {
-    AutoSizeTextarea
+    AutoSizeTextarea,
+    ContactPopover
   },
+  props: [
+    'postid'
+  ],
   data () {
     return {
-
+      contactPopoverShow: false
     }
   },
   methods: {
     onBtnCmtClicked () {
-    },
-    onBtnContactClicked () {
     }
   }
 }
@@ -220,18 +226,11 @@ export default {
 }
 .post-footer-btn {
   height: 80%;
-  float: left;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  
-  /* disable select text */
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  border: none;
+  background-color: rgba(0, 0, 255, 0);
+}
+.post-footer-btn:focus {
+  outline: none;
 }
 .post-footer-btn:hover {
   background-color: rgba(172, 149, 177, 0.267);
@@ -246,9 +245,6 @@ export default {
 .post-footer-btn-right {
   width: 50%;
   margin-left: 10px;
-}
-.post-footer-btn span {
-  width: 100%;
 }
 
 /* commnet box */
