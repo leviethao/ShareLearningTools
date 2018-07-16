@@ -65,10 +65,7 @@
         triggers="focus"
         :show.sync="settingPopoverShow"
         placement="bottomleft"
-        container="toolbar"
-        @show="onSettingShow"
-        @shown="onSettingShown"
-        @hidden="onSettingHidden">
+        container="toolbar">
         
         <template slot="title" >
           Cài đặt

@@ -4,8 +4,7 @@
       triggers="click blur"
       :show.sync="contactPopoverShow"
       placement="bottomleft"
-      :container="container"
-      @shown="onShown">
+      :container="container">
       
       <template slot="title" >
         <div>

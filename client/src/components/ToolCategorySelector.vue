@@ -1,12 +1,15 @@
 <template>
   <div class="tool-category-selector">
-    <b-form-select v-model="selected" :options="options" class="mb-3">
+    <b-form-select v-model="selected" :options="options" class="mb-3" :size="size">
     </b-form-select>
   </div>
 </template>
 
 <script>
 export default {
+  props: [
+    'size'
+  ],
   data () {
     return {
       selected: null,
@@ -24,6 +27,8 @@ export default {
 
 <style>
 .tool-category-selector {
+  width: 100%;
+  height: 100%;
   margin: auto;
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <v-app>
-      <main>
-        <v-container fluid>
-          <router-view></router-view>
-        </v-container>
-      </main>
-    </v-app>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -29,7 +23,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(206, 201, 212);
+  background-color: rgb(176, 126, 241);
 }
 
 .danger-alert {

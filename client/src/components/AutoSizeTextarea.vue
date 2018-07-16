@@ -1,9 +1,12 @@
 <template>
-  <textarea class="textarea" ref="textarea" rows='1' placeholder='Viết bình luận'></textarea>
+  <textarea class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
 export default {
+  props: [
+    'placeholderValue'
+  ],
   data () {
     return {
 

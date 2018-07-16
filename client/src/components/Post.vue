@@ -131,7 +131,7 @@
                 <img src="../assets/images/catalog/item.png" />
               </div>
               <div class="comment-textarea">
-                <auto-size-textarea /> 
+                <auto-size-textarea placeholderValue="Trả lời bình luận"/> 
               </div>
               <div class="clear-both"></div>
             </div>
@@ -147,7 +147,7 @@
           <img src="../assets/images/catalog/item.png" />
         </div>
         <div class="comment-textarea">
-          <auto-size-textarea /> 
+          <auto-size-textarea placeholderValue="Viết bình luận"/> 
         </div>
         <div class="clear-both"></div>
       </div>
@@ -183,9 +183,9 @@ export default {
 <style>
 .post {
   width: 500px;
-  background-color: rgb(241, 236, 243);
+  background-color: #fff;
   margin: auto;
-  border: 1px solid rgb(218, 215, 215);
+  border: solid rgba(196, 190, 190, 0.377) 1px;
 }
 .post-container {
   /* background-color: blue; */
@@ -220,7 +220,7 @@ export default {
 .post-footer {
   height: 40px;
   /* background-color: red; */
-  border-top: 1px solid rgb(218, 215, 215);
+  border-top: solid rgba(196, 190, 190, 0.377) 1px;
   display: flex;
   align-items: center;
 }
@@ -249,7 +249,7 @@ export default {
 
 /* commnet box */
 .comment-box {
-  border-top: 1px solid rgb(218, 215, 215);
+  border-top: solid rgba(196, 190, 190, 0.377) 1px;
   /* background-color: yellow; */
 }
 .comment {
@@ -264,6 +264,7 @@ export default {
 .commenter-avatar img {
   width: 32px;
   height: 32px;
+  border-radius: 50%;
 }
 .comment-container {
   float: right;
