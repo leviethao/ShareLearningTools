@@ -5,11 +5,11 @@
         <span class="lbl-create-post">Đăng tin</span>
         <span class="create-post-tool-category-label">Loại dụng cụ</span>
         <div class="create-post-tool-category-selector">
-          <tool-category-selector size='sm'/>
+          <tool-category-selector size='sm' ID="createPost"/>
         </div>
         <span class="create-post-category-label">Loại tin</span>
         <div class="create-post-category-selector">
-          <tool-category-selector size='sm'/>
+          <post-category-selector size='sm' ID="createPost"/>
         </div>
         <div class="clear-both"></div>
       </div>
@@ -20,10 +20,10 @@
         </div>
         <div class="create-post-wrapper">
           <div class="create-post-content">
-            <auto-size-textarea placeholderValue="Nội dung bài đăng"/>
+            <auto-size-textarea ID="postContent" placeholderValue="Nội dung bài đăng"/>
           </div>
           <div class="create-post-exchange-condition">
-            <auto-size-textarea placeholderValue="Điều kiện trao đổi"/>
+            <auto-size-textarea ID="postCondition" v-if="isShowCondition" placeholderValue="Điều kiện trao đổi"/>
           </div>
           <div class="create-post-multimedia">
           </div>
@@ -34,7 +34,7 @@
       <div class="create-post-footer">
         <a  href="">Ảnh/Video</a>
         <a href="">Tệp</a>
-        <button class="create-post-btn btn btn-primary">Đăng</button>
+        <button @click="onPostSubmit" class="create-post-btn btn btn-primary">Đăng</button>
       </div>
     </div>
   </div>
@@ -43,14 +43,59 @@
 <script>
 import AutoSizeTextarea from './AutoSizeTextarea'
 import ToolCategorySelector from './ToolCategorySelector'
+import PostCategorySelector from './PostCategorySelector'
+import BusService from '../services/BusService'
+import PostCategoryService from '../services/PostCategoryService'
+import PostService from '../services/PostService'
 
 export default {
   components: {
     AutoSizeTextarea,
-    ToolCategorySelector
+    ToolCategorySelector,
+    PostCategorySelector
   },
   data () {
     return {
+      isShowCondition: true,
+
+      postCategory: null,
+      toolCategory: null,
+      content: null,
+      exchangeCondition: null
+    }
+  },
+  mounted () {
+    BusService.$on('createPostToolSelected', (value) => {
+      this.toolCategory = value
+    })
+    BusService.$on('createPostPostSelected', async (value) => {
+      this.postCategory = value
+      const response = await PostCategoryService.getPostCategories()
+      for (let postCategory of response.data.postCategories) {
+        if (postCategory._id === this.postCategory && postCategory.name === 'Cung Cấp') {
+          this.isShowCondition = true
+          break
+        }
+        this.isShowCondition = false
+      }
+    })
+    BusService.$on('postContent', (content) => {
+      this.content = content
+    })
+    BusService.$on('postCondition', (condition) => {
+      this.exchangeCondition = condition
+    })
+  },
+  methods: {
+    async onPostSubmit () {
+      let data = {
+        postCategory: this.postCategory,
+        toolCategory: this.toolCategory,
+        content: this.content,
+        exchangeCondition: this.exchangeCondition
+      }
+      BusService.$emit('cleanCreatePost')
+      await PostService.createPost(data)
     }
   }
 }

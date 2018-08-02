@@ -1,19 +1,28 @@
 <template>
-  <textarea class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
+  <textarea v-model="text" @input="onInput" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
+import BusService from '../services/BusService'
+
 export default {
   props: [
-    'placeholderValue'
+    'placeholderValue',
+    'ID'
   ],
   data () {
     return {
-
+      text: ''
     }
   },
   mounted () {
     this.$refs.textarea.addEventListener('keydown', this.autosize)
+    let self = this
+    BusService.$on('cleanCreatePost', function () {
+      if (self.ID === 'postContent' || self.ID === 'postCondition') {
+        self.text = ''
+      }
+    })
   },
   methods: {
     autosize () {
@@ -25,6 +34,11 @@ export default {
         self.$refs.textarea.style.cssText = '-moz-box-sizing:content-box'
         self.$refs.textarea.style.cssText = 'height:' + self.$refs.textarea.scrollHeight + 'px'
       }, 0)
+    },
+    onInput () {
+      if (this.ID === 'postContent' || this.ID === 'postCondition') {
+        BusService.$emit(this.ID, this.text)
+      }
     }
   }
 }

@@ -21,7 +21,7 @@
         </div>
       </div>
       <div id="home-right-hand-side">
-        <tool-category-selector id="tool-category-filter"/>
+        <tool-category-selector ID="filter"/>
       </div>
     </div>
   </div>
@@ -35,6 +35,7 @@ import Catalog from '../components/Catalog'
 import ToolCategorySelector from '../components/ToolCategorySelector'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
+import BusService from '../services/BusService'
 
 export default {
   name: 'HomePage',
@@ -65,6 +66,11 @@ export default {
     } catch (err) {
       alert(err.response.data.error)
     }
+  },
+  mounted () {
+    BusService.$on('filterToolSelected', (value) => {
+      alert(value)
+    })
   }
 }
 </script>

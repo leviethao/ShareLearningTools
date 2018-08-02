@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ToolCategoryService from '../services/ToolCategoryService'
+import PostCategoryService from '../services/PostCategoryService'
 import BusService from '../services/BusService'
 
 export default {
@@ -22,18 +22,18 @@ export default {
   },
   async mounted () {
     try {
-      const response = await ToolCategoryService.getToolCategories()
-      this.selected = response.data.toolCategories ? response.data.toolCategories[0]._id : null
+      const response = await PostCategoryService.getPostCategories()
+      this.selected = response.data.postCategories ? response.data.postCategories[0]._id : null
       this.options = []
-      for (let toolCategory of response.data.toolCategories) {
-        this.options.push({value: toolCategory._id, text: toolCategory.name})
+      for (let postCategory of response.data.postCategories) {
+        this.options.push({value: postCategory._id, text: postCategory.name})
       }
     } catch (err) {
     }
   },
   methods: {
     onSelectedChanged (value) {
-      BusService.$emit(this.ID + 'ToolSelected', value)
+      BusService.$emit(this.ID + 'PostSelected', value)
     }
   }
 }
