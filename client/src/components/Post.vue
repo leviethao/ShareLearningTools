@@ -1,36 +1,36 @@
 <template>
-  <div :id="postid" class="post">
+  <div :id="postId" class="post">
 
     <div class="post-container">
 
       <div class="post-header">
         <img src="../assets/images/catalog/item.png"/>
         <div class="post-info">
-          <span class="poster">poster poster posterposter</span>
+          <span class="poster">{{poster.name}}</span>
           <br>
-          <span class="post-time">time time time time</span>
+          <span class="post-time">{{postData.created}}</span>
         </div>
       </div>
 
       <div class="post-body">
         <span class="post-content">
-          content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content 
+          {{postData.content}}
         </span>
         <br>
 
-        <span class="post-exchange-condition">
+        <span v-if="postData.postCategory.name === 'Cung Cấp'" class="post-exchange-condition">
           Điều kiện trao đổi: &nbsp;
-          exchangeexchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange exchange  
+          {{postData.exchangeCondition}}
         </span>
       </div>
 
       <div class="post-footer">
         <button class="post-footer-btn-left post-footer-btn" @click="onBtnCmtClicked"><span>Bình luận</span></button>
-        <button :id="`contact-btn-${postid}`" class="post-footer-btn-right post-footer-btn"><span>Liên hệ</span></button>
+        <button :id="`contact-btn-${postId}`" class="post-footer-btn-right post-footer-btn"><span>Liên hệ</span></button>
       </div>
 
       <!-- contact popover -->
-      <contact-popover :target="`contact-btn-${postid}`" :container="postid" />
+      <contact-popover :target="`contact-btn-${postId}`" :container="postId" />
       
     </div>
 
@@ -159,6 +159,7 @@
 <script>
 import AutoSizeTextarea from './AutoSizeTextarea'
 import ContactPopover from './ContactPopover'
+import UserService from '../services/UserService'
 
 export default {
   components: {
@@ -166,15 +167,30 @@ export default {
     ContactPopover
   },
   props: [
-    'postid'
+    'postData'
   ],
   data () {
     return {
-      contactPopoverShow: false
+      contactPopoverShow: false,
+      poster: {}
     }
+  },
+  computed: {
+    postId: {
+      get () {
+        return '_' + this.postData._id
+      }
+    }
+  },
+  async mounted () {
+    this.poster = await this.getPoster()
   },
   methods: {
     onBtnCmtClicked () {
+    },
+    async getPoster () {
+      let userRes = await UserService.getUserInfo(this.postData.poster)
+      return userRes.data.user
     }
   }
 }

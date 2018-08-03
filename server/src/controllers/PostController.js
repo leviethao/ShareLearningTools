@@ -13,5 +13,15 @@ module.exports = {
     await post.save(function (err) {
       if (err) throw err
     })
+  },
+  async getPosts (req, res) {
+    await Post.find({})
+      // .populate('poster')
+      .populate('postCategory')
+      .populate('toolCategory')
+      .exec((err, posts) => {
+        if (err) throw err
+        res.send({posts: posts})
+      })
   }
 }

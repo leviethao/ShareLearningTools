@@ -15,6 +15,8 @@ module.exports = (app) => {
   app.get('/toolCategories', ToolCategoryController.getAll)
   app.get('/postCategories', PostCategoryController.getAll)
   app.post('/post/create', isAuthenticated, PostController.createPost)
+  app.get('/posts', PostController.getPosts)
+  app.get('/user/:id', UserController.getUserInfo)
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,
   //   AuthenticationController.register)

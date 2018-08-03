@@ -12,12 +12,10 @@
         <div class="create-post-component">
           <create-post />
         </div>
-
-        <div class="post-component">
-          <post postid="p1"/>
-        </div>
-        <div class="post-component">
-          <post postid="p2"/>
+        <div v-for="post in posts" :key="post">
+          <div class="post-component">
+            <post :postData="post"/>
+          </div>
         </div>
       </div>
       <div id="home-right-hand-side">
@@ -36,6 +34,7 @@ import ToolCategorySelector from '../components/ToolCategorySelector'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import BusService from '../services/BusService'
+import PostService from '../services/PostService'
 
 export default {
   name: 'HomePage',
@@ -48,6 +47,7 @@ export default {
   },
   data () {
     return {
+      posts: null
     }
   },
   computed: {
@@ -67,10 +67,12 @@ export default {
       alert(err.response.data.error)
     }
   },
-  mounted () {
+  async mounted () {
     BusService.$on('filterToolSelected', (value) => {
-      alert(value)
+
     })
+    let postsRes = await PostService.getPosts()
+    this.posts = postsRes.data.posts
   }
 }
 </script>
