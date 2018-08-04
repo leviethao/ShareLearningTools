@@ -6,6 +6,7 @@ const UserController = require('./controllers/UserController')
 const ToolCategoryController = require('./controllers/ToolCategoryController')
 const PostCategoryController = require('./controllers/PostCategoryController')
 const PostController = require('./controllers/PostController')
+const CommentController = require('./controllers/CommentController')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
@@ -17,6 +18,8 @@ module.exports = (app) => {
   app.post('/post/create', isAuthenticated, PostController.createPost)
   app.get('/posts', PostController.getPosts)
   app.get('/user/:id', UserController.getUserInfo)
+  app.post('/comment/create', isAuthenticated, CommentController.createComment)
+
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,
   //   AuthenticationController.register)

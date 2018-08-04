@@ -53,8 +53,8 @@
           </div>
           <div class="clear-both"></div>
 
-          <!-- comment replay box -->
-          <div class="comment-replay-box">
+          <!-- comment reply box -->
+          <div class="comment-reply-box">
             <div class="comment-list">
               <div class="comment">
                 <div class="commenter-avatar">
@@ -73,8 +73,8 @@
               </div>
             </div>
 
-            <!-- add replay -->
-            <div class="add-replay">
+            <!-- add reply -->
+            <div class="add-reply">
               <div class="commenter-avatar">
                 <img src="../assets/images/catalog/item.png" />
               </div>
@@ -105,8 +105,8 @@
           </div>
           <div class="clear-both"></div>
 
-          <!-- comment replay box -->
-          <div class="comment-replay-box">
+          <!-- comment reply box -->
+          <div class="comment-reply-box">
             <div class="comment-list">
               <div class="comment">
                 <div class="commenter-avatar">
@@ -125,8 +125,8 @@
               </div>
             </div>
 
-            <!-- add replay -->
-            <div class="add-replay">
+            <!-- add reply -->
+            <div class="add-reply">
               <div class="commenter-avatar">
                 <img src="../assets/images/catalog/item.png" />
               </div>
@@ -147,7 +147,7 @@
           <img src="../assets/images/catalog/item.png" />
         </div>
         <div class="comment-textarea">
-          <auto-size-textarea placeholderValue="Viết bình luận"/> 
+          <auto-size-textarea :ID="'comment'+postData._id" placeholderValue="Viết bình luận"/> 
         </div>
         <div class="clear-both"></div>
       </div>
@@ -160,6 +160,8 @@
 import AutoSizeTextarea from './AutoSizeTextarea'
 import ContactPopover from './ContactPopover'
 import UserService from '../services/UserService'
+import BusService from '../services/BusService'
+import CommentService from '../services/CommentService'
 
 export default {
   components: {
@@ -184,6 +186,13 @@ export default {
   },
   async mounted () {
     this.poster = await this.getPoster()
+    BusService.$on('comment' + this.postData._id, async (text) => {
+      let commentData = {
+        content: text,
+        post: this.postData._id
+      }
+      await CommentService.createComment(commentData)
+    })
   },
   methods: {
     onBtnCmtClicked () {
@@ -307,28 +316,28 @@ export default {
   margin-left: 20px;
 }
 
-/* comment replay box */
-.comment-replay-box {
+/* comment reply box */
+.comment-reply-box {
   width: 430px;
   float: right;
 }
-.comment-replay-box .comment {
+.comment-reply-box .comment {
   margin: 10px 0px 0px 0px;
 }
-.comment-replay-box .comment img {
+.comment-reply-box .comment img {
   width: 24px;
   height: 24px;
 }
-.comment-replay-box .commenter-avatar {
+.comment-reply-box .commenter-avatar {
   width: 24px;
 }
-.comment-replay-box .comment-container {
+.comment-reply-box .comment-container {
   width: 400px; 
 }
-.comment-replay-box .comment-footer {
+.comment-reply-box .comment-footer {
   width: 400px;
 }
-.comment-replay-box .comment-time {
+.comment-reply-box .comment-time {
   margin-left: 0px;
 }
 
@@ -350,19 +359,19 @@ export default {
   padding: 6px 10px;
 }
 
-.add-replay {
+.add-reply {
   margin: 10px 0px 10px -10px;
   /* background-color: red; */
 }
-.add-replay .commenter-avatar img {
+.add-reply .commenter-avatar img {
   width: 24px;
   height: 24px;
 }
-.add-replay .comment-textarea {
+.add-reply .comment-textarea {
   width: 410px;
   padding: 0px 0px 0px 10px;
 }
-.add-replay .comment-textarea textarea {
+.add-reply .comment-textarea textarea {
   padding: 2px 10px;
 }
 </style>

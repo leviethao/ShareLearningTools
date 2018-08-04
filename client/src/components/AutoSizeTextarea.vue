@@ -1,5 +1,5 @@
 <template>
-  <textarea v-model="text" @input="onInput" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
+  <textarea v-model="text" @input="onInput" @keyup="onComment" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
@@ -38,6 +38,16 @@ export default {
     onInput () {
       if (this.ID === 'postContent' || this.ID === 'postCondition') {
         BusService.$emit(this.ID, this.text)
+      }
+    },
+    onComment (e) {
+      if (this.ID.indexOf('comment') < 0) {
+        return
+      }
+      let code = (e.keyCode ? e.keyCode : e.which)
+      if (code === 13) { // enter keycode
+        BusService.$emit(this.ID, this.text)
+        this.text = ''
       }
     }
   }
