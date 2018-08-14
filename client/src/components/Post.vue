@@ -37,108 +37,58 @@
     <!-- comment box -->
     <div class="comment-box">
       <div class="comment-list">
-        <div class="comment">
-          <div class="commenter-avatar">
-            <img src="../assets/images/catalog/item.png" />
-          </div>
-          <div class="comment-container">
-            <span class="commenter">leviethao</span>
-            &nbsp;
-            <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
-          </div>
-          <div class="clear-both"></div>
-          <div class="comment-footer">
-            <a href=""><span class="cmt-reply-link">Trả lời</span></a>
-            <span class="comment-time">2 giờ trước</span>
-          </div>
-          <div class="clear-both"></div>
+        <div v-for="comment in postData.comments" :key="comment">
+          <div class="comment">
+            <div class="commenter-avatar">
+              <img src="../assets/images/catalog/item.png" />
+            </div>
+            <div class="comment-container">
+              <a href="" class="commenter">{{comment.commenter.name}}</a>
+              &nbsp;
+              <span class="comment-content">{{comment.content}}</span>
+            </div>
+            <div class="clear-both"></div>
+            <div class="comment-footer">
+              <a href=""><span class="cmt-reply-link">Trả lời</span></a>
+              <span class="comment-time">{{comment.created}}</span>
+            </div>
+            <div class="clear-both"></div>
 
-          <!-- comment reply box -->
-          <div class="comment-reply-box">
-            <div class="comment-list">
-              <div class="comment">
+            <!-- comment reply box -->
+            <div class="comment-reply-box">
+              <div class="comment-list">
+                <div class="comment">
+                  <div class="commenter-avatar">
+                    <img src="../assets/images/catalog/item.png" />
+                  </div>
+                  <div class="comment-container">
+                    <span class="commenter">leviethao</span>
+                    &nbsp;
+                    <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
+                  </div>
+                  <div class="clear-both"></div>
+                  <div class="comment-footer">
+                    <span class="comment-time">2 giờ trước</span>
+                  </div>
+                  <div class="clear-both"></div>
+                </div>
+              </div>
+
+              <!-- add reply -->
+              <div class="add-reply">
                 <div class="commenter-avatar">
                   <img src="../assets/images/catalog/item.png" />
                 </div>
-                <div class="comment-container">
-                  <span class="commenter">leviethao</span>
-                  &nbsp;
-                  <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
-                </div>
-                <div class="clear-both"></div>
-                <div class="comment-footer">
-                  <span class="comment-time">2 giờ trước</span>
+                <div class="comment-textarea">
+                  <auto-size-textarea /> 
                 </div>
                 <div class="clear-both"></div>
               </div>
+
             </div>
-
-            <!-- add reply -->
-            <div class="add-reply">
-              <div class="commenter-avatar">
-                <img src="../assets/images/catalog/item.png" />
-              </div>
-              <div class="comment-textarea">
-                <auto-size-textarea /> 
-              </div>
-              <div class="clear-both"></div>
-            </div>
+            <div class="clear-both"></div>
 
           </div>
-          <div class="clear-both"></div>
-
-        </div>
-
-        <div class="comment">
-          <div class="commenter-avatar">
-            <img src="../assets/images/catalog/item.png" />
-          </div>
-          <div class="comment-container">
-            <span class="commenter">leviethao</span>
-            &nbsp;
-            <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
-          </div>
-          <div class="clear-both"></div>
-          <div class="comment-footer">
-            <a href=""><span class="cmt-reply-link">Trả lời</span></a>
-            <span class="comment-time">2 giờ trước</span>
-          </div>
-          <div class="clear-both"></div>
-
-          <!-- comment reply box -->
-          <div class="comment-reply-box">
-            <div class="comment-list">
-              <div class="comment">
-                <div class="commenter-avatar">
-                  <img src="../assets/images/catalog/item.png" />
-                </div>
-                <div class="comment-container">
-                  <span class="commenter">leviethao</span>
-                  &nbsp;
-                  <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
-                </div>
-                <div class="clear-both"></div>
-                <div class="comment-footer">
-                  <span class="comment-time">2 giờ trước</span>
-                </div>
-                <div class="clear-both"></div>
-              </div>
-            </div>
-
-            <!-- add reply -->
-            <div class="add-reply">
-              <div class="commenter-avatar">
-                <img src="../assets/images/catalog/item.png" />
-              </div>
-              <div class="comment-textarea">
-                <auto-size-textarea placeholderValue="Trả lời bình luận"/> 
-              </div>
-              <div class="clear-both"></div>
-            </div>
-
-          </div>
-          <div class="clear-both"></div>
-
         </div>
       </div>
 
@@ -200,6 +150,10 @@ export default {
     async getPoster () {
       let userRes = await UserService.getUserInfo(this.postData.poster)
       return userRes.data.user
+    },
+    async getUserInfo (id) {
+      let commenterRes = await UserService.getUserInfo(id)
+      return commenterRes.data.user
     }
   }
 }

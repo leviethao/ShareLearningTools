@@ -7,4 +7,13 @@ var CommentSchema = new Schema({
   post: {type: Schema.ObjectId, ref: 'Post', required: true}
 })
 
+var autoPopulateCommenter = function (next) {
+  this.populate('commenter')
+  next()
+}
+
+CommentSchema
+  .pre('find', autoPopulateCommenter)
+  .pre('findOne', autoPopulateCommenter)
+
 module.exports = mongoose.model('Comment', CommentSchema)

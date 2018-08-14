@@ -19,6 +19,7 @@ module.exports = {
       // .populate('poster')
       .populate('postCategory')
       .populate('toolCategory')
+      .populate('comments')
       .exec((err, posts) => {
         if (err) throw err
         res.send({posts: posts})
