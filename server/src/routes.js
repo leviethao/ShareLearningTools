@@ -7,6 +7,7 @@ const ToolCategoryController = require('./controllers/ToolCategoryController')
 const PostCategoryController = require('./controllers/PostCategoryController')
 const PostController = require('./controllers/PostController')
 const CommentController = require('./controllers/CommentController')
+const ReplyController = require('./controllers/ReplyController')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
@@ -19,6 +20,7 @@ module.exports = (app) => {
   app.get('/posts', PostController.getPosts)
   app.get('/user/:id', UserController.getUserInfo)
   app.post('/comment/create', isAuthenticated, CommentController.createComment)
+  app.post('/reply/create', isAuthenticated, ReplyController.createReply)
 
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,

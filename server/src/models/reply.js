@@ -7,4 +7,13 @@ var ReplySchema = new Schema({
   comment: {type: Schema.ObjectId, ref: 'Comment', required: true}
 })
 
+var autoPopulateReplyer = function (next) {
+  this.populate('replyer')
+  next()
+}
+
+ReplySchema
+  .pre('find', autoPopulateReplyer)
+  .pre('findOne', autoPopulateReplyer)
+
 module.exports = mongoose.model('Reply', ReplySchema)

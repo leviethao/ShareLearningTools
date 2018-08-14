@@ -8,7 +8,8 @@ import BusService from '../services/BusService'
 export default {
   props: [
     'placeholderValue',
-    'ID'
+    'ID',
+    'commentId'
   ],
   data () {
     return {
@@ -41,13 +42,22 @@ export default {
       }
     },
     onComment (e) {
-      if (this.ID.indexOf('comment') < 0) {
+      if (this.ID.indexOf('comment') >= 0) {
+        let code = (e.keyCode ? e.keyCode : e.which)
+        if (code === 13) { // enter keycode
+          BusService.$emit(this.ID, this.text)
+          this.text = ''
+        }
         return
       }
-      let code = (e.keyCode ? e.keyCode : e.which)
-      if (code === 13) { // enter keycode
-        BusService.$emit(this.ID, this.text)
-        this.text = ''
+
+      if (this.ID.indexOf('reply') >= 0) {
+        let code = (e.keyCode ? e.keyCode : e.which)
+        if (code === 13) { // enter keycode
+          BusService.$emit(this.ID, this.text, this.commentId)
+          this.text = ''
+        }
+        return
       }
     }
   }

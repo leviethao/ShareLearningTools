@@ -57,20 +57,22 @@
             <!-- comment reply box -->
             <div class="comment-reply-box">
               <div class="comment-list">
-                <div class="comment">
-                  <div class="commenter-avatar">
-                    <img src="../assets/images/catalog/item.png" />
+                <div v-for="reply in comment.replies" :key="reply">
+                  <div class="comment">
+                    <div class="commenter-avatar">
+                      <img src="../assets/images/catalog/item.png" />
+                    </div>
+                    <div class="comment-container">
+                      <a href="" class="commenter">{{reply.replyer.name}}</a>
+                      &nbsp;
+                      <span class="comment-content">{{reply.content}}</span>
+                    </div>
+                    <div class="clear-both"></div>
+                    <div class="comment-footer">
+                      <span class="comment-time">{{reply.created}}</span>
+                    </div>
+                    <div class="clear-both"></div>
                   </div>
-                  <div class="comment-container">
-                    <span class="commenter">leviethao</span>
-                    &nbsp;
-                    <span class="comment-content">cho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang caocho sach lap trinh huong doi tuong nang cao</span>
-                  </div>
-                  <div class="clear-both"></div>
-                  <div class="comment-footer">
-                    <span class="comment-time">2 giờ trước</span>
-                  </div>
-                  <div class="clear-both"></div>
                 </div>
               </div>
 
@@ -80,7 +82,7 @@
                   <img src="../assets/images/catalog/item.png" />
                 </div>
                 <div class="comment-textarea">
-                  <auto-size-textarea /> 
+                  <auto-size-textarea :ID="'reply' + postData._id" :commentId="comment._id"/>
                 </div>
                 <div class="clear-both"></div>
               </div>
@@ -112,6 +114,7 @@ import ContactPopover from './ContactPopover'
 import UserService from '../services/UserService'
 import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
+import ReplyService from '../services/ReplyService'
 
 export default {
   components: {
@@ -142,6 +145,14 @@ export default {
         post: this.postData._id
       }
       await CommentService.createComment(commentData)
+    })
+
+    BusService.$on('reply' + this.postData._id, async (text, commentId) => {
+      let replyData = {
+        content: text,
+        comment: commentId
+      }
+      await ReplyService.createReply(replyData)
     })
   },
   methods: {
