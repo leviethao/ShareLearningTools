@@ -1,3 +1,3 @@
 export default {
-  serverHost: 'http://localhost:8081/'
+  serverHost: 'http://45.32.102.14:8081/'
 }
