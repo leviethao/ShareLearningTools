@@ -1,6 +1,6 @@
 // connect mongodb database
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/sharelearningtools')
+mongoose.connect('mongodb://localhost:27017/sharelearningtools', {useNewUrlParser: true})
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error'))
 db.once('open', function (callback) {
