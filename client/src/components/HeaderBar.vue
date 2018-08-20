@@ -7,7 +7,7 @@
       </div><!-- /input-group -->
 
       <div id="toolbar-items">
-        <router-link v-bind:to="{name: 'HomePage'}" class="toolbar-item" v-b-tooltip.hover.bottom title="Trang cá nhân">
+        <router-link v-bind:to="{name: 'Profile'}" class="toolbar-item" v-b-tooltip.hover.bottom title="Trang cá nhân">
           <img class="avatar" :src="serverHost+user.avatar" width="34" height="34" />
           <span>{{user.name}}</span>
         </router-link>
@@ -139,6 +139,7 @@ export default {
 .global-container {
   max-width: 1000px;
   margin: auto;
+  word-break: break-all;
 }
 #toolbar {
   width: 100%;

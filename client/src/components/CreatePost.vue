@@ -196,7 +196,7 @@ export default {
 }
 .create-post-btn {
   height: 30px;
-  width: 200px;
+  width: 190px;
   padding: 0px 5px;
   float: right;
   margin-left: 160px;

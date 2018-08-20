@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.get('/user/:id', UserController.getUserInfo)
   app.post('/comment/create', isAuthenticated, CommentController.createComment)
   app.post('/reply/create', isAuthenticated, ReplyController.createReply)
+  app.post('/user/update', isAuthenticated, UserController.updateUserInfo)
 
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,

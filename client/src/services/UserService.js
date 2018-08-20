@@ -6,5 +6,8 @@ export default {
   },
   getUserInfo (userId) {
     return Api().get(`user/${userId}`)
+  },
+  updateUserInfo (user) {
+    return Api().post('user/update', user)
   }
 }
