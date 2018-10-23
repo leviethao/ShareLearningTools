@@ -82,7 +82,10 @@
                   <img src="../assets/images/catalog/item.png" />
                 </div>
                 <div class="comment-textarea">
-                  <auto-size-textarea :ID="'reply' + postData._id" :commentId="comment._id"/>
+                  <auto-size-textarea
+                    :ID="'reply' + postData._id"
+                    :commentId="comment._id"
+                    :onReply="onReply"/>
                 </div>
                 <div class="clear-both"></div>
               </div>
@@ -99,7 +102,10 @@
           <img src="../assets/images/catalog/item.png" />
         </div>
         <div class="comment-textarea">
-          <auto-size-textarea :ID="'comment'+postData._id" placeholderValue="Viết bình luận"/> 
+          <auto-size-textarea 
+            :ID="'comment'+postData._id"
+            placeholderValue="Viết bình luận"
+            :onComment="onComment"/> 
         </div>
         <div class="clear-both"></div>
       </div>
@@ -112,7 +118,7 @@
 import AutoSizeTextarea from './AutoSizeTextarea'
 import ContactPopover from './ContactPopover'
 import UserService from '../services/UserService'
-import BusService from '../services/BusService'
+// import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
 import ReplyService from '../services/ReplyService'
 
@@ -122,12 +128,13 @@ export default {
     ContactPopover
   },
   props: [
-    'postData'
+    'post_data'
   ],
   data () {
     return {
       contactPopoverShow: false,
-      poster: {}
+      poster: {},
+      postData: {}
     }
   },
   computed: {
@@ -138,22 +145,23 @@ export default {
     }
   },
   async mounted () {
+    this.postData = this.post_data
     this.poster = await this.getPoster()
-    BusService.$on('comment' + this.postData._id, async (text) => {
-      let commentData = {
-        content: text,
-        post: this.postData._id
-      }
-      await CommentService.createComment(commentData)
-    })
+    // BusService.$on('comment' + this.postData._id, async (text) => {
+    //   let commentData = {
+    //     content: text,
+    //     post: this.postData._id
+    //   }
+    //   await CommentService.createComment(commentData)
+    // })
 
-    BusService.$on('reply' + this.postData._id, async (text, commentId) => {
-      let replyData = {
-        content: text,
-        comment: commentId
-      }
-      await ReplyService.createReply(replyData)
-    })
+    // BusService.$on('reply' + this.postData._id, async (text, commentId) => {
+    //   let replyData = {
+    //     content: text,
+    //     comment: commentId
+    //   }
+    //   await ReplyService.createReply(replyData)
+    // })
   },
   methods: {
     onBtnCmtClicked () {
@@ -165,6 +173,29 @@ export default {
     async getUserInfo (id) {
       let commenterRes = await UserService.getUserInfo(id)
       return commenterRes.data.user
+    },
+    async onComment (text) {
+      let commentData = {
+        content: text,
+        post: this.postData._id
+      }
+      let response = await CommentService.createComment(commentData)
+      this.postData.comments.push(response.data.comment)
+    },
+    async onReply (text, commentId) {
+      let replyData = {
+        content: text,
+        comment: commentId
+      }
+
+      let response = await ReplyService.createReply(replyData)
+
+      // find current comment and insert reply for it
+      for (let comment of this.postData.comments) {
+        if (comment._id === commentId) {
+          comment.replies.push(response.data.reply)
+        }
+      }
     }
   }
 }

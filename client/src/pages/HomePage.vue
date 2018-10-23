@@ -10,11 +10,11 @@
       </div>
       <div id="home-center">
         <div class="create-post-component">
-          <create-post />
+          <create-post :onCreatePost="onCreatePost"/>
         </div>
-        <div v-for="post in posts" :key="post">
+        <div v-for="post in posts" :key="post._id">
           <div class="post-component">
-            <post :postData="post"/>
+            <post :post_data="post"/>
           </div>
         </div>
       </div>
@@ -73,6 +73,11 @@ export default {
     })
     let postsRes = await PostService.getPosts()
     this.posts = postsRes.data.posts
+  },
+  methods: {
+    onCreatePost (post) {
+      this.posts.push(post)
+    }
   }
 }
 </script>

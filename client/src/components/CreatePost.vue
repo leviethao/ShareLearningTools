@@ -20,10 +20,17 @@
         </div>
         <div class="create-post-wrapper">
           <div class="create-post-content">
-            <auto-size-textarea ID="postContent" placeholderValue="Nội dung bài đăng"/>
+            <auto-size-textarea
+              ID="postContent"
+              placeholderValue="Nội dung bài đăng"
+              :onPostContent="onPostContent"/>
           </div>
           <div class="create-post-exchange-condition">
-            <auto-size-textarea ID="postCondition" v-if="isShowCondition" placeholderValue="Điều kiện trao đổi"/>
+            <auto-size-textarea
+              ID="postCondition"
+              v-if="isShowCondition"
+              placeholderValue="Điều kiện trao đổi"
+              :onPostCondition="onPostCondition"/>
           </div>
           <div class="create-post-multimedia">
           </div>
@@ -54,6 +61,9 @@ export default {
     ToolCategorySelector,
     PostCategorySelector
   },
+  props: [
+    'onCreatePost'
+  ],
   data () {
     return {
       isShowCondition: true,
@@ -79,12 +89,12 @@ export default {
         this.isShowCondition = false
       }
     })
-    BusService.$on('postContent', (content) => {
-      this.content = content
-    })
-    BusService.$on('postCondition', (condition) => {
-      this.exchangeCondition = condition
-    })
+    // BusService.$on('postContent', (content) => {
+    //   this.content = content
+    // })
+    // BusService.$on('postCondition', (condition) => {
+    //   this.exchangeCondition = condition
+    // })
   },
   methods: {
     async onPostSubmit () {
@@ -94,8 +104,16 @@ export default {
         content: this.content,
         exchangeCondition: this.exchangeCondition
       }
+
+      let response = await PostService.createPost(data)
+      this.onCreatePost(response.data.post)
       BusService.$emit('cleanCreatePost')
-      await PostService.createPost(data)
+    },
+    onPostContent (content) {
+      this.content = content
+    },
+    onPostCondition (condition) {
+      this.exchangeCondition = condition
     }
   }
 }

@@ -17,6 +17,7 @@ module.exports = {
         comment.replies.push(newReply._id)
         comment.save((err, commentUpdate) => {
           if (err) throw err
+          res.send({reply: newReply})
         })
       })
     })

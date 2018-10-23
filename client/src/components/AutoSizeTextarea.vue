@@ -1,5 +1,5 @@
 <template>
-  <textarea v-model="text" @input="onInput" @keyup="onComment" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
+  <textarea v-model="text" @input="onInput" @keyup="onKeyUp" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
@@ -9,7 +9,11 @@ export default {
   props: [
     'placeholderValue',
     'ID',
-    'commentId'
+    'commentId',
+    'onComment',
+    'onReply',
+    'onPostContent',
+    'onPostCondition'
   ],
   data () {
     return {
@@ -37,15 +41,22 @@ export default {
       }, 0)
     },
     onInput () {
-      if (this.ID === 'postContent' || this.ID === 'postCondition') {
-        BusService.$emit(this.ID, this.text)
+      // if (this.ID === 'postContent' || this.ID === 'postCondition') {
+      //   BusService.$emit(this.ID, this.text)
+      // }
+      if (this.ID === 'postContent') {
+        this.onPostContent(this.text)
+      }
+      if (this.ID === 'postCondition') {
+        this.onPostCondition(this.text)
       }
     },
-    onComment (e) {
+    onKeyUp (e) {
       if (this.ID.indexOf('comment') >= 0) {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
-          BusService.$emit(this.ID, this.text)
+          // BusService.$emit(this.ID, this.text)
+          this.onComment(this.text)
           this.text = ''
         }
         return
@@ -54,7 +65,8 @@ export default {
       if (this.ID.indexOf('reply') >= 0) {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
-          BusService.$emit(this.ID, this.text, this.commentId)
+          // BusService.$emit(this.ID, this.text, this.commentId)
+          this.onReply(this.text, this.commentId)
           this.text = ''
         }
         return

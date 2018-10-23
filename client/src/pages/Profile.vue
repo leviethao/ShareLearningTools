@@ -6,7 +6,7 @@
     <div class="global-container">
       <div class="column-1">
         <div class="profile-avatar">
-          <img src="../assets/images/catalog/item.png" />
+          <img :src="config.serverHost + user.avatar" />
         </div>
       </div>
       <div class="column-2">
@@ -52,6 +52,7 @@
 <script>
 import HeaderBar from '../components/HeaderBar'
 import UserService from '../services/UserService'
+import config from '../config'
 
 export default {
   components: {
@@ -60,7 +61,8 @@ export default {
   data () {
     return {
       user: {},
-      selectedGender: 'Nam'
+      selectedGender: 'Nam',
+      config: config
     }
   },
   async mounted () {

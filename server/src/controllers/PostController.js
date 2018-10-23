@@ -10,8 +10,16 @@ module.exports = {
       toolCategory: req.body.toolCategory
     })
 
-    await post.save(function (err) {
+    await post.save(function (err, newPost) {
       if (err) throw err
+      Post.findById(newPost._id)
+        .populate('postCategory')
+        .populate('toolCategory')
+        .populate('comments')
+        .exec((err, _post) => {
+          if (err) throw err
+          res.send({post: _post})
+        })
     })
   },
   async getPosts (req, res) {
