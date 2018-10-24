@@ -4,6 +4,7 @@ import LoginPage from '../pages/LoginPage'
 import HomePage from '../pages/HomePage'
 import Profile from '../pages/Profile'
 import Test from '../components/Test'
+import Upload from '../components/Upload'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/test',
       name: 'Test',
       component: Test
+    },
+    {
+      path: '/upload',
+      name: 'Upload',
+      component: Upload
     },
     {
       path: '/profile',

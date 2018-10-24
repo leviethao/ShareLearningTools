@@ -7,7 +7,8 @@ module.exports = {
       exchangeCondition: req.body.exchangeCondition,
       poster: req.user._id,
       postCategory: req.body.postCategory,
-      toolCategory: req.body.toolCategory
+      toolCategory: req.body.toolCategory,
+      fileNames: req.body.fileNames
     })
 
     await post.save(function (err, newPost) {

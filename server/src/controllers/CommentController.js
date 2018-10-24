@@ -17,7 +17,13 @@ module.exports = {
         post.comments.push(newComment._id)
         post.save((err, postUpdate) => {
           if (err) throw err
-          res.send({comment: newComment})
+
+          // response new comment
+          Comment.findById(newComment._id)
+            .exec(function (err, _cmt) {
+              if (err) throw err
+              res.send({comment: _cmt})
+            })
         })
       })
     })

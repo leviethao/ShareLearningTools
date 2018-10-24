@@ -17,5 +17,6 @@ var autoPopulate = function (next) {
 CommentSchema
   .pre('find', autoPopulate)
   .pre('findOne', autoPopulate)
+  .pre('findById', autoPopulate)
 
 module.exports = mongoose.model('Comment', CommentSchema)

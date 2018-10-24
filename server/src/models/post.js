@@ -8,7 +8,8 @@ var PostSchema = new Schema({
   postCategory: {type: Schema.ObjectId, ref: 'PostCategory', required: true},
   toolCategory: {type: Schema.ObjectId, ref: 'ToolCategory', required: true},
   followers: [{type: Schema.ObjectId, ref: 'User'}],
-  comments: [{type: Schema.ObjectId, ref: 'Comment'}]
+  comments: [{type: Schema.ObjectId, ref: 'Comment'}],
+  fileNames: []
 })
 
 PostSchema.virtual('url').get(function () {

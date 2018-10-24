@@ -33,14 +33,15 @@
               :onPostCondition="onPostCondition"/>
           </div>
           <div class="create-post-multimedia">
+            <upload />
           </div>
         </div>
         <div class="clear-both"></div>
       </div>
 
       <div class="create-post-footer">
-        <a  href="">Ảnh/Video</a>
-        <a href="">Tệp</a>
+        <a  href="#" v-on:click.prevent="addImageVideo">Ảnh/Video</a>
+        <a href="#">Tệp</a>
         <button @click="onPostSubmit" class="create-post-btn btn btn-primary">Đăng</button>
       </div>
     </div>
@@ -54,12 +55,14 @@ import PostCategorySelector from './PostCategorySelector'
 import BusService from '../services/BusService'
 import PostCategoryService from '../services/PostCategoryService'
 import PostService from '../services/PostService'
+import Upload from './Upload'
 
 export default {
   components: {
     AutoSizeTextarea,
     ToolCategorySelector,
-    PostCategorySelector
+    PostCategorySelector,
+    Upload
   },
   props: [
     'onCreatePost'
@@ -89,6 +92,20 @@ export default {
         this.isShowCondition = false
       }
     })
+    BusService.$on('uploadSuccess', async (fileNames) => {
+      let data = {
+        postCategory: this.postCategory,
+        toolCategory: this.toolCategory,
+        content: this.content,
+        exchangeCondition: this.exchangeCondition,
+        fileNames: fileNames
+      }
+
+      let response = await PostService.createPost(data)
+      this.onCreatePost(response.data.post)
+      BusService.$emit('cleanCreatePost')
+    })
+
     // BusService.$on('postContent', (content) => {
     //   this.content = content
     // })
@@ -97,23 +114,17 @@ export default {
     // })
   },
   methods: {
-    async onPostSubmit () {
-      let data = {
-        postCategory: this.postCategory,
-        toolCategory: this.toolCategory,
-        content: this.content,
-        exchangeCondition: this.exchangeCondition
-      }
-
-      let response = await PostService.createPost(data)
-      this.onCreatePost(response.data.post)
-      BusService.$emit('cleanCreatePost')
+    onPostSubmit () {
+      BusService.$emit('upload')
     },
     onPostContent (content) {
       this.content = content
     },
     onPostCondition (condition) {
       this.exchangeCondition = condition
+    },
+    addImageVideo () {
+      BusService.$emit('addImageVideo')
     }
   }
 }

@@ -22,6 +22,19 @@
           Điều kiện trao đổi: &nbsp;
           {{postData.exchangeCondition}}
         </span>
+        <div v-if="postData.fileNames.length > 0">
+          <span v-for="fileName in postData.fileNames" :key="fileName">
+            <img
+              @click="showImageModal"
+              style="width: 20%;"
+              v-if="(/\.(gif|jpg|jpeg|tiff|png)$/i).test(fileName)"
+              :src="config.serverHost + fileName"/>
+          </span>
+          <image-modal
+            :imgSrc="imgSrc"
+            v-if="isShowImageModal"
+            @close="isShowImageModal = false"/>
+        </div>
       </div>
 
       <div class="post-footer">
@@ -35,7 +48,7 @@
     </div>
 
     <!-- comment box -->
-    <div class="comment-box">
+    <div class="comment-box" v-show="isShowCommentBox">
       <div class="comment-list">
         <div v-for="comment in postData.comments" :key="comment">
           <div class="comment">
@@ -121,11 +134,14 @@ import UserService from '../services/UserService'
 // import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
 import ReplyService from '../services/ReplyService'
+import config from '../config'
+import ImageModal from './ImageModal'
 
 export default {
   components: {
     AutoSizeTextarea,
-    ContactPopover
+    ContactPopover,
+    ImageModal
   },
   props: [
     'post_data'
@@ -134,7 +150,11 @@ export default {
     return {
       contactPopoverShow: false,
       poster: {},
-      postData: {}
+      postData: {},
+      config: config,
+      imgSrc: '',
+      isShowImageModal: false,
+      isShowCommentBox: false
     }
   },
   computed: {
@@ -165,6 +185,7 @@ export default {
   },
   methods: {
     onBtnCmtClicked () {
+      this.isShowCommentBox = !this.isShowCommentBox
     },
     async getPoster () {
       let userRes = await UserService.getUserInfo(this.postData.poster)
@@ -196,6 +217,10 @@ export default {
           comment.replies.push(response.data.reply)
         }
       }
+    },
+    showImageModal (event) {
+      this.imgSrc = event.target.src
+      this.isShowImageModal = true
     }
   }
 }
@@ -237,6 +262,9 @@ export default {
 .post-body {
   text-align: left;
   margin: 5px 0px;
+}
+.postImage:hover {
+  background-color:  rgba(255, 0, 255, 1); 
 }
 .post-footer {
   height: 40px;
