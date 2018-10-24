@@ -15,5 +15,6 @@ var autoPopulateReplyer = function (next) {
 ReplySchema
   .pre('find', autoPopulateReplyer)
   .pre('findOne', autoPopulateReplyer)
+  .pre('findById', autoPopulateReplyer)
 
 module.exports = mongoose.model('Reply', ReplySchema)
