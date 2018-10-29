@@ -1,7 +1,7 @@
 <template>
   <div id="home-page">
     <div class="header-bar-component">
-      <header-bar />
+      <header-bar v-bind:onSearch="onSearch"/>
     </div>
 
     <div class="global-container">
@@ -35,6 +35,7 @@ import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import BusService from '../services/BusService'
 import PostService from '../services/PostService'
+import SearchService from '../services/SearchService'
 
 export default {
   name: 'HomePage',
@@ -77,6 +78,11 @@ export default {
   methods: {
     onCreatePost (post) {
       this.posts.push(post)
+    },
+
+    async onSearch (strSearch) {
+      let response = await SearchService.searchPost(strSearch)
+      this.posts = response.data.posts
     }
   }
 }

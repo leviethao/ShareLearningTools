@@ -2,8 +2,8 @@
   <div id='toolbar'>
     <div class="global-container">
       <div id="search" class="input-group">
-        <input type="text" class="form-control" placeholder="Tìm kiếm">
-        <button type="button" class="btn btn-primary"><img src="../assets/images/header_bar/searchIcon.png" width="20" height="20" /></button>
+        <input ref="searchText" type="text" class="form-control" placeholder="Tìm kiếm">
+        <button type="button" class="btn btn-primary" v-on:click="handleSearchEvent"><img src="../assets/images/header_bar/searchIcon.png" width="20" height="20" /></button>
       </div><!-- /input-group -->
 
       <div id="toolbar-items">
@@ -104,6 +104,9 @@ import UserService from '../services/UserService'
 import config from '../config'
 
 export default {
+  props: [
+    'onSearch'
+  ],
   data () {
     return {
       notifyPopoverShow: false,
@@ -130,6 +133,9 @@ export default {
     },
     onNotifyHidden () {
 
+    },
+    handleSearchEvent () {
+      this.onSearch(this.$refs.searchText.value)
     }
   }
 }
