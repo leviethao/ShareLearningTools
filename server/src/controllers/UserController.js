@@ -8,7 +8,7 @@ module.exports = {
   async getUserInfo (req, res) {
     await User.findOne({_id: req.params.id}, (err, user) => {
       if (err) throw err
-      user.password = undefined
+      // user.password = undefined
       res.send({user: user})
     })
   },

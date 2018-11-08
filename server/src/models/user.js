@@ -9,7 +9,8 @@ var UserSchema = new Schema({
   avatar: {type: String, default: 'images/defaultAvatar.png'},
   dateOfBirth: {type: Date, default: Date.now()},
   address: {type: String, default: ''},
-  phoneNumber: {type: String, default: ''}
+  phoneNumber: {type: String, default: ''},
+  notifies: [{type: Schema.Types.ObjectId, ref: 'Notify'}]
 })
 
 UserSchema.virtual('url').get(function () {
