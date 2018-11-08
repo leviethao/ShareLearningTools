@@ -9,5 +9,8 @@ export default {
   },
   updateUserInfo (user) {
     return Api().post('user/update', user)
+  },
+  async getMyNotifies () {
+    return await Api().get('mynotifies')
   }
 }

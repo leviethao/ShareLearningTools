@@ -25,5 +25,20 @@ module.exports = {
           if (err) throw err
         })
       })
+  },
+  async getMyNotifies (req, res) {
+    await User.findById(req.user._id)
+      .populate('notifies')
+      .exec((err, user) => {
+        if (err) throw err
+
+        // sort date in descending
+        let notifies = user.notifies.sort((a, b) => {
+          let dateA = new Date(a.created)
+          let dateB = new Date(b.created)
+          return dateB - dateA
+        })
+        res.send({notifies: notifies})
+      })
   }
 }

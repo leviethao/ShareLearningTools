@@ -38,20 +38,23 @@
         @show="onNotifyShow"
         @shown="onNotifyShown"
         @hidden="onNotifyHidden">
-        
+
         <template slot="title" >
           Thông báo
         </template>
 
         <div class="vuebar-element" v-bar> <!-- el1 -->
           <div id="notify-list"> <!-- el2 -->
-            <router-link v-bind:to="{name: 'LoginPage'}" class="notify-item" >
+            <router-link
+              v-for="notify in notifies"
+              :key="notify._id"
+              v-bind:to="notify.link" :class="(notify.status === 'On') ? 'notify-item notify-not-watched' : 'notify-item'" >
               <div class="notify-content">
                 <img class="notify-avatar avatar" :src="serverHost+user.avatar" width="60px" height="60px" />
-                <div class="notify-text">
-                  leviethao leviethao leviethao leviethao leviethao leviethaolev
+                <div class='notify-text'>
+                  {{notify.content}}
                   <br/>
-                  <span>Hôm qua lúc 02:20</span>
+                  <span>{{notify.created}}</span>
                 </div>
               </div>
             </router-link>
@@ -66,7 +69,7 @@
         :show.sync="settingPopoverShow"
         placement="bottomleft"
         container="toolbar">
-        
+
         <template slot="title" >
           Cài đặt
         </template>
@@ -112,12 +115,14 @@ export default {
       notifyPopoverShow: false,
       settingPopoverShow: false,
       user: {},
-      serverHost: config.serverHost
+      serverHost: config.serverHost,
+      notifies: []
     }
   },
   async mounted () {
     const userResponse = await UserService.getMyUserInfo()
     this.user = userResponse.data.user
+    setInterval(this.getMyNotifies, 2000)
   },
   methods: {
     // on popover close
@@ -136,6 +141,10 @@ export default {
     },
     handleSearchEvent () {
       this.onSearch(this.$refs.searchText.value)
+    },
+    async getMyNotifies () {
+      const response = await UserService.getMyNotifies()
+      this.notifies = response.data.notifies
     }
   }
 }
@@ -262,6 +271,9 @@ export default {
 }
 .notify-text span {
   font-size: 12px;
+}
+.notify-not-watched {
+  background-color: rgb(193, 100, 219);
 }
 .clear-both {
   clear: both;

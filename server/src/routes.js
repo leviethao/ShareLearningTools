@@ -14,6 +14,7 @@ module.exports = (app) => {
   app.post('/register', AuthenticationController.register)
   app.get('/', isAuthenticated, CommonController.getHomePage)
   app.get('/user', isAuthenticated, UserController.getMyUserInfo)
+  app.get('/mynotifies', isAuthenticated, UserController.getMyNotifies)
   app.get('/toolCategories', ToolCategoryController.getAll)
   app.get('/postCategories', PostCategoryController.getAll)
   app.post('/post/create', isAuthenticated, PostController.createPost)
