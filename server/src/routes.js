@@ -8,6 +8,7 @@ const PostCategoryController = require('./controllers/PostCategoryController')
 const PostController = require('./controllers/PostController')
 const CommentController = require('./controllers/CommentController')
 const ReplyController = require('./controllers/ReplyController')
+const NotifyController = require('./controllers/NotifyController')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
@@ -15,6 +16,7 @@ module.exports = (app) => {
   app.get('/', isAuthenticated, CommonController.getHomePage)
   app.get('/user', isAuthenticated, UserController.getMyUserInfo)
   app.get('/mynotifies', isAuthenticated, UserController.getMyNotifies)
+  app.post('/notify/updatestatus/:id', isAuthenticated, NotifyController.updateNotifyStatus)
   app.get('/toolCategories', ToolCategoryController.getAll)
   app.get('/postCategories', PostCategoryController.getAll)
   app.post('/post/create', isAuthenticated, PostController.createPost)

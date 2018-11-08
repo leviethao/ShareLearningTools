@@ -48,6 +48,7 @@
             <router-link
               v-for="notify in notifies"
               :key="notify._id"
+              v-on:click.native="onNotifyItemClicked(notify._id)"
               v-bind:to="notify.link" :class="(notify.status === 'On') ? 'notify-item notify-not-watched' : 'notify-item'" >
               <div class="notify-content">
                 <img class="notify-avatar avatar" :src="serverHost+user.avatar" width="60px" height="60px" />
@@ -105,6 +106,7 @@
 <script>
 import UserService from '../services/UserService'
 import config from '../config'
+import NotificationService from '../services/NotificationService'
 
 export default {
   props: [
@@ -145,6 +147,9 @@ export default {
     async getMyNotifies () {
       const response = await UserService.getMyNotifies()
       this.notifies = response.data.notifies
+    },
+    async onNotifyItemClicked (id) {
+      await NotificationService.updateNotifyStatus(id, 'Off')
     }
   }
 }
