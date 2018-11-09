@@ -4,13 +4,58 @@
     <div class="post-container">
 
       <div class="post-header">
-        <img src="../assets/images/catalog/item.png"/>
+        <img class="poster-avatar" src="../assets/images/catalog/item.png"/>
         <div class="post-info">
           <span class="poster">{{poster.name}}</span>
           <br>
           <span class="post-time">{{postData.created}}</span>
         </div>
+        <router-link
+          class="option-icon"
+          :id="postData._id" to=''>
+          <img src="../assets/images/post/optionIcon.png" class="icon" />
+        </router-link>
       </div>
+
+      <!-- options popover -->
+      <b-popover :target="postData._id"
+        triggers="focus"
+        :show.sync="optionPopoverShow"
+        placement="bottomleft"
+        container="toolbar">
+
+        <div class="options-list" v-bar> <!-- el1 -->
+          <router-link to="" class="option-item">
+            <div class="option-content">
+              <div class="option-text">
+                Xác nhận là đã nhận
+              </div>
+            </div>
+          </router-link>
+          <router-link to="" class="option-item">
+            <div class="option-content">
+              <div class="option-text">
+                Chỉnh sửa
+              </div>
+            </div>
+          </router-link>
+          <router-link to="" class="option-item">
+            <div class="option-content">
+              <div class="option-text">
+                Xóa
+              </div>
+            </div>
+          </router-link>
+          <router-link to="" class="option-item">
+            <div class="option-content">
+              <div class="option-text">
+                Tắt thông báo
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </b-popover>
+
 
       <div class="post-body">
         <span class="post-content">
@@ -44,7 +89,7 @@
 
       <!-- contact popover -->
       <contact-popover :target="`contact-btn-${postId}`" :container="postId" />
-      
+
     </div>
 
     <!-- comment box -->
@@ -115,10 +160,10 @@
           <img src="../assets/images/catalog/item.png" />
         </div>
         <div class="comment-textarea">
-          <auto-size-textarea 
+          <auto-size-textarea
             :ID="'comment'+postData._id"
             placeholderValue="Viết bình luận"
-            :onComment="onComment"/> 
+            :onComment="onComment"/>
         </div>
         <div class="clear-both"></div>
       </div>
@@ -154,7 +199,8 @@ export default {
       config: config,
       imgSrc: '',
       isShowImageModal: false,
-      isShowCommentBox: false
+      isShowCommentBox: false,
+      optionPopoverShow: false
     }
   },
   computed: {
@@ -243,7 +289,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.post-header img {
+.poster-avatar {
   float: left;
   width: 60px;
   height: 60px;
@@ -264,7 +310,7 @@ export default {
   margin: 5px 0px;
 }
 .postImage:hover {
-  background-color:  rgba(255, 0, 255, 1); 
+  background-color:  rgba(255, 0, 255, 1);
 }
 .post-footer {
   height: 40px;
@@ -317,7 +363,7 @@ export default {
 }
 .comment-container {
   float: right;
-  width: 440px; 
+  width: 440px;
   padding: 5px 10px;
   background-color: rgba(197, 123, 226, 0.274);
   border-radius: 20px;
@@ -356,7 +402,7 @@ export default {
   width: 24px;
 }
 .comment-reply-box .comment-container {
-  width: 400px; 
+  width: 400px;
 }
 .comment-reply-box .comment-footer {
   width: 400px;
@@ -397,5 +443,43 @@ export default {
 }
 .add-reply .comment-textarea textarea {
   padding: 2px 10px;
+}
+
+.option-list {
+  display: block;
+}
+.option-item{
+  display: block;
+  width: 230px;
+  height: 30px;
+  padding: 5px 10px;
+  background-color: rgb(238, 212, 245);
+  border-bottom: solid 1px rgb(203, 199, 206);
+}
+.option-item:link {
+  text-decoration: none;
+}
+.option-item:hover {
+  background-color: rgb(224, 190, 231);
+}
+.option-item:active {
+  background-color: #A33BBA;
+}
+.option-content {
+  height: 100%;
+  /* background-color: yellow; */
+  display: flex;
+  align-items: center;
+}
+.option-text {
+
+}
+.option-icon {
+  float: left;
+  margin-left: 200px;
+}
+.option-icon img {
+  border-radius: 50%;
+  width: 30px;
 }
 </style>
