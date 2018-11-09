@@ -33,5 +33,15 @@ module.exports = {
         if (err) throw err
         res.send({posts: posts})
       })
+  },
+  getPostById (req, res) {
+    Post.findById(req.params.id)
+      .populate('postCategory')
+      .populate('toolCategory')
+      .populate('comments')
+      .exec((err, post) => {
+        if (err) throw err
+        res.send({post: post})
+      })
   }
 }

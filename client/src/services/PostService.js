@@ -6,5 +6,8 @@ export default {
   },
   getPosts () {
     return Api().get('posts')
+  },
+  getPostById (id) {
+    return Api().get(`post/${id}`)
   }
 }

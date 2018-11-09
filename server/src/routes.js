@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.get('/postCategories', PostCategoryController.getAll)
   app.post('/post/create', isAuthenticated, PostController.createPost)
   app.get('/posts', PostController.getPosts)
+  app.get('/post/:id', isAuthenticated, PostController.getPostById)
   app.get('/user/:id', UserController.getUserInfo)
   app.post('/comment/create', isAuthenticated, CommentController.createComment)
   app.post('/reply/create', isAuthenticated, ReplyController.createReply)
