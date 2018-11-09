@@ -16,13 +16,13 @@
           <span>Trang chủ</span>
         </router-link>
 
-        <router-link v-bind:to="{name: 'HomePage'}"
+        <router-link v-bind:to="''"
           id="notify-icon" class="toolbar-item icon" v-b-tooltip.hover.bottom title="Thông báo"
           v-on:click.native="notifyPopoverShow = !notifyPopoverShow">
           <img src="../assets/images/header_bar/notifyIcon.png" width="24" height="24"/>
         </router-link>
 
-        <router-link v-bind:to="{name: 'HomePage'}"
+        <router-link v-bind:to="''"
           id="setting-icon" class="toolbar-item icon" v-b-tooltip.hover.bottom title="Cài đặt"
           v-on:click.native="settingPopoverShow = !settingPopoverShow">
           <img src="../assets/images/header_bar/settingIcon.png" width="24" height="24"/>
