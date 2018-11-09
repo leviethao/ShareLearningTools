@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     onCreatePost (post) {
-      this.posts.push(post)
+      this.posts.unshift(post)
     },
 
     async onSearch (strSearch) {

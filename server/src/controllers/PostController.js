@@ -31,7 +31,14 @@ module.exports = {
       .populate('comments')
       .exec((err, posts) => {
         if (err) throw err
-        res.send({posts: posts})
+
+        // sort date in descending
+        let postsSorted = posts.sort((a, b) => {
+          let dateA = new Date(a.created)
+          let dateB = new Date(b.created)
+          return dateB - dateA
+        })
+        res.send({posts: postsSorted})
       })
   },
   getPostById (req, res) {
