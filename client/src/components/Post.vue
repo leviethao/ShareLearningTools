@@ -51,13 +51,37 @@
           {{postData.exchangeCondition}}
         </span>
         <div v-if="postData.fileNames.length > 0">
-          <span v-for="fileName in postData.fileNames" :key="fileName">
-            <img
-              @click="showImageModal"
-              style="width: 20%;"
-              v-if="(/\.(gif|jpg|jpeg|tiff|png)$/i).test(fileName)"
-              :src="config.serverHost + fileName"/>
-          </span>
+          <div class="file-post-container">
+            <span v-for="fileName in postData.fileNames" :key="fileName" >
+              <a
+                class="file-post"
+                :href="config.serverHost + fileName"
+                download
+                target="_blank"
+                v-if="(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i).test(fileName) === false" >
+                <p>{{fileName}}</p>
+              </a>
+            </span>
+          </div>
+          <div class="image-post-container">
+            <span v-for="fileName in postData.fileNames" :key="fileName" >
+              <img
+                class="image-post"
+                @click="showImageModal"
+                v-if="(/\.(gif|jpg|jpeg|tiff|png)$/i).test(fileName)"
+                :src="config.serverHost + fileName"/>
+            </span>
+          </div>
+          <div class="video-post-container">
+            <span v-for="fileName in postData.fileNames" :key="fileName" >
+              <video
+                class="video-post"
+                controls
+                v-if="(/\.(mp4)$/i).test(fileName)" >
+                <source :src="config.serverHost + fileName" type="video/mp4">
+              </video>
+            </span>
+          </div>
           <image-modal
             :imgSrc="imgSrc"
             v-if="isShowImageModal"
@@ -522,5 +546,20 @@ export default {
 .option-icon img {
   border-radius: 50%;
   width: 30px;
+}
+.image-post {
+  padding: 5px 5px;
+  width: 159px;
+  height: 200px;
+}
+.video-post {
+  padding: 5px 5px;
+  width: 238px;
+}
+.image-post-container {
+  width: 100%;
+}
+.video-post-container {
+  width: 100%;
 }
 </style>

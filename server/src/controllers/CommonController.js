@@ -2,7 +2,16 @@ var multer = require('multer')
 
 var Storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, './src/public/images')
+    let folderName
+    if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(file.originalname)) {
+      folderName = 'images'
+    } else if ((/\.(mp4)$/i).test(file.originalname)) {
+      folderName = 'videos'
+    } else {
+      folderName = 'files'
+    }
+
+    callback(null, `./src/public/${folderName}`)
   },
   filename: function (req, file, callback) {
     callback(null, file.fieldname + '_' + Date.now() + '_' + file.originalname)
@@ -22,7 +31,15 @@ module.exports = {
 
       let fileNames = []
       for (let file of req.files) {
-        fileNames.push('images/' + file.filename)
+        let folderName
+        if ((/\.(gif|jpg|jpeg|tiff|png)$/i).test(file.filename)) {
+          folderName = 'images'
+        } else if ((/\.(mp4)$/i).test(file.filename)) {
+          folderName = 'videos'
+        } else {
+          folderName = 'files'
+        }
+        fileNames.push(`${folderName}/` + file.filename)
       }
 
       res.send({isSuccess: true, fileNames: fileNames})

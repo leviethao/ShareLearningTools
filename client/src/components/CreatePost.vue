@@ -40,8 +40,7 @@
       </div>
 
       <div class="create-post-footer">
-        <a  href="#" v-on:click.prevent="addImageVideo">Ảnh/Video</a>
-        <a href="#">Tệp</a>
+        <a  href="#" v-on:click.prevent="addImageVideo">Ảnh/Video/Tệp</a>
         <button @click="onPostSubmit" class="create-post-btn btn btn-primary">Đăng</button>
       </div>
     </div>
