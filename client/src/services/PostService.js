@@ -9,5 +9,8 @@ export default {
   },
   getPostById (id) {
     return Api().get(`post/${id}`)
+  },
+  deletePost (id) {
+    return Api().delete(`post/delete/${id}`)
   }
 }

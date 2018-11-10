@@ -1,5 +1,5 @@
 <template>
-  <div :id="postId" class="post">
+  <div :id="postId" class="post" v-if="postData">
 
     <div class="post-container">
 
@@ -25,31 +25,14 @@
         container="toolbar">
 
         <div class="options-list" v-bar> <!-- el1 -->
-          <router-link to="" class="option-item">
+          <router-link
+            v-for="option in options"
+            v-bind:key="option.name"
+            to="" class="option-item"
+            v-on:click.native="option.method">
             <div class="option-content">
               <div class="option-text">
-                Xác nhận là đã nhận
-              </div>
-            </div>
-          </router-link>
-          <router-link to="" class="option-item">
-            <div class="option-content">
-              <div class="option-text">
-                Chỉnh sửa
-              </div>
-            </div>
-          </router-link>
-          <router-link to="" class="option-item">
-            <div class="option-content">
-              <div class="option-text">
-                Xóa
-              </div>
-            </div>
-          </router-link>
-          <router-link to="" class="option-item">
-            <div class="option-content">
-              <div class="option-text">
-                Tắt thông báo
+                {{option.name}}
               </div>
             </div>
           </router-link>
@@ -181,6 +164,8 @@ import CommentService from '../services/CommentService'
 import ReplyService from '../services/ReplyService'
 import config from '../config'
 import ImageModal from './ImageModal'
+import PostService from '../services/PostService'
+// import PostCategoryService from '../services/PostCategoryService'
 
 export default {
   components: {
@@ -200,7 +185,8 @@ export default {
       imgSrc: '',
       isShowImageModal: false,
       isShowCommentBox: false,
-      optionPopoverShow: false
+      optionPopoverShow: false,
+      options: []
     }
   },
   computed: {
@@ -228,6 +214,8 @@ export default {
     //   }
     //   await ReplyService.createReply(replyData)
     // })
+
+    this.initOptions()
   },
   methods: {
     onBtnCmtClicked () {
@@ -267,6 +255,40 @@ export default {
     showImageModal (event) {
       this.imgSrc = event.target.src
       this.isShowImageModal = true
+    },
+    async initOptions () {
+      let meResponse = await UserService.getMyUserInfo()
+      let me = meResponse.data.user
+      if (me._id === this.poster._id) {
+        this.options = [
+          {
+            name: 'Chỉnh sửa',
+            method: null
+          },
+          {
+            name: 'Xóa',
+            method: async () => {
+              let response = await PostService.deletePost(this.postData._id)
+              if (response.data.post._id) {
+                this.postData = null
+              } else {
+                alert('Không thể xóa bài đăng')
+              }
+            }
+          },
+          {
+            name: 'Tắt thông báo',
+            method: null
+          }
+        ]
+      } else {
+        this.options = [
+          {
+            name: this.postData.postCategory.name.toLowerCase() === 'cung cấp' ? 'Xác nhận đã nhận' : 'Xác nhận đã cho',
+            method: null
+          }
+        ]
+      }
     }
   }
 }

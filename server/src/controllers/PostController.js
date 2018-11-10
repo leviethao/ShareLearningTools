@@ -50,5 +50,11 @@ module.exports = {
         if (err) throw err
         res.send({post: post})
       })
+  },
+  deletePost (req, res) {
+    Post.findByIdAndDelete(req.params.id, (err, post) => {
+      if (err) throw err
+      res.send({post: post})
+    })
   }
 }

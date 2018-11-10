@@ -6,5 +6,11 @@ module.exports = {
       if (err) throw err
       res.send({postCategories: postCategories})
     })
+  },
+  getPostCategory (req, res) {
+    PostCategory.findById(req.params.id, (err, postCategory) => {
+      if (err) throw err
+      res.send({postCategory: postCategory})
+    })
   }
 }
