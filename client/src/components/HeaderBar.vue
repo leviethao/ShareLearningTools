@@ -55,7 +55,7 @@
                 <div class='notify-text'>
                   {{notify.content}}
                   <br/>
-                  <span>{{notify.created}}</span>
+                  <span>{{new Date(notify.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
                 </div>
               </div>
             </router-link>

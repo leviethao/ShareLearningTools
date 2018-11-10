@@ -8,7 +8,7 @@
         <div class="post-info">
           <span class="poster">{{poster.name}}</span>
           <br>
-          <span class="post-time">{{postData.created}}</span>
+          <span class="post-time">{{new Date(postData.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
         </div>
         <router-link
           class="option-icon"
@@ -91,7 +91,7 @@
             <div class="clear-both"></div>
             <div class="comment-footer">
               <a href=""><span class="cmt-reply-link">Trả lời</span></a>
-              <span class="comment-time">{{comment.created}}</span>
+              <span class="comment-time">{{new Date(comment.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
             </div>
             <div class="clear-both"></div>
 
@@ -110,7 +110,7 @@
                     </div>
                     <div class="clear-both"></div>
                     <div class="comment-footer">
-                      <span class="comment-time">{{reply.created}}</span>
+                      <span class="comment-time">{{new Date(reply.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
                     </div>
                     <div class="clear-both"></div>
                   </div>
