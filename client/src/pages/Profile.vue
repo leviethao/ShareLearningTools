@@ -107,11 +107,15 @@ export default {
   padding-bottom: 10px;
 }
 #profile-info .c2 {
-  width: 400px;
+  width: 300px;
   text-align:left;
   padding-bottom: 10px;
 }
+#profile-info .c2 input, #profile-info .c2 textarea, #profile-info .c2 select {
+  width: 100%;
+}
 #profile-info .c3 {
   padding-bottom: 10px;
+  padding-left: 50px;
 }
 </style>
