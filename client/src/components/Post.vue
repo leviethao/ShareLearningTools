@@ -259,6 +259,8 @@ export default {
     async initOptions () {
       let meResponse = await UserService.getMyUserInfo()
       let me = meResponse.data.user
+      let self = this
+
       if (me._id === this.poster._id) {
         this.options = [
           {
@@ -277,8 +279,22 @@ export default {
             }
           },
           {
-            name: 'Tắt thông báo',
-            method: null
+            name: this.postData.enable ? 'Tắt thông báo' : 'Bật thông báo',
+            async method () {
+              if (self.postData.enable) {
+                let res = await PostService.disablePost(self.postData._id)
+                if (res.data.post) {
+                  self.postData.enable = false
+                  this.name = 'Bật thông báo'
+                }
+              } else {
+                let res = await PostService.enablePost(self.postData._id)
+                if (res.data.post) {
+                  self.postData.enable = true
+                  this.name = 'Tắt thông báo'
+                }
+              }
+            }
           }
         ]
       } else {

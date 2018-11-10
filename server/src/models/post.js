@@ -9,7 +9,8 @@ var PostSchema = new Schema({
   toolCategory: {type: Schema.ObjectId, ref: 'ToolCategory', required: true},
   followers: [{type: Schema.ObjectId, ref: 'User'}],
   comments: [{type: Schema.ObjectId, ref: 'Comment'}],
-  fileNames: []
+  fileNames: [],
+  enable: {type: Boolean, default: true}
 })
 
 PostSchema.virtual('url').get(function () {

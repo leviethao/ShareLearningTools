@@ -56,5 +56,25 @@ module.exports = {
       if (err) throw err
       res.send({post: post})
     })
+  },
+  async enablePost (req, res) {
+    let post = await Post.findById(req.params.id)
+    if (post) {
+      post.enable = true
+      let updatedPost = await post.save()
+      res.send({post: updatedPost})
+      return
+    }
+    res.send({post: null})
+  },
+  async disablePost (req, res) {
+    let post = await Post.findById(req.params.id)
+    if (post) {
+      post.enable = false
+      let updatedPost = await post.save()
+      res.send({post: updatedPost})
+      return
+    }
+    res.send({post: null})
   }
 }

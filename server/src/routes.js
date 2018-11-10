@@ -20,10 +20,14 @@ module.exports = (app) => {
   app.get('/toolCategories', ToolCategoryController.getAll)
   app.get('/postCategories', PostCategoryController.getAll)
   app.get('/postCategory/:id', PostCategoryController.getPostCategory)
+
   app.post('/post/create', isAuthenticated, PostController.createPost)
   app.get('/posts', PostController.getPosts)
   app.get('/post/:id', isAuthenticated, PostController.getPostById)
   app.delete('/post/delete/:id', isAuthenticated, PostController.deletePost)
+  app.put('/post/enable/:id', isAuthenticated, PostController.enablePost)
+  app.put('/post/disable/:id', isAuthenticated, PostController.disablePost)
+
   app.get('/user/:id', UserController.getUserInfo)
   app.post('/comment/create', isAuthenticated, CommentController.createComment)
   app.post('/reply/create', isAuthenticated, ReplyController.createReply)

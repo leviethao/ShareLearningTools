@@ -12,5 +12,11 @@ export default {
   },
   deletePost (id) {
     return Api().delete(`post/delete/${id}`)
+  },
+  enablePost (id) {
+    return Api().put(`post/enable/${id}`)
+  },
+  disablePost (id) {
+    return Api().put(`post/disable/${id}`)
   }
 }
