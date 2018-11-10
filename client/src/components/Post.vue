@@ -71,7 +71,10 @@
       </div>
 
       <!-- contact popover -->
-      <contact-popover :target="`contact-btn-${postId}`" :container="postId" />
+      <contact-popover
+        :target="`contact-btn-${postId}`"
+        :container="postId"
+        :contact="poster.phoneNumber || 'Không có liên hệ'" />
 
     </div>
 

@@ -5,10 +5,10 @@
       :show.sync="contactPopoverShow"
       placement="bottomleft"
       :container="container">
-      
+
       <template slot="title" >
         <div>
-          <span>016838734398</span>
+          <span>{{contact}}</span>
         </div>
       </template>
 
@@ -20,7 +20,8 @@
 export default {
   props: [
     'target',
-    'container'
+    'container',
+    'contact'
   ],
   data () {
     return {
