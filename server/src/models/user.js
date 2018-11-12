@@ -10,7 +10,9 @@ var UserSchema = new Schema({
   dateOfBirth: {type: Date, default: Date.now()},
   address: {type: String, default: ''},
   phoneNumber: {type: String, default: ''},
-  notifies: [{type: Schema.Types.ObjectId, ref: 'Notify'}]
+  notifies: [{type: Schema.Types.ObjectId, ref: 'Notify'}],
+  receives: [{type: Schema.Types.ObjectId, ref: 'Exchange'}],
+  provides: [{type: Schema.Types.ObjectId, ref: 'Exchange'}]
 })
 
 UserSchema.virtual('url').get(function () {

@@ -9,6 +9,7 @@ const PostController = require('./controllers/PostController')
 const CommentController = require('./controllers/CommentController')
 const ReplyController = require('./controllers/ReplyController')
 const NotifyController = require('./controllers/NotifyController')
+const ExchangeController = require('./controllers/ExchangeController')
 
 module.exports = (app) => {
   app.post('/login', AuthenticationController.login)
@@ -34,6 +35,8 @@ module.exports = (app) => {
   app.post('/user/update', isAuthenticated, UserController.updateUserInfo)
   app.post('/upload', CommonController.uploadFile)
 
+  app.post('/exchange/receive', isAuthenticated, ExchangeController.receive)
+  app.post('/exchange/isReceived', isAuthenticated, ExchangeController.isReceived)
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,
   //   AuthenticationController.register)

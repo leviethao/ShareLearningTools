@@ -11,6 +11,7 @@
           <span class="post-time">{{new Date(postData.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
         </div>
         <router-link
+          v-if="optionButtonShow"
           class="option-icon"
           :id="postData._id" to=''>
           <img src="../assets/images/post/optionIcon.png" class="icon" />
@@ -193,6 +194,7 @@ import config from '../config'
 import ImageModal from './ImageModal'
 import PostService from '../services/PostService'
 // import PostCategoryService from '../services/PostCategoryService'
+import ExchangeService from '../services/ExchangeService'
 
 export default {
   components: {
@@ -213,7 +215,9 @@ export default {
       isShowImageModal: false,
       isShowCommentBox: false,
       optionPopoverShow: false,
-      options: []
+      options: [],
+      optionButtonShow: true,
+      received: false
     }
   },
   computed: {
@@ -324,13 +328,29 @@ export default {
             }
           }
         ]
-      } else {
+      } else if (this.postData.postCategory.name.toLowerCase() === 'cung cấp') {
+        let isReceivedRes = await ExchangeService.isReceived(this.postData._id)
+        this.received = isReceivedRes.data.isReceived
         this.options = [
           {
-            name: this.postData.postCategory.name.toLowerCase() === 'cung cấp' ? 'Xác nhận đã nhận' : 'Xác nhận đã cho',
-            method: null
+            name: this.received ? 'Bỏ xác nhận' : 'Xác nhận đã nhận',
+            async method () {
+              if (self.received) {
+                return
+              } else {
+                let res = await ExchangeService.receive(self.postData._id)
+                if (!res.data.exchange) {
+                  alert('Lỗi hệ thống')
+                  return
+                }
+                this.name = 'Bỏ xác nhận'
+                self.received = true
+              }
+            }
           }
         ]
+      } else {
+        this.optionButtonShow = false
       }
     }
   }
