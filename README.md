@@ -14,6 +14,7 @@ VSCode: https://code.visualstudio.com/
 
 Git: https://git-scm.com/
 
+### How to run?
 ### Client - Terminal A
 ```
 cd client
