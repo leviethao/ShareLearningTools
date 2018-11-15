@@ -55,7 +55,7 @@
                 <div class='notify-text'>
                   {{notify.content}}
                   <br/>
-                  <span>{{new Date(notify.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
+                  <span>{{`${new Date(notify.created).toLocaleTimeString()} - ${new Date(notify.created).getDate()}/${new Date(notify.created).getMonth() + 1}/${new Date(notify.created).getFullYear()}`}}</span>
                 </div>
               </div>
             </router-link>

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var PostSchema = new Schema({
-  created: {type: Date, default: Date.now()},
+  created: {type: Date, default: Date.now},
   content: {type: String, min: 1, max: 10000, required: true},
   exchangeCondition: {type: String, default: ''},
   poster: {type: Schema.ObjectId, ref: 'User', required: true},

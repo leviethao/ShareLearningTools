@@ -8,7 +8,7 @@
         <div class="post-info">
           <span class="poster">{{poster.name}}</span>
           <br>
-          <span class="post-time">{{new Date(postData.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
+          <span class="post-time">{{`${new Date(postData.created).toLocaleTimeString()} - ${new Date(postData.created).getDate()}/${new Date(postData.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
         </div>
         <router-link
           v-if="optionButtonShow"
@@ -119,7 +119,7 @@
             <div class="clear-both"></div>
             <div class="comment-footer">
               <a href=""><span class="cmt-reply-link">Trả lời</span></a>
-              <span class="comment-time">{{new Date(comment.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
+              <span class="comment-time">{{`${new Date(comment.created).toLocaleTimeString()} - ${new Date(comment.created).getDate()}/${new Date(comment.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
             </div>
             <div class="clear-both"></div>
 
@@ -138,7 +138,7 @@
                     </div>
                     <div class="clear-both"></div>
                     <div class="comment-footer">
-                      <span class="comment-time">{{new Date(reply.created).toLocaleString('vi-GB', { timeZone: 'UTC' })}}</span>
+                      <span class="comment-time">{{`${new Date(reply.created).toLocaleTimeString()} - ${new Date(reply.created).getDate()}/${new Date(reply.created).getMonth() + 1}/${new Date(reply.created).getFullYear()}`}}</span>
                     </div>
                     <div class="clear-both"></div>
                   </div>
