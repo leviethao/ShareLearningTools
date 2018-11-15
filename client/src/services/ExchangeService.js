@@ -6,5 +6,8 @@ export default {
   },
   isReceived (postId) {
     return Api().post('/exchange/isReceived', {postId: postId})
+  },
+  unReceived (postId) {
+    return Api().post('/exchange/unReceived', {postId: postId})
   }
 }

@@ -76,7 +76,7 @@ export default {
       exchangeCondition: null
     }
   },
-  mounted () {
+  async mounted () {
     BusService.$on('createPostToolSelected', (value) => {
       this.toolCategory = value
     })
@@ -101,8 +101,10 @@ export default {
       }
 
       let response = await PostService.createPost(data)
-      this.onCreatePost(response.data.post)
-      BusService.$emit('cleanCreatePost')
+      if (response.data.post) {
+        this.onCreatePost(response.data.post)
+        BusService.$emit('cleanCreatePost')
+      }
     })
 
     // BusService.$on('postContent', (content) => {

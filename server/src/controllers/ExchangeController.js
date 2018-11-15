@@ -129,5 +129,8 @@ module.exports = {
       }
     }
     res.send({isReceived: false})
+  },
+  async unReceived (req, res) {
+
   }
 }

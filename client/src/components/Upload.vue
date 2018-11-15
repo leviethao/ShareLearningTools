@@ -105,7 +105,7 @@
         //   console.log('FAILURE!!')
         // })
         let response = await CommonService.uploadFile(formData)
-        if (response.data.isSuccess) {
+        if (response.data.isSuccess && response.data.fileNames.length > 0) {
           BusService.$emit('uploadSuccess', response.data.fileNames)
           this.files = []
         }

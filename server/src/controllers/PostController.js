@@ -11,17 +11,22 @@ module.exports = {
       fileNames: req.body.fileNames
     })
 
-    await post.save(function (err, newPost) {
-      if (err) throw err
-      Post.findById(newPost._id)
-        .populate('postCategory')
-        .populate('toolCategory')
-        .populate('comments')
-        .exec((err, _post) => {
-          if (err) throw err
-          res.send({post: _post})
-        })
-    })
+    let newPost = await post.save()
+    if (!newPost) {
+      res.send({post: null})
+      return
+    }
+    let newPostDetail = await Post.findById(newPost._id)
+      .populate('postCategory')
+      .populate('toolCategory')
+      .populate('comments')
+      .exec()
+
+    if (!newPostDetail) {
+      res.send({post: null})
+      return
+    }
+    res.send({post: newPostDetail})
   },
   async getPosts (req, res) {
     await Post.find({})

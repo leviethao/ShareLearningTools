@@ -26,6 +26,7 @@ module.exports = {
   uploadFile (req, res) {
     upload(req, res, function (err) {
       if (err) {
+        res.send({isSuccess: false, fileNames: []})
         throw err
       }
 
