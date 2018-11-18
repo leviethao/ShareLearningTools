@@ -31,6 +31,7 @@ module.exports = (app) => {
 
   app.get('/user/:id', UserController.getUserInfo)
   app.post('/comment/create', isAuthenticated, CommentController.createComment)
+  app.delete('/comment/delete/:id', isAuthenticated, CommentController.deleteComment)
   app.post('/reply/create', isAuthenticated, ReplyController.createReply)
   app.post('/user/update', isAuthenticated, UserController.updateUserInfo)
   app.post('/upload', CommonController.uploadFile)

@@ -1,6 +1,6 @@
 <!-- app -->
 <template>
-  <div :id="commentState._id" class="comment">
+  <div :id="commentState._id" class="comment" v-if="this.commentState">
     <div class="commenter-avatar">
       <img src="../assets/images/catalog/item.png" />
     </div>
@@ -77,6 +77,10 @@
 import ReplyService from '../services/ReplyService'
 import Reply from './Reply'
 import AutoSizeTextarea from './AutoSizeTextarea'
+import UserService from '../services/UserService'
+import PostService from '../services/PostService'
+import ExchangeService from '../services/ExchangeService'
+import CommentService from '../services/CommentService'
 
 export default {
   components: {
@@ -89,8 +93,18 @@ export default {
   data () {
     return {
       commentState: this.comment,
-      cmtOptionButtonShow: true
+      cmtOptionButtonShow: true,
+      post: null,
+      received: false,
+      optionButtonShow: true,
+      options: []
     }
+  },
+  async mounted () {
+    let postRes = await PostService.getPostById(this.commentState.post)
+    this.post = postRes.data.post
+
+    this.initOptions()
   },
   methods: {
     async onReply (text, commentId) {
@@ -103,6 +117,53 @@ export default {
 
       // insert reply to comment
       this.commentState.replies.push(response.data.reply)
+    },
+    async initOptions () {
+      let meResponse = await UserService.getMyUserInfo()
+      let me = meResponse.data.user
+      let self = this
+      if (me._id === this.commentState.commenter._id) {
+        this.options = [
+          {
+            name: 'Chỉnh sửa',
+            method: null
+          },
+          {
+            name: 'Xóa',
+            method: async () => {
+              let response = await CommentService.deleteComment(this.commentState._id)
+              if (response.data.comment) {
+                this.commentState = null
+              } else {
+                alert('Không thể xóa bình luận')
+              }
+            }
+          }
+        ]
+      } else if (me._id === this.post.poster && this.post.postCategory.name.toLowerCase() === 'cần tìm') {
+        let isReceivedRes = await ExchangeService.isReceived(this.post._id)
+        this.received = isReceivedRes.data.isReceived
+        this.options = [
+          {
+            name: this.received ? 'Bỏ xác nhận' : 'Xác nhận đã nhận',
+            async method () {
+              if (self.received) {
+                return
+              } else {
+                let res = await ExchangeService.receive(self.post._id)
+                if (!res.data.exchange) {
+                  alert('Lỗi hệ thống')
+                  return
+                }
+                this.name = 'Bỏ xác nhận'
+                self.received = true
+              }
+            }
+          }
+        ]
+      } else {
+        this.cmtOptionButtonShow = false
+      }
     }
   }
 }

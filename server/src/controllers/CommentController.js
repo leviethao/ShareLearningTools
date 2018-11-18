@@ -107,6 +107,15 @@ module.exports = {
         })
       })
     })
+  },
+  deleteComment (req, res) {
+    Comment.findByIdAndDelete(req.params.id, (err, cmt) => {
+      if (err) {
+        res.send({comment: null})
+        throw err
+      }
+      res.send({comment: cmt})
+    })
   }
 
 }

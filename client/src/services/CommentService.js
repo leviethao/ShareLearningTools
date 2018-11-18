@@ -4,5 +4,8 @@ export default {
   async createComment (data) {
     let response = await Api().post('comment/create', data)
     return response
+  },
+  async deleteComment (id) {
+    return await Api().delete(`comment/delete/${id}`)
   }
 }

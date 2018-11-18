@@ -134,7 +134,6 @@ import ContactPopover from './ContactPopover'
 import UserService from '../services/UserService'
 // import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
-import ReplyService from '../services/ReplyService'
 import config from '../config'
 import ImageModal from './ImageModal'
 import PostService from '../services/PostService'
@@ -164,7 +163,6 @@ export default {
       optionPopoverShow: false,
       options: [],
       optionButtonShow: true,
-      cmtOptionButtonShow: true,
       received: false
     }
   },
@@ -215,21 +213,6 @@ export default {
       }
       let response = await CommentService.createComment(commentData)
       this.postData.comments.push(response.data.comment)
-    },
-    async onReply (text, commentId) {
-      let replyData = {
-        content: text,
-        comment: commentId
-      }
-
-      let response = await ReplyService.createReply(replyData)
-
-      // find current comment and insert reply for it
-      for (let comment of this.postData.comments) {
-        if (comment._id === commentId) {
-          comment.replies.push(response.data.reply)
-        }
-      }
     },
     showImageModal (event) {
       this.imgSrc = event.target.src
