@@ -140,27 +140,47 @@ export default {
             }
           }
         ]
-      } else if (me._id === this.post.poster && this.post.postCategory.name.toLowerCase() === 'cần tìm') {
-        let isReceivedRes = await ExchangeService.isReceived(this.post._id)
-        this.received = isReceivedRes.data.isReceived
-        this.options = [
-          {
-            name: this.received ? 'Bỏ xác nhận' : 'Xác nhận đã nhận',
-            async method () {
-              if (self.received) {
-                return
-              } else {
-                let res = await ExchangeService.receive(self.post._id)
-                if (!res.data.exchange) {
-                  alert('Lỗi hệ thống')
-                  return
+      } else if (me._id === this.post.poster) {
+        // poster can delete any comment of other commenter
+        if (this.options.find(option => option.name === 'Xóa') === undefined) {
+          this.options.push(
+            {
+              name: 'Xóa',
+              method: async () => {
+                let response = await CommentService.deleteComment(this.commentState._id)
+                if (response.data.comment) {
+                  this.commentState = null
+                } else {
+                  alert('Không thể xóa bình luận')
                 }
-                this.name = 'Bỏ xác nhận'
-                self.received = true
               }
             }
-          }
-        ]
+          )
+        }
+
+        // poster receive from provider
+        if (this.post.postCategory.name.toLowerCase() === 'cần tìm') {
+          let isReceivedRes = await ExchangeService.isReceived(this.post._id)
+          this.received = isReceivedRes.data.isReceived
+          this.options.push(
+            {
+              name: this.received ? 'Bỏ xác nhận' : 'Xác nhận đã nhận',
+              async method () {
+                if (self.received) {
+                  return
+                } else {
+                  let res = await ExchangeService.receive(self.post._id)
+                  if (!res.data.exchange) {
+                    alert('Lỗi hệ thống')
+                    return
+                  }
+                  this.name = 'Bỏ xác nhận'
+                  self.received = true
+                }
+              }
+            }
+          )
+        }
       } else {
         this.cmtOptionButtonShow = false
       }
