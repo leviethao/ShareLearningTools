@@ -413,7 +413,7 @@ export default {
 .comment-reply-box .comment {
   margin: 10px 0px 0px 0px;
 }
-.comment-reply-box .comment img {
+.comment-reply-box .commenter-avatar img {
   width: 24px;
   height: 24px;
 }
@@ -421,7 +421,7 @@ export default {
   width: 24px;
 }
 .comment-reply-box .comment-container {
-  width: 400px;
+  width: 350px;
 }
 .comment-reply-box .comment-footer {
   width: 400px;
@@ -501,11 +501,11 @@ export default {
   border-radius: 50%;
   width: 30px;
 }
-.cmt-option-icon {
+.cmt-option-icon, .reply-option-icon {
   float: left;
   margin-left: 5px;
 }
-.cmt-option-icon img {
+.cmt-option-icon img, .reply-option-icon img {
   border-radius: 50%;
   width: 20px;
   margin-top: 7px;

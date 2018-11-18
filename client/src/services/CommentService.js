@@ -7,5 +7,8 @@ export default {
   },
   async deleteComment (id) {
     return await Api().delete(`comment/delete/${id}`)
+  },
+  async getCommentById (id) {
+    return await Api().get(`comment/${id}`)
   }
 }

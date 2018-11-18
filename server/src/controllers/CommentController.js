@@ -116,6 +116,16 @@ module.exports = {
       }
       res.send({comment: cmt})
     })
+  },
+  getCommentById (req, res) {
+    Comment.findById(req.params.id)
+      .exec((err, cmt) => {
+        if (err) {
+          res.send({comment: null})
+          throw err
+        }
+        res.send({comment: cmt})
+      })
   }
 
 }

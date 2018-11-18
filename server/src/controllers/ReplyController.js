@@ -58,5 +58,14 @@ module.exports = {
         })
       })
     })
+  },
+  deleteReply (req, res) {
+    Reply.findByIdAndDelete(req.params.id, (err, rep) => {
+      if (err) {
+        res.send({reply: null})
+        throw err
+      }
+      res.send({reply: rep})
+    })
   }
 }
