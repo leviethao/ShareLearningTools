@@ -75,8 +75,14 @@
 
 <script>
 import ReplyService from '../services/ReplyService'
+import Reply from './Reply'
+import AutoSizeTextarea from './AutoSizeTextarea'
 
 export default {
+  components: {
+    Reply,
+    AutoSizeTextarea
+  },
   props: [
     'comment'
   ],
@@ -103,6 +109,7 @@ export default {
 </script>
 
 <style>
+/*
 .comment {
   margin: 10px 10px 0px 10px;
 }
@@ -110,7 +117,6 @@ export default {
   width: 32px;
   height: 100%;
   float: left;
-  /* background-color: red; */
 }
 .commenter-avatar img {
   width: 32px;
@@ -132,7 +138,6 @@ export default {
   clear: both;
 }
 .comment-footer {
-  /* background-color:rgb(169, 134, 204); */
   width: 440px;
   float: right;
   padding: 0px 10px;
@@ -177,7 +182,6 @@ export default {
 }
 .option-content {
   height: 100%;
-  /* background-color: yellow; */
   display: flex;
   align-items: center;
 }
@@ -185,15 +189,12 @@ export default {
 
 }
 
-/* comment reply box */
 .comment-reply-box {
   width: 430px;
   float: right;
 }
-
 .add-reply {
   margin: 10px 0px 10px -10px;
-  /* background-color: red; */
 }
 .add-reply .commenter-avatar img {
   width: 24px;
@@ -203,7 +204,6 @@ export default {
   float: right;
   width: 410px;
   padding: 0px 0px 0px 10px;
-  /* background-color: rgb(50, 250, 250); */
   text-align: left;
 }
 .comment-textarea .textarea {
@@ -211,5 +211,5 @@ export default {
   border-radius: 20px;
   padding: 2px 10px;
 }
-
+*/
 </style>

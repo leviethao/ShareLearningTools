@@ -107,77 +107,7 @@
     <div class="comment-box" v-show="isShowCommentBox">
       <div class="comment-list">
         <div v-for="comment in postData.comments" :key="comment">
-          <div :id="comment._id" class="comment">
-            <div class="commenter-avatar">
-              <img src="../assets/images/catalog/item.png" />
-            </div>
-            <div class="comment-container">
-              <a href="" class="commenter">{{comment.commenter.name}}</a>
-              &nbsp;
-              <span class="comment-content">{{comment.content}}</span>
-            </div>
-            <router-link
-              class="cmt-option-icon"
-              v-if="cmtOptionButtonShow"
-              :id="'option' + comment._id" to=''>
-              <img src="../assets/images/post/optionIcon.png" class="icon" />
-            </router-link>
-            <div class="clear-both"></div>
-            <div class="comment-footer">
-              <a href=""><span class="cmt-reply-link">Trả lời</span></a>
-              <span class="comment-time">{{`${new Date(comment.created).toLocaleTimeString()} - ${new Date(comment.created).getDate()}/${new Date(comment.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
-            </div>
-            <div class="clear-both"></div>
-
-            <!-- comment options popover -->
-            <b-popover :target="'option' + comment._id"
-              triggers="focus"
-              placement="bottomleft"
-              container="toolbar">
-
-              <div class="options-list" v-bar> <!-- el1 -->
-                <router-link
-                  v-for="option in options"
-                  v-bind:key="option.name"
-                  to="" class="option-item"
-                  v-on:click.native="option.method">
-                  <div class="option-content">
-                    <div class="option-text">
-                      {{option.name}}
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-            </b-popover>
-
-            <!-- comment reply box -->
-            <div class="comment-reply-box">
-              <div class="comment-list">
-                <div v-for="reply in comment.replies" :key="reply">
-                  <div class="comment">
-                    <reply :reply="reply" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- add reply -->
-              <div class="add-reply">
-                <div class="commenter-avatar">
-                  <img src="../assets/images/catalog/item.png" />
-                </div>
-                <div class="comment-textarea">
-                  <auto-size-textarea
-                    :ID="'reply' + postData._id"
-                    :commentId="comment._id"
-                    :onReply="onReply"/>
-                </div>
-                <div class="clear-both"></div>
-              </div>
-
-            </div>
-            <div class="clear-both"></div>
-
-          </div>
+          <comment :comment="comment"/>
         </div>
       </div>
 
@@ -210,14 +140,14 @@ import ImageModal from './ImageModal'
 import PostService from '../services/PostService'
 // import PostCategoryService from '../services/PostCategoryService'
 import ExchangeService from '../services/ExchangeService'
-import Reply from './Reply'
+import Comment from './Comment'
 
 export default {
   components: {
     AutoSizeTextarea,
     ContactPopover,
     ImageModal,
-    Reply
+    Comment
   },
   props: [
     'post_data'

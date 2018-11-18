@@ -30,6 +30,7 @@ export default {
 </script>
 
 <style>
+/*
 .comment {
   margin: 10px 0px 0px 0px;
 }
@@ -41,7 +42,6 @@ export default {
   width: 24px;
   height: 100%;
   float: left;
-  /* background-color: red; */
 }
 .commenter-avatar img {
   width: 32px;
@@ -68,4 +68,5 @@ export default {
 .comment-time {
   margin-left: 0px;
 }
+*/
 </style>
