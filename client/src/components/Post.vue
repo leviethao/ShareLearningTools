@@ -107,7 +107,7 @@
     <div class="comment-box" v-show="isShowCommentBox">
       <div class="comment-list">
         <div v-for="comment in postData.comments" :key="comment">
-          <div class="comment">
+          <div :id="comment._id" class="comment">
             <div class="commenter-avatar">
               <img src="../assets/images/catalog/item.png" />
             </div>
@@ -116,12 +116,40 @@
               &nbsp;
               <span class="comment-content">{{comment.content}}</span>
             </div>
+            <router-link
+              class="cmt-option-icon"
+              v-if="cmtOptionButtonShow"
+              :id="'option' + comment._id" to=''>
+              <img src="../assets/images/post/optionIcon.png" class="icon" />
+            </router-link>
             <div class="clear-both"></div>
             <div class="comment-footer">
               <a href=""><span class="cmt-reply-link">Trả lời</span></a>
               <span class="comment-time">{{`${new Date(comment.created).toLocaleTimeString()} - ${new Date(comment.created).getDate()}/${new Date(comment.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
             </div>
             <div class="clear-both"></div>
+
+            <!-- comment options popover -->
+            <b-popover :target="'option' + comment._id"
+              triggers="focus"
+              placement="bottomleft"
+              container="toolbar">
+
+              <div class="options-list" v-bar> <!-- el1 -->
+                <router-link
+                  v-for="option in options"
+                  v-bind:key="option.name"
+                  to="" class="option-item"
+                  v-on:click.native="option.method">
+                  <div class="option-content">
+                    <div class="option-text">
+                      {{option.name}}
+                    </div>
+                  </div>
+                </router-link>
+              </div>
+            </b-popover>
+
 
             <!-- comment reply box -->
             <div class="comment-reply-box">
@@ -217,6 +245,7 @@ export default {
       optionPopoverShow: false,
       options: [],
       optionButtonShow: true,
+      cmtOptionButtonShow: true,
       received: false
     }
   },
@@ -447,12 +476,15 @@ export default {
   border-radius: 50%;
 }
 .comment-container {
-  float: right;
-  width: 440px;
+  float: left;
+  width: 400px;
   padding: 5px 10px;
   background-color: rgba(197, 123, 226, 0.274);
   border-radius: 20px;
   text-align: left;
+  margin-left: 5px;
+}
+.comment-content {
 }
 .clear-both {
   clear: both;
@@ -567,6 +599,16 @@ export default {
   border-radius: 50%;
   width: 30px;
 }
+.cmt-option-icon {
+  float: left;
+  margin-left: 5px;
+}
+.cmt-option-icon img {
+  border-radius: 50%;
+  width: 20px;
+  margin-top: 7px;
+}
+
 .image-post {
   padding: 5px 5px;
   width: 159px;
