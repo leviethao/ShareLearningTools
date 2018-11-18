@@ -150,25 +150,12 @@
               </div>
             </b-popover>
 
-
             <!-- comment reply box -->
             <div class="comment-reply-box">
               <div class="comment-list">
                 <div v-for="reply in comment.replies" :key="reply">
                   <div class="comment">
-                    <div class="commenter-avatar">
-                      <img src="../assets/images/catalog/item.png" />
-                    </div>
-                    <div class="comment-container">
-                      <a href="" class="commenter">{{reply.replyer.name}}</a>
-                      &nbsp;
-                      <span class="comment-content">{{reply.content}}</span>
-                    </div>
-                    <div class="clear-both"></div>
-                    <div class="comment-footer">
-                      <span class="comment-time">{{`${new Date(reply.created).toLocaleTimeString()} - ${new Date(reply.created).getDate()}/${new Date(reply.created).getMonth() + 1}/${new Date(reply.created).getFullYear()}`}}</span>
-                    </div>
-                    <div class="clear-both"></div>
+                    <reply :reply="reply" />
                   </div>
                 </div>
               </div>
@@ -223,12 +210,14 @@ import ImageModal from './ImageModal'
 import PostService from '../services/PostService'
 // import PostCategoryService from '../services/PostCategoryService'
 import ExchangeService from '../services/ExchangeService'
+import Reply from './Reply'
 
 export default {
   components: {
     AutoSizeTextarea,
     ContactPopover,
-    ImageModal
+    ImageModal,
+    Reply
   },
   props: [
     'post_data'
