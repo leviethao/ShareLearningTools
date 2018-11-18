@@ -72,7 +72,7 @@ export default {
     BusService.$on('filterToolSelected', (value) => {
 
     })
-    let postsRes = await PostService.getPosts()
+    let postsRes = await PostService.getEnablePosts()
     this.posts = postsRes.data.posts
   },
   methods: {

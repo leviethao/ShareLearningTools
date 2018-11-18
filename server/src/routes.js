@@ -24,6 +24,7 @@ module.exports = (app) => {
 
   app.post('/post/create', isAuthenticated, PostController.createPost)
   app.get('/posts', PostController.getPosts)
+  app.get('/enablePosts', PostController.getEnablePosts)
   app.get('/post/:id', isAuthenticated, PostController.getPostById)
   app.delete('/post/delete/:id', isAuthenticated, PostController.deletePost)
   app.put('/post/enable/:id', isAuthenticated, PostController.enablePost)
