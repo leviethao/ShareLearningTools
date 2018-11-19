@@ -5,44 +5,19 @@
     </div>
     <div class="global-container">
       <div class="column-1">
-        <div class="profile-avatar">
-          <img :src="config.serverHost + user.avatar" />
-        </div>
+        <user-info
+          :user="user"
+          :editing="editing"
+          :update="updateUser"
+          @edit="editing = true"
+          @cancelEdit="editing = false"/>
       </div>
       <div class="column-2">
-        <table id="profile-info">
-          <tr>
-            <td class="c1">Tên người dùng: </td>
-            <td class="c2"><input ref="name" type="text" :value="user.name" disabled /></td>
-            <td class="c3"><button ref="btn1" @click="onModifyBtnClicked('name', 'btn1')">Chỉnh sửa</button></td>
-          </tr>
-          <tr>
-            <td class="c1">Ngày sinh: </td>
-            <td class="c2"><input ref="dateOfBirth" type="date" :value="user.dateOfBirth.split('T')[0]" disabled /></td>
-            <td class="c3"><button ref="btn2" @click="onModifyBtnClicked('dateOfBirth', 'btn2')">Chỉnh sửa</button></td>
-          </tr>
-          <tr>
-            <td class="c1">Địa chỉ: </td>
-            <td class="c2"><textarea ref="address" :value="user.address" disabled></textarea></td>
-            <td class="c3"><button ref="btn3" @click="onModifyBtnClicked('address', 'btn3')">Chỉnh sửa</button></td>
-          </tr>
-          <tr>
-            <td class="c1">Số điện thoại: </td>
-            <td class="c2"><input ref="phoneNumber" type="number" :value="user.phoneNumber" disabled /></td>
-            <td class="c3"><button ref="btn4" @click="onModifyBtnClicked('phoneNumber', 'btn4')">Chỉnh sửa</button></td>
-          </tr>
-          <tr>
-            <td class="c1">Giới tính: </td>
-            <td class="c2">
-              <select ref="gender" v-model="selectedGender" disabled>
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-                <option value="Khác">Khác</option>
-              </select>
-            </td>
-            <td class="c3"><button ref="btn5" @click="onModifyBtnClicked('gender', 'btn5')">Chỉnh sửa</button></td>
-          </tr>
-        </table>
+        <div v-for="post in posts" :key="post._id">
+          <div class="post-component">
+            <post :post_data="post"/>
+          </div>
+        </div>
       </div>
       <div class="clear-both"></div>
     </div>
@@ -53,39 +28,41 @@
 import HeaderBar from '../components/HeaderBar'
 import UserService from '../services/UserService'
 import config from '../config'
+import PostService from '../services/PostService'
+import Post from '../components/Post'
+import UserInfo from '../components/UserInfo'
 
 export default {
   components: {
-    HeaderBar
+    HeaderBar,
+    Post,
+    UserInfo
   },
   data () {
     return {
       user: {},
       selectedGender: 'Nam',
-      config: config
+      config: config,
+      posts: null,
+      editing: false
     }
   },
   async mounted () {
     const userRes = await UserService.getMyUserInfo()
     this.user = userRes.data.user
-    this.selectedGender = this.user.gender
+
+    let postRes = await PostService.getMyPosts()
+    this.posts = postRes.data.posts
   },
   methods: {
-    async onModifyBtnClicked (inputRef, btnRef) {
-      if (this.$refs[btnRef].innerHTML !== 'Lưu') {
-        this.$refs[inputRef].disabled = false
-        this.$refs[inputRef].focus()
-        this.$refs[btnRef].innerHTML = 'Lưu'
-      } else {
-        this.$refs[inputRef].disabled = true
-        this.$refs[btnRef].innerHTML = 'Chỉnh sửa'
-
-        if (inputRef === 'dateOfBirth') {
-          this.user[inputRef] = new Date(this.$refs[inputRef].value)
-        } else {
-          this.user[inputRef] = this.$refs[inputRef].value
+    async updateUser (user) {
+      let userRes = await UserService.updateUserInfo(user)
+      if (userRes.data.user) {
+        this.editing = false
+        userRes = await UserService.getMyUserInfo()
+        if (userRes.data.user) {
+          this.user = userRes.data.user
         }
-        await UserService.updateUserInfo(this.user)
       }
     }
   }
@@ -95,27 +72,12 @@ export default {
 <style>
 .column-1 {
   float: left;
+  width: 300px;
 }
 .column-2 {
   float: left;
-  width: 700px;
-  margin-left: 100px;
+  width: 500px;
+  margin-left: 0px;
 }
-#profile-info .c1 {
-  width: 150px;
-  text-align:left;
-  padding-bottom: 10px;
-}
-#profile-info .c2 {
-  width: 300px;
-  text-align:left;
-  padding-bottom: 10px;
-}
-#profile-info .c2 input, #profile-info .c2 textarea, #profile-info .c2 select {
-  width: 100%;
-}
-#profile-info .c3 {
-  padding-bottom: 10px;
-  padding-left: 50px;
-}
+
 </style>

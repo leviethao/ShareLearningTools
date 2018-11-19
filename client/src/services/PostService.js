@@ -10,6 +10,9 @@ export default {
   getEnablePosts () {
     return Api().get('enablePosts')
   },
+  getMyPosts () {
+    return Api().get('myPosts')
+  },
   getPostById (id) {
     return Api().get(`post/${id}`)
   },

@@ -3,7 +3,7 @@ var Schema = mongoose.Schema
 var SearchSchema = new Schema({
   user: {type: Schema.ObjectId, ref: 'User', required: true},
   content: {type: String, min: 1, max: 1000, required: true},
-  created: {type: Date, default: Date.now()},
+  created: {type: Date, default: Date.now},
   results: [{type: Schema.ObjectId, ref: 'Post'}]
 })
 

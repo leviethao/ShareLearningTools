@@ -15,14 +15,22 @@ module.exports = {
   async updateUserInfo (req, res) {
     await User.findById(req.user._id)
       .exec(function (err, user) {
-        if (err) throw err
+        if (err) {
+          res.send({user: null})
+          throw err
+        }
         user.name = req.body.name
         user.dateOfBirth = req.body.dateOfBirth
         user.address = req.body.address
         user.phoneNumber = req.body.phoneNumber
         user.gender = req.body.gender
+        user.avatar = req.body.avatar
         user.save(function (err, updateUser) {
-          if (err) throw err
+          if (err) {
+            res.send({user: null})
+            throw err
+          }
+          res.send({user: updateUser})
         })
       })
   },
