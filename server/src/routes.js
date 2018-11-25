@@ -11,7 +11,7 @@ const ReplyController = require('./controllers/ReplyController')
 const NotifyController = require('./controllers/NotifyController')
 const ExchangeController = require('./controllers/ExchangeController')
 
-const PREFIX = 'server'
+const PREFIX = '/server'
 
 module.exports = (app) => {
   app.post(PREFIX + '/login', AuthenticationController.login)
