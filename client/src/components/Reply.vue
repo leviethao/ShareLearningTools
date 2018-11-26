@@ -2,7 +2,7 @@
 <template>
   <div class="comment" v-if="replyState">
     <div class="commenter-avatar">
-      <img src="../assets/images/catalog/item.png" />
+      <img :src="config.serverHost + replyState.replyer.avatar" />
     </div>
     <div class="comment-container">
       <a href="" class="commenter">{{replyState.replyer.name}}</a>
@@ -50,6 +50,7 @@ import UserService from '../services/UserService'
 import ReplyService from '../services/ReplyService'
 import CommentService from '../services/CommentService'
 import PostService from '../services/PostService'
+import config from '../config'
 
 export default {
   props: [
@@ -57,6 +58,7 @@ export default {
   ],
   data () {
     return {
+      config: config,
       replyState: this.reply,
       replyOptionButtonShow: true,
       post: null,

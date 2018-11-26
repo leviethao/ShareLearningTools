@@ -16,7 +16,7 @@
 
       <div class="create-post-body">
         <div class="create-post-avatar">
-          <img src="../assets/images/catalog/item.png" />
+          <img :src="config.serverHost + user.avatar" />
         </div>
         <div class="create-post-wrapper">
           <div class="create-post-content">
@@ -55,6 +55,8 @@ import BusService from '../services/BusService'
 import PostCategoryService from '../services/PostCategoryService'
 import PostService from '../services/PostService'
 import Upload from './Upload'
+import config from '../config'
+import UserService from '../services/UserService'
 
 export default {
   components: {
@@ -68,6 +70,8 @@ export default {
   ],
   data () {
     return {
+      config: config,
+      user: null,
       isShowCondition: true,
 
       postCategory: null,
@@ -75,6 +79,10 @@ export default {
       content: null,
       exchangeCondition: null
     }
+  },
+  async created () {
+    let userRes = await UserService.getMyUserInfo()
+    this.user = userRes.data.user
   },
   async mounted () {
     BusService.$on('createPostToolSelected', (value) => {

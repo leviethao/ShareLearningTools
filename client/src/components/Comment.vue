@@ -2,7 +2,7 @@
 <template>
   <div :id="commentState._id" class="comment" v-if="this.commentState">
     <div class="commenter-avatar">
-      <img src="../assets/images/catalog/item.png" />
+      <img :src="config.serverHost + commentState.commenter.avatar" />
     </div>
     <div class="comment-container">
       <a href="" class="commenter">{{commentState.commenter.name}}</a>
@@ -56,7 +56,7 @@
       <!-- add reply -->
       <div class="add-reply">
         <div class="commenter-avatar">
-          <img src="../assets/images/catalog/item.png" />
+          <img :src="config.serverHost + commentState.commenter.avatar" />
         </div>
         <div class="comment-textarea">
           <auto-size-textarea
@@ -81,6 +81,7 @@ import UserService from '../services/UserService'
 import PostService from '../services/PostService'
 import ExchangeService from '../services/ExchangeService'
 import CommentService from '../services/CommentService'
+import config from '../config'
 
 export default {
   components: {
@@ -92,6 +93,7 @@ export default {
   ],
   data () {
     return {
+      config: config,
       commentState: this.comment,
       cmtOptionButtonShow: true,
       post: null,

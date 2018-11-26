@@ -4,7 +4,7 @@
     <div class="post-container">
 
       <div class="post-header">
-        <img class="poster-avatar" src="../assets/images/catalog/item.png"/>
+        <img class="poster-avatar" :src="config.serverHost + poster.avatar"/>
         <div class="post-info">
           <span class="poster">{{poster.name}}</span>
           <br>
@@ -113,7 +113,7 @@
 
       <div class="add-comment">
         <div class="commenter-avatar">
-          <img src="../assets/images/catalog/item.png" />
+          <img :src="config.serverHost + poster.avatar" />
         </div>
         <div class="comment-textarea">
           <auto-size-textarea
