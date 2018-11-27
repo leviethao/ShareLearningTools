@@ -77,24 +77,10 @@
         </template>
 
         <div id="setting-list">
-          <router-link v-bind:to="{name: 'LoginPage'}" class="setting-item" >
+          <router-link v-bind:to="''" v-on:click.native="logout" class="setting-item" >
             <div class="setting-content">
               <div class="setting-text">
-                leviethao leviethao
-              </div>
-            </div>
-          </router-link>
-            <router-link v-bind:to="{name: 'LoginPage'}" class="setting-item" >
-            <div class="setting-content">
-              <div class="setting-text">
-                leviethao leviethao
-              </div>
-            </div>
-          </router-link>
-          <router-link v-bind:to="{name: 'LoginPage'}" class="setting-item" >
-            <div class="setting-content">
-              <div class="setting-text">
-                leviethao leviethao
+                Đăng xuất
               </div>
             </div>
           </router-link>
@@ -156,6 +142,10 @@ export default {
     },
     async onNotifyItemClicked (id) {
       await NotificationService.updateNotifyStatus(id, 'Off')
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push({name: 'LoginPage'})
     }
   }
 }
