@@ -20,6 +20,7 @@
       </div>
       <div id="home-right-hand-side">
         <tool-category-selector ID="filter"/>
+        <post-category-selector ID="filter" />
       </div>
     </div>
   </div>
@@ -31,6 +32,7 @@ import CommonService from '../services/CommonService'
 import HeaderBar from '../components/HeaderBar'
 import Catalog from '../components/Catalog'
 import ToolCategorySelector from '../components/ToolCategorySelector'
+import PostCategorySelector from '../components/PostCategorySelector'
 import Post from '../components/Post'
 import CreatePost from '../components/CreatePost'
 import BusService from '../services/BusService'
@@ -43,6 +45,7 @@ export default {
     HeaderBar,
     Catalog,
     ToolCategorySelector,
+    PostCategorySelector,
     Post,
     CreatePost
   },

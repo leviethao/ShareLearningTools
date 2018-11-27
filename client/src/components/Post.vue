@@ -204,6 +204,10 @@ export default {
     BusService.$on('filterToolSelected', (value) => {
       this.isShow = this.postData.toolCategory._id === value
     })
+
+    BusService.$on('filterPostSelected', (value) => {
+      this.isShow = this.postData.postCategory._id === value
+    })
   },
   methods: {
     onBtnCmtClicked () {

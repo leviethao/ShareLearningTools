@@ -19,6 +19,10 @@
           </div>
         </div>
       </div>
+      <div class="column-3">
+        <tool-category-selector ID="filter"/>
+        <post-category-selector ID="filter"/>
+      </div>
       <div class="clear-both"></div>
     </div>
   </div>
@@ -31,12 +35,16 @@ import config from '../config'
 import PostService from '../services/PostService'
 import Post from '../components/Post'
 import UserInfo from '../components/UserInfo'
+import ToolCategorySelector from '../components/ToolCategorySelector'
+import PostCategorySelector from '../components/PostCategorySelector'
 
 export default {
   components: {
     HeaderBar,
     Post,
-    UserInfo
+    UserInfo,
+    ToolCategorySelector,
+    PostCategorySelector
   },
   data () {
     return {
@@ -79,5 +87,7 @@ export default {
   width: 500px;
   margin-left: 0px;
 }
-
+.column-3 {
+  float: left;
+}
 </style>
