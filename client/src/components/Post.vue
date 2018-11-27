@@ -1,5 +1,5 @@
 <template>
-  <div :id="postId" class="post" v-if="postData">
+  <div :id="postId" class="post" v-if="post_data && isShow">
 
     <div class="post-container">
 
@@ -136,7 +136,7 @@
 import AutoSizeTextarea from './AutoSizeTextarea'
 import ContactPopover from './ContactPopover'
 import UserService from '../services/UserService'
-// import BusService from '../services/BusService'
+import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
 import config from '../config'
 import ImageModal from './ImageModal'
@@ -167,6 +167,7 @@ export default {
       isShowImageModal: false,
       isShowEditPostModal: false,
       isShowCommentBox: false,
+      isShow: true,
       optionPopoverShow: false,
       options: [],
       optionButtonShow: true,
@@ -200,6 +201,9 @@ export default {
     // })
 
     this.initOptions()
+    BusService.$on('filterToolSelected', (value) => {
+      this.isShow = this.postData.toolCategory._id === value
+    })
   },
   methods: {
     onBtnCmtClicked () {

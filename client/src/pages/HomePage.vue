@@ -68,9 +68,6 @@ export default {
     }
   },
   async mounted () {
-    BusService.$on('filterToolSelected', (value) => {
-
-    })
     let postsRes = await PostService.getEnablePosts()
     this.posts = postsRes.data.posts
 
