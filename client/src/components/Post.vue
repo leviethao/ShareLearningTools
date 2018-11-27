@@ -88,6 +88,11 @@
             v-if="isShowImageModal"
             @close="isShowImageModal = false"/>
         </div>
+        <div class="post-statistics">
+          <label>Lượt bình luận: <span>{{postData.comments.length}}</span></label>
+          <label v-if="$route.path === '/profile'">Trạng thái: <span>{{postData.enable ? 'Hoạt động' : 'Ngừng hoạt động'}}</span></label>
+          <label>Lượt trao đổi: <span>{{postData.exchanges.length}}</span></label>
+        </div>
         <edit-post-modal
             v-if="isShowEditPostModal"
             @close="isShowEditPostModal = false"
@@ -347,6 +352,18 @@ export default {
 }
 .postImage:hover {
   background-color:  rgba(255, 0, 255, 1);
+}
+.post-statistics {
+  border-top: solid rgba(196, 190, 190, 0.377) 1px;
+  margin: 20px 0px -10px 0px;
+  color: blue;
+  font-size: 13px;
+}
+.post-statistics span {
+  color: green;
+}
+.post-statistics label {
+  margin-left: 10px;
 }
 .post-footer {
   height: 40px;
