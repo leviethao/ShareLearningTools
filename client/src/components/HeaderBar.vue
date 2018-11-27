@@ -20,6 +20,7 @@
           id="notify-icon" class="toolbar-item icon" v-b-tooltip.hover.bottom title="Thông báo"
           v-on:click.native="notifyPopoverShow = !notifyPopoverShow">
           <img src="../assets/images/header_bar/notifyIcon.png" width="24" height="24"/>
+          <span class="notifies-counter">{{unreadNotifies}}</span>
         </router-link>
 
         <router-link v-bind:to="''"
@@ -119,6 +120,11 @@ export default {
       user: {},
       serverHost: config.serverHost,
       notifies: []
+    }
+  },
+  computed: {
+    unreadNotifies () {
+      return this.notifies.filter((n) => n.status === 'On').length
     }
   },
   async mounted () {
@@ -279,6 +285,14 @@ export default {
 }
 .notify-not-watched {
   background-color: rgb(193, 100, 219);
+}
+.notifies-counter {
+  min-width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: -15px;
+  font-size: 13px;
+  background-color: red;
 }
 .clear-both {
   clear: both;
