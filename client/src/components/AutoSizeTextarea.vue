@@ -13,12 +13,16 @@ export default {
     'onComment',
     'onReply',
     'onPostContent',
-    'onPostCondition'
+    'onPostCondition',
+    'content'
   ],
   data () {
     return {
       text: ''
     }
+  },
+  created () {
+    this.text = this.content
   },
   mounted () {
     this.$refs.textarea.addEventListener('keydown', this.autosize)

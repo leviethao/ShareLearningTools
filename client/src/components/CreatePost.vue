@@ -22,12 +22,14 @@
           <div class="create-post-content">
             <auto-size-textarea
               ID="postContent"
+              :content="contentText"
               placeholderValue="Nội dung bài đăng"
               :onPostContent="onPostContent"/>
           </div>
           <div class="create-post-exchange-condition">
             <auto-size-textarea
               ID="postCondition"
+              :content="conditionText"
               v-if="isShowCondition"
               placeholderValue="Điều kiện trao đổi"
               :onPostCondition="onPostCondition"/>
@@ -66,7 +68,11 @@ export default {
     Upload
   },
   props: [
-    'onCreatePost'
+    'onCreatePost',
+    'contentText',
+    'conditionText',
+    'onUpdatePost',
+    'postId'
   ],
   data () {
     return {
@@ -107,11 +113,16 @@ export default {
         exchangeCondition: this.exchangeCondition,
         fileNames: fileNames
       }
-
-      let response = await PostService.createPost(data)
-      if (response.data.post) {
-        this.onCreatePost(response.data.post)
+      if (this.postId) {
+        data._id = this.postId
+        await this.onUpdatePost(data)
         BusService.$emit('cleanCreatePost')
+      } else {
+        let response = await PostService.createPost(data)
+        if (response.data.post) {
+          this.onCreatePost(response.data.post)
+          BusService.$emit('cleanCreatePost')
+        }
       }
     })
 

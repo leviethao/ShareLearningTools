@@ -25,6 +25,7 @@ module.exports = (app) => {
   app.get(PREFIX + '/postCategory/:id', PostCategoryController.getPostCategory)
 
   app.post(PREFIX + '/post/create', isAuthenticated, PostController.createPost)
+  app.put(PREFIX + '/post/update/:id', isAuthenticated, PostController.updatePost)
   app.get(PREFIX + '/posts', PostController.getPosts)
   app.get(PREFIX + '/enablePosts', PostController.getEnablePosts)
   app.get(PREFIX + '/myPosts', isAuthenticated, PostController.getMyPosts)

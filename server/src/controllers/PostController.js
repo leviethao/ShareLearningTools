@@ -28,6 +28,24 @@ module.exports = {
     }
     res.send({post: newPostDetail})
   },
+  async updatePost (req, res) {
+    let post = await Post.findById(req.params.id)
+    if (!post) {
+      res.send({post: null})
+      return
+    }
+
+    post.content = req.body.content
+    post.exchangeCondition = req.body.exchangeCondition
+
+    let updatedPost = await post.save()
+    if (!updatedPost) {
+      res.send({post: null})
+      return
+    }
+
+    res.send({post: updatedPost})
+  },
   async getPosts (req, res) {
     await Post.find({})
       // .populate('poster')

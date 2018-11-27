@@ -62,8 +62,7 @@ export default {
         this.$router.push({name: 'LoginPage'})
         return
       }
-      const response = await CommonService.getHomePage()
-      alert(response.data.username)
+      await CommonService.getHomePage()
     } catch (err) {
       alert(err.response.data.error)
     }
@@ -74,6 +73,8 @@ export default {
     })
     let postsRes = await PostService.getEnablePosts()
     this.posts = postsRes.data.posts
+
+    BusService.$on('updatedPost', this.handleUpdatedPost)
   },
   methods: {
     onCreatePost (post) {
@@ -83,6 +84,18 @@ export default {
     async onSearch (strSearch) {
       let response = await SearchService.searchPost(strSearch)
       this.posts = response.data.posts
+    },
+    handleUpdatedPost (post) {
+      let found = this.posts.find((p) => {
+        return p._id === post._id
+      })
+
+      if (!found) return
+
+      let index = this.posts.indexOf(found)
+      let _posts = [...this.posts]
+      _posts[index] = post
+      this.posts = _posts
     }
   }
 }

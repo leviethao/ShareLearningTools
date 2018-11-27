@@ -24,5 +24,8 @@ export default {
   },
   disablePost (id) {
     return Api().put(`post/disable/${id}`)
+  },
+  updatePost (post) {
+    return Api().put(`post/update/${post._id}`, post)
   }
 }

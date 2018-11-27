@@ -43,13 +43,13 @@
 
       <div class="post-body">
         <span class="post-content">
-          {{postData.content}}
+          {{post_data.content}}
         </span>
         <br>
 
         <span v-if="postData.postCategory.name === 'Cung Cấp'" class="post-exchange-condition">
           Điều kiện trao đổi: &nbsp;
-          {{postData.exchangeCondition}}
+          {{post_data.exchangeCondition}}
         </span>
         <div v-if="postData.fileNames.length > 0">
           <div class="file-post-container">
@@ -88,6 +88,10 @@
             v-if="isShowImageModal"
             @close="isShowImageModal = false"/>
         </div>
+        <edit-post-modal
+            v-if="isShowEditPostModal"
+            @close="isShowEditPostModal = false"
+            :post="postData"/>
       </div>
 
       <div class="post-footer">
@@ -140,13 +144,15 @@ import PostService from '../services/PostService'
 // import PostCategoryService from '../services/PostCategoryService'
 import ExchangeService from '../services/ExchangeService'
 import Comment from './Comment'
+import EditPostModal from './EditPostModal'
 
 export default {
   components: {
     AutoSizeTextarea,
     ContactPopover,
     ImageModal,
-    Comment
+    Comment,
+    EditPostModal
   },
   props: [
     'post_data'
@@ -159,6 +165,7 @@ export default {
       config: config,
       imgSrc: '',
       isShowImageModal: false,
+      isShowEditPostModal: false,
       isShowCommentBox: false,
       optionPopoverShow: false,
       options: [],
@@ -169,7 +176,7 @@ export default {
   computed: {
     postId: {
       get () {
-        return '_' + this.postData._id
+        return '_' + this.post_data._id
       }
     }
   },
@@ -218,6 +225,9 @@ export default {
       this.imgSrc = event.target.src
       this.isShowImageModal = true
     },
+    showEditPostModal () {
+      this.isShowEditPostModal = true
+    },
     async initOptions () {
       let meResponse = await UserService.getMyUserInfo()
       let me = meResponse.data.user
@@ -227,7 +237,9 @@ export default {
         this.options = [
           {
             name: 'Chỉnh sửa',
-            method: null
+            method: () => {
+              this.showEditPostModal()
+            }
           },
           {
             name: 'Xóa',
