@@ -20,8 +20,7 @@
         </div>
       </div>
       <div class="column-3">
-        <tool-category-selector ID="filter"/>
-        <post-category-selector ID="filter"/>
+        <profile-filter />
       </div>
       <div class="clear-both"></div>
     </div>
@@ -37,6 +36,7 @@ import Post from '../components/Post'
 import UserInfo from '../components/UserInfo'
 import ToolCategorySelector from '../components/ToolCategorySelector'
 import PostCategorySelector from '../components/PostCategorySelector'
+import ProfileFilter from '../components/ProfileFilter'
 
 export default {
   components: {
@@ -44,7 +44,8 @@ export default {
     Post,
     UserInfo,
     ToolCategorySelector,
-    PostCategorySelector
+    PostCategorySelector,
+    ProfileFilter
   },
   data () {
     return {
@@ -81,13 +82,20 @@ export default {
 .column-1 {
   float: left;
   width: 300px;
+  margin: 10px 0px 0px -50px;
 }
 .column-2 {
   float: left;
   width: 500px;
-  margin-left: 0px;
+  margin-top: 10px;
 }
 .column-3 {
+  width: 230px;
+  background-color: rebeccapurple;
   float: left;
+  margin: 10px 0px 0px 10px;
+}
+.post-component {
+  margin-bottom: 12px;
 }
 </style>

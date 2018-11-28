@@ -1,17 +1,24 @@
 <template>
-  <div id="home-filter">
-    <div class="home-filter-title">Lọc bài đăng</div>
-    <div class="home-filter-row">
+  <div id="profile-filter">
+    <div class="profile-filter-title">Lọc bài đăng</div>
+    <div class="profile-filter-row">
       <label>Loại dụng cụ</label>
       <div class="tool-category-filter">
         <b-form-select v-model="toolSelected" @input="onFilterChanged" :options="toolOptions" class="mb-3">
         </b-form-select>
       </div>
     </div>
-    <div class="home-filter-row">
+    <div class="profile-filter-row">
       <label>Loại bài đăng</label>
       <div class="post-category-filter">
         <b-form-select v-model="postSelected" @input="onFilterChanged" :options="postOptions" class="mb-3">
+        </b-form-select>
+      </div>
+    </div>
+    <div class="profile-filter-row">
+      <label>Trạng thái bài đăng</label>
+      <div class="post-status-filter">
+        <b-form-select v-model="postStatusSelected" @input="onFilterChanged" :options="statusOptions" class="mb-3">
         </b-form-select>
       </div>
     </div>
@@ -30,7 +37,10 @@ export default {
       toolSelected: null,
 
       postOptions: [],
-      postSelected: null
+      postSelected: null,
+
+      statusOptions: [],
+      postStatusSelected: null
     }
   },
   async mounted () {
@@ -52,14 +62,19 @@ export default {
       }
       this.postOptions.unshift({value: '', text: 'Tất cả'})
       this.postSelected = this.postOptions[0].value
+
+      // init post status selector
+      this.statusOptions = [{value: '', text: 'Tất cả'}, {value: true, text: 'Đang hoạt động'}, {value: false, text: 'Ngừng hoạt động'}]
+      this.postStatusSelected = this.statusOptions[0].value
     } catch (err) {
     }
   },
   methods: {
     onFilterChanged () {
-      BusService.$emit('HomeFilter', {
+      BusService.$emit('ProfileFilter', {
         toolCategory: this.toolSelected,
-        postCategory: this.postSelected
+        postCategory: this.postSelected,
+        postStatus: this.postStatusSelected
       })
     }
   }
@@ -67,21 +82,17 @@ export default {
 </script>
 
 <style>
-  #home-filter {
+  #profile-filter {
   }
-  .home-filter-title {
+  .profile-filter-title {
     font-weight: bold;
     color: aliceblue;
   }
-  .tool-category-filter {
+  .tool-category-filter, .post-category-filter, .post-status-filter {
     float: left;
     width: 90%;
   }
-  .post-category-filter {
-    float: left;
-    width: 90%;
-  }
-  .home-filter-row {
+  .profile-filter-row {
     margin-left: 20px;
     color:aliceblue;
     text-align: left;

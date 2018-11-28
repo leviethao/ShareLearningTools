@@ -206,6 +206,8 @@ export default {
     // })
 
     this.initOptions()
+
+    // on home filter
     BusService.$on('HomeFilter', (options) => {
       this.isShow = true
       if (options.toolCategory !== '' && options.toolCategory !== this.postData.toolCategory._id) {
@@ -213,6 +215,23 @@ export default {
         return
       }
       if (options.postCategory !== '' && options.postCategory !== this.postData.postCategory._id) {
+        this.isShow = false
+        return
+      }
+    })
+
+    // on profile filter
+    BusService.$on('ProfileFilter', (options) => {
+      this.isShow = true
+      if (options.toolCategory !== '' && options.toolCategory !== this.postData.toolCategory._id) {
+        this.isShow = false
+        return
+      }
+      if (options.postCategory !== '' && options.postCategory !== this.postData.postCategory._id) {
+        this.isShow = false
+        return
+      }
+      if (options.postStatus !== '' && options.postStatus !== this.postData.enable) {
         this.isShow = false
         return
       }
