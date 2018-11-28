@@ -7,6 +7,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/search/:searchStr', SearchPostController.searchPosts)
+const PREFIX = '/search'
+
+router.get(PREFIX + '/searchPosts/:searchStr', SearchPostController.searchPosts)
 
 module.exports = router;

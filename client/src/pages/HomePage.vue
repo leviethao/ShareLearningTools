@@ -104,7 +104,7 @@ export default {
     },
 
     async onSearch (strSearch) {
-      let response = await SearchService.searchPost(strSearch)
+      let response = await SearchService.searchPosts(strSearch)
       this.posts = response.data.posts
     },
     handleUpdatedPost (post) {
