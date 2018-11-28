@@ -134,11 +134,11 @@ export default {
   word-wrap: break-word;
   width: 300px;
 }
-ul {
+#user-info ul {
   padding-left: 50px;
   width: 250px;
 }
-li {
+#user-info li {
   text-align: left;
   list-style-type: none;
   margin: 5px 0px;
