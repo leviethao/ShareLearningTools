@@ -222,11 +222,14 @@ function search(strSearch, table, callback) {
 		
 //load database to table and store in global variable, It exists throughout the program
 var table;
-loadDatabase(function (res) {
-	createTable(res, function (res) {
+const INTERVAL = 5000
+
+// Schedule update data table
+setInterval(loadDatabase, INTERVAL, (res) => {
+  createTable(res, (res) => {
 		table = res;
 	});
-});
+})
 
 //=======================
 	
