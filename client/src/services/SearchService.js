@@ -14,6 +14,7 @@ function SearchApi () {
 export default {
   async searchPost (strSearch) {
     let response = await SearchApi().get('search/' + strSearch)
+    console.log(response.data.posts)
     return response
   }
 }

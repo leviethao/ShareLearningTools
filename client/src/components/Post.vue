@@ -345,7 +345,7 @@ export default {
 }
 .post-container {
   /* background-color: blue; */
-  margin: 10px 10px 0px 10px;
+  margin: 0px 10px 10px 10px;
 }
 .post-header {
   /* background-color: orange; */

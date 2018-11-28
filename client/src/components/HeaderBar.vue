@@ -2,7 +2,7 @@
   <div id='toolbar'>
     <div class="global-container">
       <div id="search" class="input-group">
-        <input ref="searchText" type="text" class="form-control" placeholder="Tìm kiếm">
+        <input ref="searchText" type="text" class="form-control" @keyup="onSearchKeyUp" placeholder="Tìm kiếm">
         <button type="button" class="btn btn-primary" v-on:click="handleSearchEvent"><img src="../assets/images/header_bar/searchIcon.png" width="20" height="20" /></button>
       </div><!-- /input-group -->
 
@@ -153,6 +153,12 @@ export default {
     logout () {
       this.$store.dispatch('logout')
       this.$router.push({name: 'LoginPage'})
+    },
+    onSearchKeyUp (e) {
+      let code = (e.keyCode ? e.keyCode : e.which)
+      if (code === 13) { // enter keycode
+        this.handleSearchEvent()
+      }
     }
   }
 }

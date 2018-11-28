@@ -30,9 +30,15 @@
 */
 
 
-var MongoClient = require("mongodb").MongoClient;
-var url = "mongodb://localhost:27017/sharelearningtools";
-var collectionName = 'posts'
+const Post = require('../models/post')
+const Comment = require('../models/comment')
+const PostCategory = require('../models/post_category')
+const ToolCategory = require('../models/tool_category')
+const User = require('../models/user')
+const Reply = require('../models/reply')
+const Exchange = require('../models/exchange')
+const Notify = require('../models/notify')
+
 var searchField = 'content'
 
 
@@ -122,16 +128,20 @@ function searchInTable(strSearch, table, callback) {
 //the second parameter is callback function that have 1 parameter
 //is result (the array that converted from database)
 //no return value
-function loadDatabase(collectionName, callback) {
-	MongoClient.connect(url, function (err, client) {
-    if (err) throw err;
-    const db = client.db('sharelearningtools')
-		db.collection(collectionName).find().toArray(function (err, res) {
-			if (err) return console.log(err);
-			callback(res);
-			client.close();
-		});
-	});
+async function loadDatabase(callback) {
+  await Post.find({enable: true})
+  // .populate('poster')
+  .populate('postCategory')
+  .populate('toolCategory')
+  .populate('comments')
+  .exec((err, posts) => {
+    if (err) {
+      console.log(err)
+      callback(null)
+      return
+    }
+    callback(posts)
+  })
 }
 
 //Compute the score of elements in data array, the score property represent the
@@ -212,46 +222,20 @@ function search(strSearch, table, callback) {
 		
 //load database to table and store in global variable, It exists throughout the program
 var table;
-loadDatabase(collectionName, function (res) {
+loadDatabase(function (res) {
 	createTable(res, function (res) {
-		table = res;	
+		table = res;
 	});
 });
 
 //=======================
 	
-var express = require("express");
-const cors = require('cors')
-var app = express();
-app.use(cors())
-// app.use(express.static("public"));
-// app.set("view engine", "ejs");
-// app.set("views", "./views");
 
-var server = require("http").Server(app);
-// var io = require("socket.io")(server);
-server.listen(process.env.PORT || 3000);
-
-// io.on("connection", function (socket) {
-// 	console.log("co nguoi ket noi: " + socket.id);
-// 	socket.on("client-send-search-string", function (strSearch) {
-// 		search(strSearch, table, function (res) {
-// 			socket.emit("server-send-search-results", res);
-// 		});
-// 	});
-// });
-
-// app.get("/", function (req, res) {
-// 	res.render("trangchu");
-// });
-
-app.get('/search/:searchStr', function (req, res) {
-  console.log('co nguoi ket noi')
-  search(req.params.searchStr, table, function (posts) {
-    // let arrRES = []
-    // for (let r of result) {
-    //   arrRES.push(r.content)
-    // }
-    res.send({posts: posts})
-  })
-})
+// export
+module.exports = {
+  searchPosts (req, res) {
+    search(req.params.searchStr, table, function (posts) {
+      res.send({posts: posts})
+    })
+  }
+}
