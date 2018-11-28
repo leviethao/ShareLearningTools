@@ -157,11 +157,11 @@ div.body-wrapper {
   max-width: 250px;
   min-height: 100px;
   background-color: blue;
-  margin-bottom: 20px;
+  margin-bottom: 7px;
 }
 .left-panel-ads-list {
   position: fixed;
-  margin: 0px 0px 0px -60px;
+  margin: 0px 0px 0px -100px;
   list-style-type: none;
 }
 .clear-both {

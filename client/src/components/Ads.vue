@@ -19,9 +19,9 @@ export default {
 
 <style>
 #ads {
-  width: 250px;
+  width: 300px;
 }
 #ads img {
-  width: 250px;
+  width: 300px;
 }
 </style>
