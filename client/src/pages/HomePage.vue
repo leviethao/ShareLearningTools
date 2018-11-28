@@ -73,7 +73,6 @@ export default {
       }
       await CommonService.getHomePage()
     } catch (err) {
-      alert(err.response.data.error)
     }
   },
   async mounted () {

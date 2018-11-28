@@ -101,7 +101,6 @@ export default {
         this.$store.dispatch('setToken', response.data.token)
         this.$router.push({name: 'HomePage'})
       } catch (err) {
-        alert(err.response.data.error)
       }
     },
 
