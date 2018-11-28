@@ -117,9 +117,11 @@ export default {
   float: left;
   min-width: 250px;
   min-height: 100px;
+  margin-top: 10px;
 }
 .home-center {
   float: left;
+  margin-top: 10px;
 }
 .home-right-hand-side {
   width: 230px;
