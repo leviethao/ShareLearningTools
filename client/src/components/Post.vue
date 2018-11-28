@@ -1,5 +1,5 @@
 <template>
-  <div :id="postId" class="post" v-if="post_data && isShow">
+  <div :id="postId" class="post" v-if="postData && isShow">
 
     <div class="post-container">
 
@@ -23,7 +23,7 @@
         triggers="focus"
         :show.sync="optionPopoverShow"
         placement="bottomleft"
-        container="toolbar">
+        :container="postId">
 
         <div class="options-list" v-bar> <!-- el1 -->
           <router-link
@@ -186,9 +186,10 @@ export default {
       }
     }
   },
-  async mounted () {
+  async created () {
     this.postData = this.post_data
-    this.poster = await this.getPoster()
+  },
+  async mounted () {
     // BusService.$on('comment' + this.postData._id, async (text) => {
     //   let commentData = {
     //     content: text,
@@ -204,7 +205,7 @@ export default {
     //   }
     //   await ReplyService.createReply(replyData)
     // })
-
+    this.poster = await this.getPoster()
     this.initOptions()
 
     // on home filter
