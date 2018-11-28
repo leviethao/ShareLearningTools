@@ -32,6 +32,7 @@
 
       <!-- notify popover -->
       <b-popover target="notify-icon"
+        class="notify-popover"
         triggers="focus"
         :show.sync="notifyPopoverShow"
         placement="bottomleft"
@@ -175,6 +176,7 @@ export default {
   height: 50px;
   background: #A33BBA;
   position: fixed;
+  z-index: 2;
 }
 
 #search {

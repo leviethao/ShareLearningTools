@@ -26,7 +26,7 @@
     <b-popover :target="'option' + commentState._id"
       triggers="focus"
       placement="bottomleft"
-      container="toolbar">
+      container="">
 
       <div class="options-list" v-bar> <!-- el1 -->
         <router-link
@@ -94,13 +94,16 @@ export default {
   data () {
     return {
       config: config,
-      commentState: this.comment,
+      commentState: null,
       cmtOptionButtonShow: true,
       post: null,
       received: false,
       optionButtonShow: true,
       options: []
     }
+  },
+  created () {
+    this.commentState = this.comment
   },
   async mounted () {
     let postRes = await PostService.getPostById(this.commentState.post)

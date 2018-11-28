@@ -25,7 +25,7 @@
     <b-popover :target="'option' + replyState._id"
       triggers="focus"
       placement="bottomleft"
-      container="toolbar">
+      container="">
 
       <div class="options-list" v-bar> <!-- el1 -->
         <router-link
