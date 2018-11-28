@@ -68,6 +68,8 @@ export default {
 
 <style>
   #home-filter {
+    position: fixed;
+    background-color: rebeccapurple;
   }
   .home-filter-title {
     font-weight: bold;

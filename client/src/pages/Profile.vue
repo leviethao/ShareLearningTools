@@ -3,7 +3,7 @@
     <div class="header-bar-component">
       <header-bar />
     </div>
-    <div class="global-container">
+    <div class="global-container body-wrapper">
       <div class="column-1">
         <user-info
           :user="user"
@@ -79,6 +79,12 @@ export default {
 </script>
 
 <style>
+#profile {
+  display: flow-root;
+}
+div.body-wrapper {
+  margin-top: 52px;
+}
 .column-1 {
   float: left;
   width: 300px;

@@ -168,6 +168,7 @@ export default {
   width: 100%;
   height: 50px;
   background: #A33BBA;
+  position: fixed;
 }
 
 #search {

@@ -148,7 +148,6 @@ li {
   font-weight: bold;
 }
 .avatar {
-  position: relative;
 }
 .avatar img {
   border-radius: 50%;

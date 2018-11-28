@@ -4,13 +4,30 @@
       <header-bar v-bind:onSearch="onSearch"/>
     </div>
 
-    <div class="global-container">
+    <div class="global-container body-wrapper">
       <div class="home-left-hand-side">
-        <!-- <ul class="left-panel-ads-list">
-          <li><ads class="left-panel-ads" /></li>
-          <li><ads class="left-panel-ads"/></li>
-          <li><ads class="left-panel-ads"/></li>
-        </ul> -->
+        <ul class="left-panel-ads-list">
+          <li>
+            <ads class="left-panel-ads"
+              :adsUrl="'https://unica.vn/hoc-seo-len-top-cung-chuyen-gia'"
+              :imgSrc="'https://static.unica.vn/uploads/images/hongvt@unica.vn/hocseolentopcungchuyengia-nguyenhuulam_m.jpg'"/>
+          </li>
+          <li>
+            <ads class="left-panel-ads"
+              :adsUrl="'https://unica.vn/hacker-mu-trang-aeh'"
+              :imgSrc="'https://static.unica.vn/uploads/images/linhntd@unica.vn/hacker-mu-trang_m.jpg'"/>
+          </li>
+          <li>
+            <ads class="left-panel-ads"
+              :adsUrl="'https://unica.vn/lap-trinh-java-trong-4-tuan'"
+              :imgSrc="'https://static.unica.vn/uploads/linhntd@unica.vn/lap-trinh-java-trong-4-tuan_m.jpg'"/>
+          </li>
+          <li>
+            <ads class="left-panel-ads"
+              :adsUrl="'https://unica.vn/xay-dung-website-hoan-chinh-voi-laravel-php-framework'"
+              :imgSrc="'https://static.unica.vn/uploads/images/doanhuyen209@gmail.com/Laravel_PHP_Framework_m.jpg'"/>
+          </li>
+        </ul>
       </div>
       <div class="home-center">
         <div class="create-post-component">
@@ -112,6 +129,9 @@ export default {
 }
 .global-container {
 }
+div.body-wrapper {
+  margin-top: 52px;
+}
 .home-left-hand-side {
   float: left;
   min-width: 250px;
@@ -124,7 +144,6 @@ export default {
 }
 .home-right-hand-side {
   width: 230px;
-  background-color: rebeccapurple;
   float: left;
   margin: 10px 0px 0px 10px;
 }
@@ -135,12 +154,15 @@ export default {
   margin-bottom: 12px;
 }
 .left-panel-ads {
-  width: 250px;
+  max-width: 250px;
   min-height: 100px;
   background-color: blue;
+  margin-bottom: 20px;
 }
 .left-panel-ads-list {
-  margin-left: -100px;
+  position: fixed;
+  margin: 0px 0px 0px -60px;
+  list-style-type: none;
 }
 .clear-both {
   clear:both;

@@ -83,6 +83,9 @@ export default {
 
 <style>
   #profile-filter {
+    position: fixed;
+    background-color: rebeccapurple;
+    width: 250px;
   }
   .profile-filter-title {
     font-weight: bold;
