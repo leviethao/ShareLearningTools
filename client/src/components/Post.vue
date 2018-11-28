@@ -206,12 +206,16 @@ export default {
     // })
 
     this.initOptions()
-    BusService.$on('filterToolSelected', (value) => {
-      this.isShow = this.postData.toolCategory._id === value
-    })
-
-    BusService.$on('filterPostSelected', (value) => {
-      this.isShow = this.postData.postCategory._id === value
+    BusService.$on('HomeFilter', (options) => {
+      this.isShow = true
+      if (options.toolCategory !== '' && options.toolCategory !== this.postData.toolCategory._id) {
+        this.isShow = false
+        return
+      }
+      if (options.postCategory !== '' && options.postCategory !== this.postData.postCategory._id) {
+        this.isShow = false
+        return
+      }
     })
   },
   methods: {

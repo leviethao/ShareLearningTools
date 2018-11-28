@@ -5,14 +5,14 @@
     </div>
 
     <div class="global-container">
-      <div id="home-left-hand-side">
+      <div class="home-left-hand-side">
         <!-- <ul class="left-panel-ads-list">
           <li><ads class="left-panel-ads" /></li>
           <li><ads class="left-panel-ads"/></li>
           <li><ads class="left-panel-ads"/></li>
         </ul> -->
       </div>
-      <div id="home-center">
+      <div class="home-center">
         <div class="create-post-component">
           <create-post :onCreatePost="onCreatePost"/>
         </div>
@@ -22,10 +22,10 @@
           </div>
         </div>
       </div>
-      <div id="home-right-hand-side">
-        <tool-category-selector ID="filter"/>
-        <post-category-selector ID="filter" />
+      <div class="home-right-hand-side">
+        <home-filter />
       </div>
+      <div class="clear-both"></div>
     </div>
   </div>
 </template>
@@ -42,6 +42,7 @@ import BusService from '../services/BusService'
 import PostService from '../services/PostService'
 import SearchService from '../services/SearchService'
 import Ads from '../components/Ads'
+import HomeFilter from '../components/HomeFilter'
 
 export default {
   name: 'HomePage',
@@ -51,7 +52,8 @@ export default {
     PostCategorySelector,
     Post,
     CreatePost,
-    Ads
+    Ads,
+    HomeFilter
   },
   data () {
     return {
@@ -111,16 +113,19 @@ export default {
 }
 .global-container {
 }
-#home-left-hand-side {
+.home-left-hand-side {
   float: left;
   min-width: 250px;
   min-height: 100px;
 }
-#home-center {
+.home-center {
   float: left;
 }
-#home-right-hand-side {
+.home-right-hand-side {
+  width: 230px;
+  background-color: rebeccapurple;
   float: left;
+  margin: 10px 0px 0px 10px;
 }
 
 .header-bar-component {
@@ -135,5 +140,8 @@ export default {
 }
 .left-panel-ads-list {
   margin-left: -100px;
+}
+.clear-both {
+  clear:both;
 }
 </style>
