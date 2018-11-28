@@ -6,7 +6,11 @@
 
     <div class="global-container">
       <div id="home-left-hand-side">
-        <catalog/>
+        <!-- <ul class="left-panel-ads-list">
+          <li><ads class="left-panel-ads" /></li>
+          <li><ads class="left-panel-ads"/></li>
+          <li><ads class="left-panel-ads"/></li>
+        </ul> -->
       </div>
       <div id="home-center">
         <div class="create-post-component">
@@ -30,7 +34,6 @@
 import {mapState} from 'vuex'
 import CommonService from '../services/CommonService'
 import HeaderBar from '../components/HeaderBar'
-import Catalog from '../components/Catalog'
 import ToolCategorySelector from '../components/ToolCategorySelector'
 import PostCategorySelector from '../components/PostCategorySelector'
 import Post from '../components/Post'
@@ -38,16 +41,17 @@ import CreatePost from '../components/CreatePost'
 import BusService from '../services/BusService'
 import PostService from '../services/PostService'
 import SearchService from '../services/SearchService'
+import Ads from '../components/Ads'
 
 export default {
   name: 'HomePage',
   components: {
     HeaderBar,
-    Catalog,
     ToolCategorySelector,
     PostCategorySelector,
     Post,
-    CreatePost
+    CreatePost,
+    Ads
   },
   data () {
     return {
@@ -109,6 +113,8 @@ export default {
 }
 #home-left-hand-side {
   float: left;
+  min-width: 250px;
+  min-height: 100px;
 }
 #home-center {
   float: left;
@@ -121,5 +127,13 @@ export default {
 }
 .post-component, .create-post-component {
   margin-bottom: 12px;
+}
+.left-panel-ads {
+  width: 250px;
+  min-height: 100px;
+  background-color: blue;
+}
+.left-panel-ads-list {
+  margin-left: -100px;
 }
 </style>

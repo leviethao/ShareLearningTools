@@ -6,6 +6,7 @@ import Profile from '../pages/Profile'
 import Test from '../components/Test'
 import Upload from '../components/Upload'
 import PostPage from '../pages/PostPage'
+import AdminHomePage from '../pages/AdminHomePage'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/post/:id',
       name: 'Post',
       component: PostPage
+    },
+    {
+      path: '/admin',
+      name: 'AdminHome',
+      component: AdminHomePage
     },
     {
       path: '*',

@@ -132,5 +132,9 @@ module.exports = {
   },
   async unReceived (req, res) {
 
+  },
+  async count (req, res) {
+    let count = await Exchange.count()
+    res.send({count: count})
   }
 }

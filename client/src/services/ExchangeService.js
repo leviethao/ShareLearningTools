@@ -9,5 +9,8 @@ export default {
   },
   unReceived (postId) {
     return Api().post('/exchange/unReceived', {postId: postId})
+  },
+  async count () {
+    return await Api().get('exchange/count')
   }
 }

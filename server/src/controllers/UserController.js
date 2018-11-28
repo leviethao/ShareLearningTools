@@ -48,5 +48,9 @@ module.exports = {
         })
         res.send({notifies: notifies})
       })
+  },
+  async count (req, res) {
+    let count = await User.count()
+    res.send({count: count})
   }
 }

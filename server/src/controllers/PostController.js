@@ -135,5 +135,13 @@ module.exports = {
         })
         res.send({posts: postsSorted})
       })
+  },
+  async countEnablePosts (req, res) {
+    let count = await Post.count({enable: true})
+    res.send({count: count})
+  },
+  async countDisablePosts (req, res) {
+    let count = await Post.count({enable: false})
+    res.send({count: count})
   }
 }

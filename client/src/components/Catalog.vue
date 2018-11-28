@@ -1,33 +1,21 @@
 <template>
   <div id="catalog-container">
-    <router-link v-bind:to="{name: 'Test'}" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
-        <span class="catalog-item-text">Quản lý bài đăng</span>
+        <span class="catalog-item-text">Tổng quan</span>
       </div>
     </router-link>
-    <router-link v-bind:to="{name: 'HomePage'}" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
-        <span class="catalog-item-text">Quản lý tìm kiếm</span>
+        <span class="catalog-item-text">Quản lý quảng cáo</span>
       </div>
     </router-link>
-    <router-link v-bind:to="{name: 'HomePage'}" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
-        <span class="catalog-item-text">Quản lý người dùng</span>
-      </div>
-    </router-link>
-    <router-link v-bind:to="{name: 'HomePage'}" class="catalog-item" >
-      <div class="catalog-item-content">
-        <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
-        <span class="catalog-item-text">Quản lý bài đăng người dùng</span>
-      </div>
-    </router-link>
-    <router-link v-bind:to="{name: 'HomePage'}" class="catalog-item" >
-      <div class="catalog-item-content">
-        <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
-        <span class="catalog-item-text">Quản lý thông báo sự kiện</span>
+        <span class="catalog-item-text">Thông báo sự kiện</span>
       </div>
     </router-link>
   </div>
@@ -46,12 +34,15 @@ export default {
 #catalog-container {
   display: block;
   width: 250px;
+  min-height: 500px;
+  background-color: rgb(140, 137, 145);
   margin: auto;
 }
 .catalog-item {
   height: 30px;
   display: flex;
   align-items: center;
+  background-color: rgb(140, 137, 145);
   color: #000;
   text-decoration: none;
   margin-bottom: 1px;

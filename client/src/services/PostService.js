@@ -27,5 +27,11 @@ export default {
   },
   updatePost (post) {
     return Api().put(`post/update/${post._id}`, post)
+  },
+  async countEnablePosts () {
+    return await Api().get('post/count/enablePosts')
+  },
+  async countDisablePosts () {
+    return await Api().get('post/count/disablePosts')
   }
 }

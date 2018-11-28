@@ -12,5 +12,8 @@ export default {
   },
   async getMyNotifies () {
     return await Api().get('mynotifies')
+  },
+  async count () {
+    return await Api().get('user/count')
   }
 }

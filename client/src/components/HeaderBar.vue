@@ -77,6 +77,13 @@
         </template>
 
         <div id="setting-list">
+          <router-link v-bind:to="{name: 'AdminHome'}" class="setting-item" >
+            <div class="setting-content">
+              <div class="setting-text">
+                Trang quản trị
+              </div>
+            </div>
+          </router-link>
           <router-link v-bind:to="''" v-on:click.native="logout" class="setting-item" >
             <div class="setting-content">
               <div class="setting-text">
