@@ -3,7 +3,7 @@
     <div class="header-bar-component">
       <header-bar />
     </div>
-    <div class="global-container">
+    <div class="global-container body-wrapper">
       <div class="column-1">
         <catalog />
       </div>
@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style>
+#admin-home {
+  display: flow-root;
+}
 .column-1 {
   float: left;
   min-width: 300px;
@@ -55,5 +58,8 @@ export default {
 .column-3 {
   float: left;
   margin-top: 10px;
+}
+div.body-wrapper {
+  margin-top: 52px;
 }
 </style>
