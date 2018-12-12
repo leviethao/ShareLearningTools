@@ -2,6 +2,9 @@
 
 module.exports = {
   port: process.env.PORT || 8081,
+  searchServiceHost: 'http://localhost:3000/search/',
+  // searchServiceHost: 'http://35.196.45.191/search/'
+
   // db: {
   //   database: process.env.DB_NAME || 'tabtracker',
   //   user: process.env.DB_USER || 'tabtracker',

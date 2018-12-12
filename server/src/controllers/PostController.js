@@ -1,3 +1,4 @@
+const SearchService = require('../services/SearchService')
 const Post = require('../models/post')
 
 module.exports = {
@@ -16,6 +17,10 @@ module.exports = {
       res.send({post: null})
       return
     }
+
+    // send to search service
+    SearchService.addPostToQueue(newPost._id)
+
     let newPostDetail = await Post.findById(newPost._id)
       .populate('postCategory')
       .populate('toolCategory')

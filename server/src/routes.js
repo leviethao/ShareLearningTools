@@ -10,13 +10,14 @@ const CommentController = require('./controllers/CommentController')
 const ReplyController = require('./controllers/ReplyController')
 const NotifyController = require('./controllers/NotifyController')
 const ExchangeController = require('./controllers/ExchangeController')
+const SearchController = require('./controllers/SearchController')
 
 const PREFIX = '/server'
 
 module.exports = (app) => {
   app.post(PREFIX + '/login', AuthenticationController.login)
   app.post(PREFIX + '/register', AuthenticationController.register)
-  app.get(PREFIX + '/', isAuthenticated, CommonController.getHomePage)
+  app.get(PREFIX + '/', /* isAuthenticated, */ CommonController.getHomePage)
   app.get(PREFIX + '/user', isAuthenticated, UserController.getMyUserInfo)
   app.get(PREFIX + '/mynotifies', isAuthenticated, UserController.getMyNotifies)
   app.get(PREFIX + '/user/count', isAuthenticated, UserController.count)
@@ -31,17 +32,17 @@ module.exports = (app) => {
   app.get(PREFIX + '/posts', PostController.getPosts)
   app.get(PREFIX + '/enablePosts', PostController.getEnablePosts)
   app.get(PREFIX + '/myPosts', isAuthenticated, PostController.getMyPosts)
-  app.get(PREFIX + '/post/:id', isAuthenticated, PostController.getPostById)
+  app.get(PREFIX + '/post/:id', /* isAuthenticated, */ PostController.getPostById)
   app.delete(PREFIX + '/post/delete/:id', isAuthenticated, PostController.deletePost)
   app.put(PREFIX + '/post/enable/:id', isAuthenticated, PostController.enablePost)
   app.put(PREFIX + '/post/disable/:id', isAuthenticated, PostController.disablePost)
-  app.get(PREFIX + '/post/count/enablePosts', isAuthenticated, PostController.countEnablePosts)
+  app.get(PREFIX + '/post/count/enablePosts', /* isAuthenticated, */ PostController.countEnablePosts)
   app.get(PREFIX + '/post/count/disablePosts', isAuthenticated, PostController.countDisablePosts)
 
   app.get(PREFIX + '/user/:id', UserController.getUserInfo)
   app.post(PREFIX + '/comment/create', isAuthenticated, CommentController.createComment)
   app.delete(PREFIX + '/comment/delete/:id', isAuthenticated, CommentController.deleteComment)
-  app.get(PREFIX + '/comment/:id', isAuthenticated, CommentController.getCommentById)
+  app.get(PREFIX + '/comment/:id', /* isAuthenticated, */ CommentController.getCommentById)
 
   app.post(PREFIX + '/reply/create', isAuthenticated, ReplyController.createReply)
   app.delete(PREFIX + '/reply/delete/:id', isAuthenticated, ReplyController.deleteReply)
@@ -50,7 +51,9 @@ module.exports = (app) => {
 
   app.post(PREFIX + '/exchange/receive', isAuthenticated, ExchangeController.receive)
   app.post(PREFIX + '/exchange/isReceived', isAuthenticated, ExchangeController.isReceived)
-  app.get(PREFIX + '/exchange/count', isAuthenticated, ExchangeController.count)
+  app.get(PREFIX + '/exchange/count', /* isAuthenticated, */ ExchangeController.count)
+
+  app.post(PREFIX + '/search/notify', SearchController.createSearchNotify)
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,
   //   AuthenticationController.register)
