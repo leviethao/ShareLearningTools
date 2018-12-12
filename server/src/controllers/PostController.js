@@ -1,5 +1,6 @@
 const SearchService = require('../services/SearchService')
 const Post = require('../models/post')
+const PostCategory = require('../models/post_category')
 
 module.exports = {
   async createPost (req, res) {
@@ -147,6 +148,31 @@ module.exports = {
   },
   async countDisablePosts (req, res) {
     let count = await Post.count({enable: false})
+    res.send({count: count})
+  },
+  async countProvidePosts (req, res) {
+    let categories = await PostCategory.find().exec()
+    let count = await Post.count({postCategory: categories[0]}) // category cung cap
+    res.send({count: count})
+  },
+  async countProvidedPosts (req, res) {
+    let categories = await PostCategory.find().exec()
+    let count = await Post.count({postCategory: categories[0], enable: false}) // category cung cap
+    res.send({count: count})
+  },
+  async countNonProvidedPosts (req, res) {
+    let categories = await PostCategory.find().exec()
+    let count = await Post.count({postCategory: categories[0], enable: true}) // category cung cap
+    res.send({count: count})
+  },
+  async countReceivePosts (req, res) {
+    let categories = await PostCategory.find().exec()
+    let count = await Post.count({postCategory: categories[1]})
+    res.send({count: count})
+  },
+  async countNonReceivedPosts (req, res) {
+    let categories = await PostCategory.find().exec()
+    let count = await Post.count({postCategory: categories[1], enable: true})
     res.send({count: count})
   }
 }

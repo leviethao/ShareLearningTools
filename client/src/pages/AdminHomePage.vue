@@ -51,7 +51,7 @@ export default {
 }
 .column-2 {
   float: left;
-  width: 500px;
+  width: 700px;
   margin-left: 0px;
   margin-top: 10px;
 }

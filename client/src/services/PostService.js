@@ -33,5 +33,20 @@ export default {
   },
   async countDisablePosts () {
     return await Api().get('post/count/disablePosts')
+  },
+  async countProvidePosts () {
+    return await Api().get('post/count/providePosts')
+  },
+  async countProvidedPosts () {
+    return await Api().get('post/count/providedPosts')
+  },
+  async countNonProvidedPosts () {
+    return await Api().get('post/count/nonProvidedPosts')
+  },
+  async countReceivePosts () {
+    return await Api().get('post/count/receivePosts')
+  },
+  async countNonReceivedPosts () {
+    return await Api().get('post/count/nonReceivedPosts')
   }
 }
