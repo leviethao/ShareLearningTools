@@ -91,7 +91,7 @@
         <div class="post-statistics">
           <label>Lượt bình luận: <span>{{postData.comments.length}}</span></label>
           <label v-if="$route.path === '/profile'">Trạng thái: <span>{{postData.enable ? 'Hoạt động' : 'Ngừng hoạt động'}}</span></label>
-          <label>Lượt trao đổi: <span>{{postData.exchanges.length}}</span></label>
+          <label>Lượt cho/nhận: <span>{{postData.exchanges.length}}</span></label>
         </div>
         <edit-post-modal
             v-if="isShowEditPostModal"
