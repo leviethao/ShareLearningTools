@@ -1,6 +1,6 @@
 <!-- app -->
 <template>
-  <div :id="commentState._id" class="comment" v-if="this.commentState">
+  <div :id="commentState._id" class="comment" v-if="this.commentState && isShow()">
     <div class="commenter-avatar">
       <img :src="config.serverHost + commentState.commenter.avatar" />
     </div>
@@ -91,6 +91,8 @@ export default {
   props: [
     'comment'
   ],
+  computed: {
+  },
   data () {
     return {
       config: config,
@@ -99,19 +101,26 @@ export default {
       post: null,
       received: false,
       optionButtonShow: true,
-      options: []
+      options: [],
+      user: null
     }
   },
-  created () {
+  async created () {
     this.commentState = this.comment
-  },
-  async mounted () {
+    // get my user info
+    let userRes = await UserService.getMyUserInfo()
+    this.user = userRes.data.user
+
     let postRes = await PostService.getPostById(this.commentState.post)
     this.post = postRes.data.post
-
+  },
+  async mounted () {
     this.initOptions()
   },
   methods: {
+    isShow () {
+      return this.comment.commenter._id === this.user._id || this.post.poster === this.user._id
+    },
     async onReply (text, commentId) {
       let replyData = {
         content: text,
