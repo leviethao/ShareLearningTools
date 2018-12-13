@@ -43,7 +43,7 @@
 
       <div class="create-post-footer">
         <a  href="#" v-on:click.prevent="addImageVideo">Ảnh/Video/Tệp</a>
-        <button @click="onPostSubmit" class="create-post-btn btn btn-primary">Đăng</button>
+        <button @click="onPostSubmit" class="create-post-btn btn btn-primary">{{postId ? 'Lưu chỉnh sửa': 'Đăng tin'}}</button>
       </div>
     </div>
   </div>
