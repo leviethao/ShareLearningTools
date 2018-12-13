@@ -108,7 +108,7 @@
       <contact-popover
         :target="`contact-btn-${postId}`"
         :container="postId"
-        :contact="poster.phoneNumber || 'Không có liên hệ'" />
+        :contact="poster.phoneNumber ? 'Số điện thoại: ' + poster.phoneNumber : 'Không có liên hệ'" />
 
     </div>
 
