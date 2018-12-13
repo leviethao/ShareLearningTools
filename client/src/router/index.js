@@ -7,6 +7,7 @@ import Test from '../components/Test'
 import Upload from '../components/Upload'
 import PostPage from '../pages/PostPage'
 import AdminHomePage from '../pages/AdminHomePage'
+import ChangePassword from '../pages/ChangePassword'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/changePassword',
+      name: 'ChangePassword',
+      component: ChangePassword
     },
     {
       path: '/post/:id',

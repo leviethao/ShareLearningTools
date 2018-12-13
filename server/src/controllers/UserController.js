@@ -52,5 +52,28 @@ module.exports = {
   async count (req, res) {
     let count = await User.count()
     res.send({count: count})
+  },
+  async changePassword (req, res) {
+    let user = await User.findById(req.user._id).exec()
+    if (!user) {
+      res.send({user: null})
+      return
+    }
+
+    // check password
+    let {oldPW, newPW} = req.body
+    if (user.password !== oldPW) {
+      res.send({user: null})
+      return
+    }
+
+    user.password = newPW
+    let updatedUser = await user.save()
+    if (!updatedUser) {
+      res.send({user: null})
+      return
+    }
+
+    res.send({user: updatedUser})
   }
 }

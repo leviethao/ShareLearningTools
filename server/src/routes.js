@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.get(PREFIX + '/user', isAuthenticated, UserController.getMyUserInfo)
   app.get(PREFIX + '/mynotifies', isAuthenticated, UserController.getMyNotifies)
   app.get(PREFIX + '/user/count', isAuthenticated, UserController.count)
+  app.put(PREFIX + '/user/changePassword', isAuthenticated, UserController.changePassword)
 
   app.post(PREFIX + '/notify/updatestatus/:id', isAuthenticated, NotifyController.updateNotifyStatus)
   app.get(PREFIX + '/toolCategories', ToolCategoryController.getAll)

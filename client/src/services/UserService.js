@@ -15,5 +15,8 @@ export default {
   },
   async count () {
     return await Api().get('user/count')
+  },
+  async changePassword (data) {
+    return await Api().put('user/changePassword', data)
   }
 }

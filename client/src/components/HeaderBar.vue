@@ -78,10 +78,17 @@
         </template>
 
         <div id="setting-list">
-          <router-link v-bind:to="{name: 'AdminHome'}" class="setting-item" >
+          <router-link v-bind:to="{name: 'AdminHome'}" class="setting-item" v-if="user.power === 'admin'">
             <div class="setting-content">
               <div class="setting-text">
                 Trang quản trị
+              </div>
+            </div>
+          </router-link>
+          <router-link v-bind:to="{name: 'ChangePassword'}" class="setting-item">
+            <div class="setting-content">
+              <div class="setting-text">
+                Đổi mật khẩu
               </div>
             </div>
           </router-link>
