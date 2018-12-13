@@ -43,13 +43,13 @@
 
       <div class="post-body">
         <span class="post-content">
-          {{post_data.content}}
+          {{post_data.postCategory.name === 'Cung Cấp' ? 'Cung cấp: ' : 'Cần tìm: '}} {{post_data.content}}
         </span>
         <br>
 
         <span v-if="postData.postCategory.name === 'Cung Cấp'" class="post-exchange-condition">
           Điều kiện trao đổi: &nbsp;
-          {{post_data.exchangeCondition}}
+          {{post_data.exchangeCondition ? post_data.exchangeCondition : 'Không có điều kiện trao đổi'}}
         </span>
         <div v-if="postData.fileNames.length > 0">
           <div class="file-post-container">

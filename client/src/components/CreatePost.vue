@@ -23,7 +23,7 @@
             <auto-size-textarea
               ID="postContent"
               :content="contentText"
-              placeholderValue="Nội dung bài đăng"
+              placeholderValue="Tên dụng cụ học tập"
               :onPostContent="onPostContent"/>
           </div>
           <div class="create-post-exchange-condition">
