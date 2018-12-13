@@ -88,6 +88,7 @@ export default {
 <style>
 #analysis {
   width: 700px;
+  height: 500px;
   background-color: azure;
   padding: 15px 10px;
 }

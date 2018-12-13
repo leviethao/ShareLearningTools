@@ -2,7 +2,7 @@
   <div>
     <div id='loggedout-menubar-container'>
       <div class='float-left' style='padding-top: 5px;'>
-          <span id='logo-text'>Chia Sẻ Dụng Cụ Học Tập</span>
+          <span id='logo-text'>Trao Đổi Dụng Cụ Học Tập</span>
       </div>
       <div id='login-form'>
           <table>

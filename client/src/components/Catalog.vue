@@ -2,19 +2,25 @@
   <div id="catalog-container">
     <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
-        <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
+        <img class="catalog-item-icon" src="../assets/images/catalog/TongQuan.png" width="24px" height="24px" />
         <span class="catalog-item-text">Tổng quan</span>
       </div>
     </router-link>
     <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
-        <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
+        <img class="catalog-item-icon" src="../assets/images/catalog/KiemDuyet.png" width="24px" height="24px" />
+        <span class="catalog-item-text">Kiểm duyệt bài đăng</span>
+      </div>
+    </router-link>
+    <router-link v-bind:to="''" class="catalog-item" >
+      <div class="catalog-item-content">
+        <img class="catalog-item-icon" src="../assets/images/catalog/QuangCao.png" width="24px" height="24px" />
         <span class="catalog-item-text">Quản lý quảng cáo</span>
       </div>
     </router-link>
     <router-link v-bind:to="''" class="catalog-item" >
       <div class="catalog-item-content">
-        <img class="catalog-item-icon" src="../assets/images/catalog/item.png" width="24px" height="24px" />
+        <img class="catalog-item-icon" src="../assets/images/catalog/ThongBaoSuKien.png" width="24px" height="24px" />
         <span class="catalog-item-text">Thông báo sự kiện</span>
       </div>
     </router-link>
@@ -68,6 +74,7 @@ export default {
 .catalog-item-text {
   display: block;
   float: left;
+  font-weight: bold;
   margin-left: 5px;
 }
 </style>
