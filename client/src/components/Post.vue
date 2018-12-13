@@ -373,6 +373,8 @@ export default {
 .post-body {
   text-align: left;
   margin: 5px 0px;
+  word-break: keep-all;
+  overflow-wrap:break-word;
 }
 .postImage:hover {
   background-color:  rgba(255, 0, 255, 1);
