@@ -22,6 +22,7 @@
         </b-form-select>
       </div>
     </div>
+    <div class="clear-both"></div>
   </div>
 </template>
 
@@ -83,7 +84,7 @@ export default {
 
 <style>
   #profile-filter {
-    position: fixed;
+    position: relative;
     background-color: rebeccapurple;
     width: 250px;
   }
@@ -99,5 +100,8 @@ export default {
     margin-left: 20px;
     color:aliceblue;
     text-align: left;
+  }
+  .clear-both {
+    clear: both;
   }
 </style>
