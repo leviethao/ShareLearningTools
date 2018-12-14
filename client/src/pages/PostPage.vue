@@ -4,9 +4,8 @@
       <header-bar v-bind:onSearch="onSearch"/>
     </div>
 
-    <div class="global-container">
+    <div class="global-container body-wrapper">
       <div id="home-left-hand-side">
-        <catalog/>
       </div>
       <div id="home-center">
         <div class="post-component">
@@ -79,16 +78,23 @@ export default {
 }
 .global-container {
 }
+div.body-wrapper {
+  margin-top: 52px;
+}
 #home-left-hand-side {
   float: left;
+  width: 250px;
+  min-height: 500px;
+  margin-top: 10px;
 }
 #home-center {
   float: left;
+  margin-top: 10px;
 }
 #home-right-hand-side {
   float: left;
+  margin-top: 10px;
 }
-
 .header-bar-component {
 }
 .post-component, .create-post-component {
