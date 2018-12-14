@@ -3,6 +3,20 @@
     <div class="header-bar-component">
       <header-bar />
     </div>
+    <div class="background-bar">
+    </div>
+    <div class="status-bar">
+      <div class="status-list">
+        <div class="status-item">
+          <label>Số lần cho</label>
+          <span>{{user.provides.length}}</span>
+        </div>
+        <div class="status-item">
+          <label>Số lần nhận</label>
+          <span>{{user.receives.length}}</span>
+        </div>
+      </div>
+    </div>
     <div class="global-container body-wrapper">
       <div class="column-1">
         <user-info
@@ -85,6 +99,38 @@ export default {
 div.body-wrapper {
   margin-top: 52px;
 }
+.background-bar {
+  width: 100%;
+  height: 150px;
+  margin-top: 50px;
+  margin-bottom: -170px;
+  background-color: rgb(210, 224, 235);
+}
+.status-bar {
+  width: 100%;
+  height: 65px;
+  margin-top: 170px;
+  margin-bottom: -230px;
+  background-color: #fff;
+}
+.status-list {
+  margin-left: -300px;
+}
+.status-item {
+  display: inline-block;
+  font-weight: bold;
+  padding: 3px 8px;
+}
+.status-item label {
+  width: 100%;
+  font-size: 14px;
+  word-break: keep-all;
+  color:rgb(110, 110, 110);
+}
+.status-item span {
+  font-size: 18px;
+  color: rgb(63, 62, 62);
+}
 .column-1 {
   float: left;
   width: 300px;
@@ -93,13 +139,13 @@ div.body-wrapper {
 .column-2 {
   float: left;
   width: 500px;
-  margin-top: 10px;
+  margin-top: 180px;
 }
 .column-3 {
   width: 230px;
   background-color: rebeccapurple;
   float: left;
-  margin: 10px 0px 0px 10px;
+  margin: 180px 0px 0px 10px;
 }
 .post-component {
   margin-bottom: 12px;
