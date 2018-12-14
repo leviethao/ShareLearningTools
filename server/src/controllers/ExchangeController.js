@@ -70,7 +70,8 @@ module.exports = {
       content: 'Bạn đã nhận dụng cụ học tập từ ' + poster.name,
       user: user._id,
       link: post.url,
-      status: 'On'
+      status: 'On',
+      avatar: poster.avatar
     })
 
     let newReceivedNotify = await receivedNotify.save()
@@ -95,7 +96,8 @@ module.exports = {
       content: 'Bạn đã chia sẻ dụng cụ học tập cho ' + user.name,
       user: poster._id,
       link: post.url,
-      status: 'On'
+      status: 'On',
+      avatar: user.avatar
     })
 
     let newProvidedNotify = await providedNotify.save()

@@ -53,7 +53,7 @@
               v-on:click.native="onNotifyItemClicked(notify._id)"
               v-bind:to="notify.link" :class="(notify.status === 'On') ? 'notify-item notify-not-watched' : 'notify-item'" >
               <div class="notify-content">
-                <img class="notify-avatar avatar" :src="serverHost+user.avatar" width="60px" height="60px" />
+                <img class="notify-avatar avatar" :src="serverHost+notify.avatar" width="60px" height="60px" />
                 <div class='notify-text'>
                   {{notify.content}}
                   <br/>

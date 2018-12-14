@@ -53,7 +53,8 @@ async function execute () {
         let notify = new Notify({
           content: 'Có bài đăng mới có thể phù hợp với bạn',
           user: prevPost.poster,
-          link: post.url
+          link: post.url,
+          avatar: post.poster.avatar
         })
         let _notify = await notify.save()
         if (!_notify) continue
@@ -68,7 +69,8 @@ async function execute () {
         let notify2 = new Notify({
           content: 'Có bài đăng mới có thể phù hợp với bạn',
           user: post.poster,
-          link: prevPost.url
+          link: prevPost.url,
+          avatar: prevPost.poster.avatar
         })
         let _notify2 = await notify2.save()
         if (!_notify2) continue

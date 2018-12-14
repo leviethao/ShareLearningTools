@@ -42,7 +42,8 @@ module.exports = {
                 content: _rep.replyer.name + ' Đã trả lời bình luận của bạn',
                 user: cmt.commenter._id,
                 link: cmt.post.url,
-                status: 'On'
+                status: 'On',
+                avatar: _rep.replyer.avatar
               })
 
               notify.save(async (err, newNotify) => {

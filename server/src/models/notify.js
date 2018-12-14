@@ -5,7 +5,8 @@ var NotifySchema = new Schema({
   content: {type: String, min: 1, max: 10000, required: true},
   user: {type: Schema.ObjectId, ref: 'User', required: true},
   link: {type: String},
-  status: {type: String, enum: ['On', 'Off'], default: 'On'}
+  status: {type: String, enum: ['On', 'Off'], default: 'On'},
+  avatar: {type: String, default: 'images/defaultNotify.png'}
 })
 
 NotifySchema.virtual('url').get(function () {

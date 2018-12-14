@@ -84,7 +84,8 @@ module.exports = {
                 content: _cmt.commenter.name + ' Đã bình luận về bài đăng của bạn',
                 user: post.poster,
                 link: post.url,
-                status: 'On'
+                status: 'On',
+                avatar: _cmt.commenter.avatar
               })
 
               notify.save((err, newNotify) => {
