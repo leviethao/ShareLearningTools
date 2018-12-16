@@ -41,7 +41,7 @@ export default {
 
 <style>
 #browsePost {
-
+  width: 500px;
 }
 #browsePost .post-component {
   margin-bottom: 12px;

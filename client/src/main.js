@@ -13,6 +13,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vuebar from 'vuebar'
+import VueFab from 'vue-float-action-button'
 
 Vue.config.productionTip = false
 
@@ -20,6 +21,7 @@ Vue.config.productionTip = false
 Vue.use(VueYouTubeEmbed)
 Vue.use(BootstrapVue)
 Vue.use(Vuebar)
+Vue.use(VueFab)
 
 // Vue.component('panel', Panel)
 

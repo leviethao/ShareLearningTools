@@ -1,5 +1,6 @@
 <template>
   <div :id="postId" class="post" v-if="postData && isShow">
+    <slot class="post-slot"></slot>
 
     <div class="post-container">
 
@@ -588,5 +589,7 @@ export default {
 }
 .video-post-container {
   width: 100%;
+}
+.post-slot {
 }
 </style>

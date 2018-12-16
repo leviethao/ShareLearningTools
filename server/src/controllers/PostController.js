@@ -96,6 +96,17 @@ module.exports = {
     }
     res.send({post: null})
   },
+  async allowPost (req, res) {
+    let post = await Post.findById(req.params.id)
+    if (post) {
+      post.allow = true
+      post.enable = true
+      let updatedPost = await post.save()
+      res.send({post: updatedPost})
+      return
+    }
+    res.send({post: null})
+  },
   async disablePost (req, res) {
     let post = await Post.findById(req.params.id)
     if (post) {
@@ -108,6 +119,24 @@ module.exports = {
   },
   async getEnablePosts (req, res) {
     await Post.find({enable: true})
+      // .populate('poster')
+      .populate('postCategory')
+      .populate('toolCategory')
+      .populate('comments')
+      .exec((err, posts) => {
+        if (err) throw err
+
+        // sort date in descending
+        let postsSorted = posts.sort((a, b) => {
+          let dateA = new Date(a.created)
+          let dateB = new Date(b.created)
+          return dateB - dateA
+        })
+        res.send({posts: postsSorted})
+      })
+  },
+  async getNotAllowPosts (req, res) {
+    await Post.find({allow: false})
       // .populate('poster')
       .populate('postCategory')
       .populate('toolCategory')

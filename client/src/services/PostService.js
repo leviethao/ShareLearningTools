@@ -10,6 +10,9 @@ export default {
   getEnablePosts () {
     return Api().get('enablePosts')
   },
+  getNotAllowPosts () {
+    return Api().get('notAllowPosts')
+  },
   getMyPosts () {
     return Api().get('myPosts')
   },
@@ -21,6 +24,9 @@ export default {
   },
   enablePost (id) {
     return Api().put(`post/enable/${id}`)
+  },
+  allowPost (id) {
+    return Api().put(`post/allow/${id}`)
   },
   disablePost (id) {
     return Api().put(`post/disable/${id}`)

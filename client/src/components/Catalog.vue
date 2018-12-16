@@ -1,24 +1,24 @@
 <template>
   <div id="catalog-container">
-    <router-link v-bind:to="''" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(0)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/TongQuan.png" width="24px" height="24px" />
         <span class="catalog-item-text">Tổng quan</span>
       </div>
     </router-link>
-    <router-link v-bind:to="''" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(1)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/KiemDuyet.png" width="24px" height="24px" />
         <span class="catalog-item-text">Kiểm duyệt bài đăng</span>
       </div>
     </router-link>
-    <router-link v-bind:to="''" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(2)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/QuangCao.png" width="24px" height="24px" />
         <span class="catalog-item-text">Quản lý quảng cáo</span>
       </div>
     </router-link>
-    <router-link v-bind:to="''" class="catalog-item" >
+    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(3)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/ThongBaoSuKien.png" width="24px" height="24px" />
         <span class="catalog-item-text">Thông báo sự kiện</span>
@@ -29,6 +29,9 @@
 
 <script>
 export default {
+  props: [
+    'onSelectedIndex'
+  ],
   data () {
     return {
     }

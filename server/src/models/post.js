@@ -10,7 +10,8 @@ var PostSchema = new Schema({
   followers: [{type: Schema.ObjectId, ref: 'User'}],
   comments: [{type: Schema.ObjectId, ref: 'Comment'}],
   fileNames: [],
-  enable: {type: Boolean, default: true},
+  enable: {type: Boolean, default: false},
+  allow: {type: Boolean, default: false},
   exchanges: [{type: Schema.Types.ObjectId, ref: 'Exchange'}]
 })
 

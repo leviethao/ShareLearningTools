@@ -5,10 +5,11 @@
     </div>
     <div class="global-container body-wrapper">
       <div class="column-1">
-        <catalog />
+        <catalog :onSelectedIndex="handleSelectedCatalog"/>
       </div>
       <div class="column-2">
-        <analysis />
+        <analysis v-show="catalogIndex === 0" />
+        <browse-post v-show="catalogIndex === 1" />
       </div>
       <div class="column-3">
       </div>
@@ -21,20 +22,26 @@
 import HeaderBar from '../components/HeaderBar'
 import Catalog from '../components/Catalog'
 import Analysis from '../components/Analysis'
+import BrowsePost from '../components/BrowsePost'
 
 export default {
   components: {
     HeaderBar,
     Catalog,
-    Analysis
+    Analysis,
+    BrowsePost
   },
   data () {
     return {
+      catalogIndex: 0
     }
   },
   async mounted () {
   },
   methods: {
+    handleSelectedCatalog (index) {
+      this.catalogIndex = index
+    }
   }
 }
 </script>
