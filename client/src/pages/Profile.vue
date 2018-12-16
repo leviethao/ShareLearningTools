@@ -136,7 +136,7 @@ div.body-wrapper {
   width: 300px;
   margin: 10px 0px 0px -50px;
 }
-.column-2 {
+#profile .column-2 {
   float: left;
   width: 500px;
   margin-top: 180px;

@@ -314,7 +314,7 @@ export default {
 /* scrollbar custom vuebar */
 .vuebar-element {
   height: 500px;
-  width: 100%;
+  width: 500px;
   max-width: 500px;
   background: #dfe9fe;
 }
