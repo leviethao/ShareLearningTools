@@ -59,7 +59,7 @@ export default {
   line-height: 50px;
 
   cursor:default;
-  margin-left: 510px;
+  margin-left: 475px;
   color: white;
 }
 .floatBtnSub {
@@ -75,7 +75,7 @@ export default {
   line-height: 45px;
 
   cursor:default;
-  margin-left: 510px;
+  margin-left: 475px;
   color: white;
 }
 .floatBtnAdd:hover {

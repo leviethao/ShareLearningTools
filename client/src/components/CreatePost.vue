@@ -16,7 +16,7 @@
 
       <div class="create-post-body">
         <div class="create-post-avatar">
-          <img :src="config.serverHost + user.avatar" />
+          <img :src="user ? config.serverHost + user.avatar : ''" />
         </div>
         <div class="create-post-wrapper">
           <div class="create-post-content">
