@@ -60,6 +60,7 @@ module.exports = (app) => {
   app.post(PREFIX + '/upload', CommonController.uploadFile)
 
   app.post(PREFIX + '/exchange/receive', isAuthenticated, ExchangeController.receive)
+  app.post(PREFIX + '/exchange/receiveFromComment', isAuthenticated, ExchangeController.receiveFromComment)
   app.post(PREFIX + '/exchange/isReceived', isAuthenticated, ExchangeController.isReceived)
   app.get(PREFIX + '/exchange/count', /* isAuthenticated, */ ExchangeController.count)
 

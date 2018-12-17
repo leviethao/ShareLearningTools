@@ -110,11 +110,10 @@ export default {
     // get my user info
     let userRes = await UserService.getMyUserInfo()
     this.user = userRes.data.user
-
-    let postRes = await PostService.getPostById(this.commentState.post)
-    this.post = postRes.data.post
   },
   async mounted () {
+    let postRes = await PostService.getPostById(this.commentState.post)
+    this.post = postRes.data.post
     this.initOptions()
   },
   methods: {
@@ -183,7 +182,7 @@ export default {
                 if (self.received) {
                   return
                 } else {
-                  let res = await ExchangeService.receive(self.post._id)
+                  let res = await ExchangeService.receiveFromComment(self.commentState._id)
                   if (!res.data.exchange) {
                     alert('Lỗi hệ thống')
                     return

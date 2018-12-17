@@ -116,7 +116,7 @@
     <!-- comment box -->
     <div class="comment-box" v-show="isShowCommentBox">
       <div class="comment-list">
-        <div v-for="comment in postData.comments" :key="comment">
+        <div v-for="comment in postData.comments" :key="comment._id">
           <comment :comment="comment"/>
         </div>
       </div>

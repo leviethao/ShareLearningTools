@@ -2,6 +2,7 @@ const Exchange = require('../models/exchange')
 const Post = require('../models/post')
 const User = require('../models/user')
 const Notify = require('../models/notify')
+const Comment = require('../models/comment')
 
 module.exports = {
   async receive (req, res) {
@@ -112,6 +113,120 @@ module.exports = {
     updatedPoster = null
     updatedPoster = await poster.save()
     if (!updatedPoster) {
+      res.send({exchange: null})
+      return
+    }
+    res.send({exchange: exchange})
+  },
+  async receiveFromComment (req, res) {
+    console.log(' =========================== VO ROI ==========================')
+    let comment = await Comment.findById(req.body.cmtId)
+    if (!comment) {
+      res.send({exchange: null})
+      return
+    }
+    console.log(' =========================== VO ROI 1 ==========================')
+    let user = await User.findById(req.user._id)
+    if (!user) {
+      res.send({exchange: null})
+      return
+    }
+    console.log(' =========================== VO ROI 2 ==========================')
+    let post = await Post.findById(comment.post)
+    if (!post) {
+      res.send({exchange: null})
+      return
+    }
+    console.log(' =========================== VO ROI 3 ==========================')
+    let exchange = new Exchange({
+      provider: comment.commenter._id,
+      receiver: user._id,
+      date: Date.now(),
+      post: post._id
+    })
+
+    let newExchange = await exchange.save()
+    if (!newExchange) {
+      res.send({exchange: null})
+      return
+    }
+    exchange = newExchange
+    console.log(' =========================== VO ROI 4 ==========================')
+    // add to receive list
+    user.receives.push(newExchange._id)
+    let updatedUser = await user.save()
+    if (!updatedUser) {
+      res.send({exchange: null})
+      return
+    }
+    user = updatedUser
+
+    // add to provides list
+    comment.commenter.provides.push(newExchange._id)
+    let updatedCommenter = await comment.commenter.save()
+    if (!updatedCommenter) {
+      res.send({exchange: null})
+      return
+    }
+    comment.commenter = updatedCommenter
+
+    // add to exchanges of post
+    post.exchanges.push(newExchange._id)
+    let updatedPost = await post.save()
+    if (!updatedPost) {
+      res.send({exchange: null})
+      return
+    }
+    post = updatedPost
+
+    // create notifycation for receiver
+    let receivedNotify = new Notify({
+      created: Date.now(),
+      content: 'Bạn đã nhận dụng cụ học tập từ ' + comment.commenter.name,
+      user: user._id,
+      link: post.url,
+      status: 'On',
+      avatar: comment.commenter.avatar
+    })
+
+    let newReceivedNotify = await receivedNotify.save()
+    if (!newReceivedNotify) {
+      res.send({exchange: null})
+      return
+    }
+    receivedNotify = newReceivedNotify
+    console.log(' =========================== VO ROI 5==========================')
+    // add notify to receiver
+    user.notifies.push(receivedNotify._id)
+    updatedUser = null
+    updatedUser = await user.save()
+    if (!updatedUser) {
+      res.send({exchange: null})
+      return
+    }
+
+    // create notifycation for provider
+    let providedNotify = new Notify({
+      created: Date.now(),
+      content: 'Bạn đã chia sẻ dụng cụ học tập cho ' + user.name,
+      user: comment.commenter._id,
+      link: post.url,
+      status: 'On',
+      avatar: user.avatar
+    })
+
+    let newProvidedNotify = await providedNotify.save()
+    if (!newProvidedNotify) {
+      res.send({exchange: null})
+      return
+    }
+    providedNotify = newProvidedNotify
+
+    // add notify to provider
+    comment.commenter.notifies.push(providedNotify._id)
+    updatedCommenter = null
+    updatedCommenter = await comment.commenter.save()
+    if (!updatedCommenter) {
       res.send({exchange: null})
       return
     }
