@@ -20,7 +20,7 @@ module.exports = {
     }
 
     // send to search service
-    SearchService.addPostToQueue(newPost._id)
+    // SearchService.addPostToQueue(newPost._id)
 
     let newPostDetail = await Post.findById(newPost._id)
       .populate('postCategory')
@@ -92,6 +92,8 @@ module.exports = {
       post.enable = true
       let updatedPost = await post.save()
       res.send({post: updatedPost})
+      // send to search service
+      // SearchService.addPostToQueue(updatedPost._id)
       return
     }
     res.send({post: null})
@@ -103,6 +105,8 @@ module.exports = {
       post.enable = true
       let updatedPost = await post.save()
       res.send({post: updatedPost})
+      // send to search service
+      SearchService.addPostToQueue(updatedPost._id)
       return
     }
     res.send({post: null})

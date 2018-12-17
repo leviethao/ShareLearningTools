@@ -39,7 +39,7 @@ import BusService from '../services/BusService'
 import Upload from './Upload'
 import config from '../config'
 import UserService from '../services/UserService'
-// import EventService from '../services/EventService'
+import EventService from '../service/EventService'
 
 export default {
   components: {
@@ -47,8 +47,9 @@ export default {
     Upload
   },
   props: [
-    'onCreateEvent',
+    'onCreatePost',
     'contentText',
+    'conditionText',
     'onUpdateEvent',
     'eventId'
   ],
@@ -66,21 +67,21 @@ export default {
   },
   async mounted () {
     BusService.$on('uploadSuccess', async (fileNames) => {
-      // let data = {
-      //   content: this.content,
-      //   fileNames: fileNames
-      // }
-      // if (this.eventId) {
+      let data = {
+        content: this.content,
+        fileNames: fileNames
+      }
+      if (this.eventId) {
         // data._id = this.postId
         // await this.onUpdatePost(data)
         // BusService.$emit('cleanCreatePost')
-      // } else {
-        // let response = await EventService.createEvent(data)
-        // if (response.data.event) {
-        //   this.onCreateEvent(response.data.event)
-        //   BusService.$emit('cleanCreatePost')
-        // }
-      // }
+      } else {
+        let response = await PostService.createPost(data)
+        if (response.data.post) {
+          this.onCreatePost(response.data.post)
+          BusService.$emit('cleanCreatePost')
+        }
+      }
     })
   },
   methods: {

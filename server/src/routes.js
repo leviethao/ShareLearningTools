@@ -11,6 +11,7 @@ const ReplyController = require('./controllers/ReplyController')
 const NotifyController = require('./controllers/NotifyController')
 const ExchangeController = require('./controllers/ExchangeController')
 const SearchController = require('./controllers/SearchController')
+const EventController = require('./controllers/EventController')
 
 const PREFIX = '/server'
 
@@ -62,6 +63,8 @@ module.exports = (app) => {
   app.get(PREFIX + '/exchange/count', /* isAuthenticated, */ ExchangeController.count)
 
   app.post(PREFIX + '/search/notify', SearchController.createSearchNotify)
+
+  app.post(PREFIX + '/event/create', isAuthenticated, EventController.createEvent)
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,
   //   AuthenticationController.register)
