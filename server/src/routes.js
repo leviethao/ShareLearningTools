@@ -39,6 +39,7 @@ module.exports = (app) => {
   app.delete(PREFIX + '/post/delete/:id', isAuthenticated, PostController.deletePost)
   app.put(PREFIX + '/post/enable/:id', isAuthenticated, PostController.enablePost)
   app.put(PREFIX + '/post/allow/:id', isAuthenticated, PostController.allowPost)
+  app.put(PREFIX + '/post/unallow/:id', isAuthenticated, PostController.unallowPost)
   app.put(PREFIX + '/post/disable/:id', isAuthenticated, PostController.disablePost)
   app.get(PREFIX + '/post/count/enablePosts', /* isAuthenticated, */ PostController.countEnablePosts)
   app.get(PREFIX + '/post/count/disablePosts', isAuthenticated, PostController.countDisablePosts)

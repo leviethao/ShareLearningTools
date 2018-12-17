@@ -111,6 +111,17 @@ module.exports = {
     }
     res.send({post: null})
   },
+  async unallowPost (req, res) {
+    let post = await Post.findById(req.params.id)
+    if (post) {
+      post.allow = false
+      post.enable = false
+      let updatedPost = await post.save()
+      res.send({post: updatedPost})
+      return
+    }
+    res.send({post: null})
+  },
   async disablePost (req, res) {
     let post = await Post.findById(req.params.id)
     if (post) {

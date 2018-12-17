@@ -28,6 +28,9 @@ export default {
   allowPost (id) {
     return Api().put(`post/allow/${id}`)
   },
+  unallowPost (id) {
+    return Api().put(`post/unallow/${id}`)
+  },
   disablePost (id) {
     return Api().put(`post/disable/${id}`)
   },
