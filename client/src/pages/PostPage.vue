@@ -50,6 +50,11 @@ export default {
       'isUserLoggedIn'
     ])
   },
+  watch: {
+    $route (to, from) {
+      location.reload()
+    }
+  },
   created () {
     try {
       if (!this.isUserLoggedIn) {
