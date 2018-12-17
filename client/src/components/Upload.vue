@@ -108,8 +108,11 @@
         if (response.data.isSuccess && response.data.fileNames.length > 0) {
           BusService.$emit('uploadSuccess', response.data.fileNames)
           this.files = []
+          this.$refs.files.value = ''
         } else {
           BusService.$emit('uploadSuccess', [])
+          this.files = []
+          this.$refs.files.value = ''
         }
       },
 
