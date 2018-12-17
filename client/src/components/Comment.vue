@@ -56,7 +56,7 @@
       <!-- add reply -->
       <div class="add-reply">
         <div class="commenter-avatar">
-          <img :src="config.serverHost + commentState.commenter.avatar" />
+          <img :src="config.serverHost + user.avatar" />
         </div>
         <div class="comment-textarea">
           <auto-size-textarea

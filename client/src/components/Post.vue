@@ -123,7 +123,7 @@
 
       <div class="add-comment">
         <div class="commenter-avatar">
-          <img :src="config.serverHost + poster.avatar" />
+          <img :src="config.serverHost + user.avatar" />
         </div>
         <div class="comment-textarea">
           <auto-size-textarea
@@ -165,6 +165,7 @@ export default {
   ],
   data () {
     return {
+      user: null,
       contactPopoverShow: false,
       poster: {},
       postData: {},
@@ -189,6 +190,8 @@ export default {
   },
   async created () {
     this.postData = this.post_data
+    let userRes = await UserService.getMyUserInfo()
+    this.user = userRes.data.user
   },
   async mounted () {
     // BusService.$on('comment' + this.postData._id, async (text) => {
