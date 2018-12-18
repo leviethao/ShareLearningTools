@@ -4,10 +4,19 @@
     <div class="commenter-avatar">
       <img :src="config.serverHost + commentState.commenter.avatar" />
     </div>
-    <div class="comment-container">
-      <a href="" class="commenter">{{commentState.commenter.name}}</a>
-      &nbsp;
-      <span class="comment-content">{{commentState.content}}</span>
+    <div :class="isEdit ? 'comment-container edit-cmt' : 'comment-container'">
+      <a href="" class="commenter" v-show="!isEdit">{{commentState.commenter.name}}</a>
+      <span class="comment-content" v-show="!isEdit">
+        {{commentState.content}}
+      </span>
+      <div class="comment-edit" v-show="isEdit">
+        <auto-size-textarea
+          ref="editBox"
+          :ID="'comment'+commentState._id"
+          :content="commentState.content"
+          :onComment="saveEdit"/>
+      </div>
+      <div style="clear: both;"></div>
     </div>
     <router-link
       class="cmt-option-icon"
@@ -16,7 +25,7 @@
       <img src="../assets/images/post/optionIcon.png" class="icon" />
     </router-link>
     <div class="clear-both"></div>
-    <div class="comment-footer">
+    <div class="comment-footer" v-show="!isEdit">
       <a href=""><span class="cmt-reply-link">Trả lời</span></a>
       <span class="comment-time">{{`${new Date(commentState.created).toLocaleTimeString()} - ${new Date(commentState.created).getDate()}/${new Date(commentState.created).getMonth() + 1}/${new Date(commentState.created).getFullYear()}`}}</span>
     </div>
@@ -102,7 +111,8 @@ export default {
       received: false,
       optionButtonShow: true,
       options: [],
-      user: null
+      user: null,
+      isEdit: false
     }
   },
   async created () {
@@ -116,9 +126,21 @@ export default {
     this.post = postRes.data.post
     this.initOptions()
   },
+  watch: {
+    isEdit () {
+      // this.$refs.editBox.getElementsByTagName('input')[0].focus()
+    }
+  },
   methods: {
     isShow () {
       return this.comment.commenter._id === this.user._id || this.post.poster === this.user._id
+    },
+    async saveEdit (content) {
+      let cmtRes = await CommentService.updateComment(this.commentState._id, content)
+      if (cmtRes.data.comment) {
+        this.commentState = cmtRes.data.comment
+        this.isEdit = false
+      }
     },
     async onReply (text, commentId) {
       let replyData = {
@@ -139,7 +161,9 @@ export default {
         this.options = [
           {
             name: 'Chỉnh sửa',
-            method: null
+            method: () => {
+              this.isEdit = true
+            }
           },
           {
             name: 'Xóa',
@@ -203,6 +227,17 @@ export default {
 </script>
 
 <style>
+.comment-edit {
+  width: 100%;
+  float: left;
+  background-color: rgb(250, 250, 250);
+}
+.edit-cmt {
+  background-color: rgb(250, 250, 250);
+}
+.edit-cmt textarea {
+  background-color: rgb(250, 250, 250);
+}
 /*
 .comment {
   margin: 10px 10px 0px 10px;

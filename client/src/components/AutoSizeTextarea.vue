@@ -1,5 +1,5 @@
 <template>
-  <textarea v-model="text" @input="onInput" @keyup="onKeyUp" class="textarea" ref="textarea" rows='1' :placeholder='placeholderValue'></textarea>
+  <textarea @input="onInput" @keyup="onKeyUp" class="textarea" ref="textarea" :value="content" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
@@ -18,18 +18,16 @@ export default {
   ],
   data () {
     return {
-      text: ''
     }
   },
   created () {
-    this.text = this.content
   },
   mounted () {
     this.$refs.textarea.addEventListener('keydown', this.autosize)
     let self = this
     BusService.$on('cleanCreatePost', function () {
       if (self.ID === 'postContent' || self.ID === 'postCondition') {
-        self.text = ''
+        this.$refs.textarea.value = ''
       }
     })
   },
@@ -49,10 +47,10 @@ export default {
       //   BusService.$emit(this.ID, this.text)
       // }
       if (this.ID === 'postContent') {
-        this.onPostContent(this.text)
+        this.onPostContent(this.$refs.textarea.value)
       }
       if (this.ID === 'postCondition') {
-        this.onPostCondition(this.text)
+        this.onPostCondition(this.$refs.textarea.value)
       }
     },
     onKeyUp (e) {
@@ -60,8 +58,8 @@ export default {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
           // BusService.$emit(this.ID, this.text)
-          this.onComment(this.text)
-          this.text = ''
+          this.onComment(this.$refs.textarea.value)
+          this.$refs.textarea.value = ''
         }
         return
       }
@@ -70,8 +68,8 @@ export default {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
           // BusService.$emit(this.ID, this.text, this.commentId)
-          this.onReply(this.text, this.commentId)
-          this.text = ''
+          this.onReply(this.$refs.textarea.value, this.commentId)
+          this.$refs.textarea.value = ''
         }
         return
       }

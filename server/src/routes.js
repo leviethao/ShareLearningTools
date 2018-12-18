@@ -53,6 +53,7 @@ module.exports = (app) => {
   app.post(PREFIX + '/comment/create', isAuthenticated, CommentController.createComment)
   app.delete(PREFIX + '/comment/delete/:id', isAuthenticated, CommentController.deleteComment)
   app.get(PREFIX + '/comment/:id', /* isAuthenticated, */ CommentController.getCommentById)
+  app.put(PREFIX + '/comment/update/:id', isAuthenticated, CommentController.updateComment)
 
   app.post(PREFIX + '/reply/create', isAuthenticated, ReplyController.createReply)
   app.delete(PREFIX + '/reply/delete/:id', isAuthenticated, ReplyController.deleteReply)

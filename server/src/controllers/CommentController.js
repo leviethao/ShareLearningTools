@@ -127,6 +127,22 @@ module.exports = {
         }
         res.send({comment: cmt})
       })
+  },
+  async updateComment (req, res) {
+    let cmt = await Comment.findById(req.params.id)
+    if (!cmt) {
+      res.send({comment: null})
+      return
+    }
+
+    cmt.content = req.body.content
+    cmt.created = Date.now()
+    let updatedCmt = await cmt.save()
+    if (!updatedCmt) {
+      res.send({comment: null})
+      return
+    }
+    res.send({comment: updatedCmt})
   }
 
 }

@@ -10,5 +10,8 @@ export default {
   },
   async getCommentById (id) {
     return await Api().get(`comment/${id}`)
+  },
+  async updateComment (id, content) {
+    return await Api().put(`comment/update/${id}`, {content: content})
   }
 }
