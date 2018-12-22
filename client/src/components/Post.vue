@@ -1,9 +1,7 @@
 <template>
-  <div :id="postId" :class="(isShorthandState ? 'post shorthand-post' : 'post full-post') + (isShorthand?' shorthand':'')" v-if="postData && isShow">
+  <div :id="postId" :class="(isShorthandState ? 'post shorthand-post' : 'post full-post') + (isShorthand?' shorthand':'') + (isBrowse?' browse':'')" v-if="postData && isShow">
     <!-- full post -->
     <div v-show="!isShorthandState">
-      <slot class="post-slot"></slot>
-
       <div class="post-container">
 
         <div class="post-header">
@@ -15,6 +13,12 @@
           </div>
           <button class="collapse-post btn-primary btn-sm" @click="isShorthandState = true" v-show="isShorthand">
             Thu gọn
+          </button>
+          <button class="browse-post btn-primary btn-sm" @click="browsePost" v-show="isBrowse && !postData.allow">
+            Duyệt tin
+          </button>
+          <button class="unbrowse-post btn-primary btn-sm" @click="unbrowsePost" v-show="isBrowse && postData.allow">
+            Bỏ duyệt
           </button>
           <router-link
             v-if="optionButtonShow"
@@ -184,7 +188,8 @@ export default {
   },
   props: [
     'post_data',
-    'isShorthand'
+    'isShorthand',
+    'isBrowse'
   ],
   data () {
     return {
@@ -293,6 +298,18 @@ export default {
     },
     showEditPostModal () {
       this.isShowEditPostModal = true
+    },
+    async browsePost () {
+      let postRes = await PostService.allowPost(this.postData._id)
+      if (postRes.data.post) {
+        this.postData.allow = true
+      }
+    },
+    async unbrowsePost () {
+      let postRes = await PostService.unallowPost(this.postData._id)
+      if (postRes.data.post) {
+        this.postData.allow = false
+      }
     },
     async initOptions () {
       let meResponse = await UserService.getMyUserInfo()
@@ -589,7 +606,7 @@ export default {
   float: left;
   margin-left: 210px;
 }
-.shorthand .option-icon {
+.shorthand .option-icon, .browse .option-icon {
   float: left;
   margin-left: 10px;
 }
@@ -652,12 +669,28 @@ color: rgb(82, 82, 224);
 .shorthand-post-item:link {
   text-decoration: none;
 }
-.collapse-post {
+.btn-primary {
+  border-color: #007bff;
+}
+.collapse-post, .browse-post, .unbrowse-post {
   padding: 0.1rem 0.2rem;
   font-size: 0.7rem;
   line-height: 0.7rem;
   border-radius: 0.2rem;
   width: 65px;
   margin-left: 140px;
+  border-color: #007bff;
+}
+.post-header .unbrowse-post {
+  background-color: red;
+  border-color: red;
+}
+.post-header .unbrowse-post:hover {
+  background-color: rgb(207, 4, 4);
+  border-color: rgb(207, 4, 4);
+}
+.post-header .unbrowse-post:active {
+  background-color: rgb(207, 4, 4);
+  border-color: rgb(207, 4, 4);
 }
 </style>

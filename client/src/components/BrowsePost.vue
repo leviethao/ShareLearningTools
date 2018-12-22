@@ -2,10 +2,7 @@
 <div id="browsePost">
   <div v-for="post in posts" :key="post._id">
     <div class="post-component">
-      <post :post_data="post">
-        <div v-show="!post.allow" class="floatBtnAdd noselect" @click="onBtnAddClicked(post)">+</div>
-        <div v-show="post.allow" class="floatBtnSub noselect" @click="onBtnSubClicked(post)">-</div>
-      </post>
+      <post :post_data="post" isBrowse="true" />
     </div>
   </div>
 </div>
@@ -29,18 +26,6 @@ export default {
     this.posts = postsRes.data.posts
   },
   methods: {
-    async onBtnAddClicked (post) {
-      let postRes = await PostService.allowPost(post._id)
-      if (postRes.data.post) {
-        post.allow = true
-      }
-    },
-    async onBtnSubClicked (post) {
-      let postRes = await PostService.unallowPost(post._id)
-      if (postRes.data.post) {
-        post.allow = false
-      }
-    }
   }
 }
 </script>
