@@ -57,5 +57,8 @@ export default {
   },
   async countNonReceivedPosts () {
     return await Api().get('post/count/nonReceivedPosts')
+  },
+  async updateReport (id, report) {
+    return await Api().put(`post/report/${id}`, {report: report})
   }
 }

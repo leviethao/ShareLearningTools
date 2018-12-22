@@ -107,6 +107,11 @@
               v-if="isShowEditPostModal"
               @close="isShowEditPostModal = false"
               :post="postData"/>
+          <report-post-modal
+            @close="isShowReportPost = false"
+            v-show="isShowReportPost"
+            :post="postData"
+          />
         </div>
 
         <div class="post-footer">
@@ -172,6 +177,7 @@ import BusService from '../services/BusService'
 import CommentService from '../services/CommentService'
 import config from '../config'
 import ImageModal from './ImageModal'
+import ReportPostModal from './ReportPostModal'
 import PostService from '../services/PostService'
 // import PostCategoryService from '../services/PostCategoryService'
 import ExchangeService from '../services/ExchangeService'
@@ -184,7 +190,8 @@ export default {
     ContactPopover,
     ImageModal,
     Comment,
-    EditPostModal
+    EditPostModal,
+    ReportPostModal
   },
   props: [
     'post_data',
@@ -201,6 +208,7 @@ export default {
       config: config,
       imgSrc: '',
       isShowImageModal: false,
+      isShowReportPost: false,
       isShowEditPostModal: false,
       isShowCommentBox: false,
       isShow: true,
@@ -376,8 +384,16 @@ export default {
           }
         ]
       } else {
-        this.optionButtonShow = false
+        // this.optionButtonShow = false
       }
+      this.options.push(
+        {
+          name: 'Báo cáo tin xấu',
+          async method () {
+            self.isShowReportPost = true
+          }
+        }
+      )
     }
   }
 }

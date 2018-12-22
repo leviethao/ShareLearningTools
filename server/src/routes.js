@@ -48,6 +48,7 @@ module.exports = (app) => {
   app.get(PREFIX + '/post/count/nonProvidedPosts', isAuthenticated, PostController.countNonProvidedPosts)
   app.get(PREFIX + '/post/count/receivePosts', isAuthenticated, PostController.countReceivePosts)
   app.get(PREFIX + '/post/count/nonReceivedPosts', isAuthenticated, PostController.countNonReceivedPosts)
+  app.put(PREFIX + '/post/report/:id', isAuthenticated, PostController.updateReport)
 
   app.get(PREFIX + '/user/:id', UserController.getUserInfo)
   app.post(PREFIX + '/comment/create', isAuthenticated, CommentController.createComment)

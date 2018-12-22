@@ -12,7 +12,8 @@ var PostSchema = new Schema({
   fileNames: [],
   enable: {type: Boolean, default: false},
   allow: {type: Boolean, default: false},
-  exchanges: [{type: Schema.Types.ObjectId, ref: 'Exchange'}]
+  exchanges: [{type: Schema.Types.ObjectId, ref: 'Exchange'}],
+  report: {type: String, max: 10000, default: ''}
 })
 
 PostSchema.virtual('url').get(function () {

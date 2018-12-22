@@ -11,8 +11,14 @@
                 &times;
               </span>
               <div class="report-content">
-                safafsa
-                <auto-size-textarea />
+                <h2>Báo cáo tin xấu</h2>
+                <p>Hãy cho chúng tôi biết tin này có điều gì không ổn.</p>
+                <div class="report-textarea">
+                  <textarea ref="textarea" rows="4" cols="42" :value="post.report"/>
+                </div>
+                <div class="send-report">
+                  <button class="btn-send-report btn-primary" @click="sendReport">Gửi báo cáo</button>
+                </div>
               </div>
             </div>
           </div>
@@ -24,19 +30,31 @@
 
 <script>
 import AutoSizeTextarea from './AutoSizeTextarea'
+import PostService from '../services/PostService'
 
 export default {
   components: {
     AutoSizeTextarea
   },
   props: [
-    'imgSrc'
+    'post'
   ],
   data () {
     return {
+      postState: null
     }
   },
   mounted () {
+    this.postState = this.post
+  },
+  methods: {
+    async sendReport () {
+      let postRes = await PostService.updateReport(this.postState._id, this.$refs.textarea.value)
+      if (postRes.data.post) {
+        this.postState = postRes.data.post
+        this.$emit('close')
+      }
+    }
   }
 }
 </script>
@@ -80,15 +98,39 @@ export default {
 
 .report-content {
   position: fixed;
-  top: 50%;
-  left: 50%;
   max-width: 90%;
   max-height: 90%;
 
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
+  margin-top: -100px;
+  width: 500px;
+  height: 300px;
+  background-color: rgb(218, 214, 214);
 }
 
+.report-content h2 {
+  text-align: center;
+  margin: 10px 0px;
+}
+
+.report-content p {
+  text-align: center;
+}
+
+.report-textarea {
+  width: 400px;
+  margin: auto;
+}
+
+.btn-send-report {
+  width: 200px;
+}
+
+.send-report {
+  margin-left: 150px;
+  margin-top: 25px;
+}
 /*
  * The following styles are auto-applied to elements with
  * transition="modal" when their visibility is toggled
