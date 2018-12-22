@@ -53,6 +53,13 @@ var searchField = 'content'
 // Helps speed up the search string by only accessing the 
 //keywords contained within the string to find
 
+
+// {
+//   key1: [postID1, postID2],
+//   key2: [postID3, postID4]
+// }
+
+
 function Table() {
 	this.data = {};
 	this.add = function (key, val) {

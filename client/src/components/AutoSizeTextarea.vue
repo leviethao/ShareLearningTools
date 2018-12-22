@@ -27,7 +27,7 @@ export default {
     let self = this
     BusService.$on('cleanCreatePost', function () {
       if (self.ID === 'postContent' || self.ID === 'postCondition') {
-        this.$refs.textarea.value = ''
+        self.$refs.textarea.value = ''
       }
     })
   },
