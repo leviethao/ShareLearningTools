@@ -41,6 +41,7 @@
       </div>
       <div class="home-right-hand-side">
         <home-filter />
+        <common-info class="common-info" />
       </div>
       <div class="clear-both"></div>
     </div>
@@ -60,6 +61,7 @@ import PostService from '../services/PostService'
 import SearchService from '../services/SearchService'
 import Ads from '../components/Ads'
 import HomeFilter from '../components/HomeFilter'
+import CommonInfo from '../components/CommonInfo'
 
 export default {
   name: 'HomePage',
@@ -70,7 +72,8 @@ export default {
     Post,
     CreatePost,
     Ads,
-    HomeFilter
+    HomeFilter,
+    CommonInfo
   },
   data () {
     return {
@@ -137,6 +140,11 @@ div.body-wrapper {
   min-width: 250px;
   min-height: 100px;
   margin-top: 10px;
+}
+.common-info {
+  margin-top: 200px;
+  width: 250px;
+  min-height: 420px;
 }
 .home-center {
   float: left;
