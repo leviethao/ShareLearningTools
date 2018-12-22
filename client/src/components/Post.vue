@@ -1,139 +1,161 @@
 <template>
-  <div :id="postId" class="post" v-if="postData && isShow">
-    <slot class="post-slot"></slot>
+  <div :id="postId" :class="isShorthandState ? 'post shorthand-post' : 'post full-post'" v-if="postData && isShow">
+    <!-- full post -->
+    <div v-show="!isShorthandState">
+      <slot class="post-slot"></slot>
 
-    <div class="post-container">
+      <div class="post-container">
 
-      <div class="post-header">
-        <img class="poster-avatar" :src="config.serverHost + poster.avatar"/>
-        <div class="post-info">
-          <span class="poster">{{poster.name}}</span>
-          <br>
-          <span class="post-time">{{`${new Date(postData.created).toLocaleTimeString()} - ${new Date(postData.created).getDate()}/${new Date(postData.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
-        </div>
-        <router-link
-          v-if="optionButtonShow"
-          class="option-icon"
-          :id="postData._id" to=''>
-          <img src="../assets/images/post/optionIcon.png" class="icon" />
-        </router-link>
-      </div>
-
-      <!-- options popover -->
-      <b-popover :target="postData._id"
-        triggers="focus"
-        :show.sync="optionPopoverShow"
-        placement="bottomleft"
-        :container="postId">
-
-        <div class="options-list" v-bar> <!-- el1 -->
+        <div class="post-header">
+          <img class="poster-avatar" :src="config.serverHost + poster.avatar"/>
+          <div class="post-info">
+            <span class="poster">{{poster.name}}</span>
+            <br>
+            <span class="post-time">{{`${new Date(postData.created).toLocaleTimeString()} - ${new Date(postData.created).getDate()}/${new Date(postData.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
+          </div>
+          <button class="collapse-post btn-primary btn-sm" @click="isShorthandState = true">
+            Thu gọn
+          </button>
           <router-link
-            v-for="option in options"
-            v-bind:key="option.name"
-            to="" class="option-item"
-            v-on:click.native="option.method">
-            <div class="option-content">
-              <div class="option-text">
-                {{option.name}}
-              </div>
-            </div>
+            v-if="optionButtonShow"
+            class="option-icon"
+            :id="postData._id" to=''>
+            <img src="../assets/images/post/optionIcon.png" class="icon" />
           </router-link>
         </div>
-      </b-popover>
+
+        <!-- options popover -->
+        <b-popover :target="postData._id"
+          triggers="focus"
+          :show.sync="optionPopoverShow"
+          placement="bottomleft"
+          :container="postId">
+
+          <div class="options-list" v-bar> <!-- el1 -->
+            <router-link
+              v-for="option in options"
+              v-bind:key="option.name"
+              to="" class="option-item"
+              v-on:click.native="option.method">
+              <div class="option-content">
+                <div class="option-text">
+                  {{option.name}}
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </b-popover>
 
 
-      <div class="post-body">
-        <span class="post-content">
-          {{post_data.postCategory.name === 'Cung Cấp' ? 'Cung cấp: ' : 'Cần tìm: '}} {{post_data.content}}
+        <div class="post-body">
+          <span class="post-content">
+            {{post_data.postCategory.name === 'Cung Cấp' ? 'Cung cấp: ' : 'Cần tìm: '}} {{post_data.content}}
+          </span>
+          <br>
+
+          <span v-if="postData.postCategory.name === 'Cung Cấp'" class="post-exchange-condition">
+            Điều kiện trao đổi: &nbsp;
+            {{post_data.exchangeCondition ? post_data.exchangeCondition : 'Không có điều kiện trao đổi'}}
+          </span>
+          <div v-if="postData.fileNames.length > 0">
+            <div class="file-post-container">
+              <span v-for="fileName in postData.fileNames" :key="fileName" >
+                <a
+                  class="file-post"
+                  :href="config.serverHost + fileName"
+                  download
+                  target="_blank"
+                  v-if="(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i).test(fileName) === false" >
+                  <p>{{fileName}}</p>
+                </a>
+              </span>
+            </div>
+            <div class="image-post-container">
+              <span v-for="fileName in postData.fileNames" :key="fileName" >
+                <img
+                  class="image-post"
+                  @click="showImageModal"
+                  v-if="(/\.(gif|jpg|jpeg|tiff|png)$/i).test(fileName)"
+                  :src="config.serverHost + fileName"/>
+              </span>
+            </div>
+            <div class="video-post-container">
+              <span v-for="fileName in postData.fileNames" :key="fileName" >
+                <video
+                  class="video-post"
+                  controls
+                  v-if="(/\.(mp4)$/i).test(fileName)" >
+                  <source :src="config.serverHost + fileName" type="video/mp4">
+                </video>
+              </span>
+            </div>
+            <image-modal
+              :imgSrc="imgSrc"
+              v-if="isShowImageModal"
+              @close="isShowImageModal = false"/>
+          </div>
+          <div class="post-statistics">
+            <label>Lượt bình luận: <span>{{postData.comments.length}}</span></label>
+            <label v-if="$route.path === '/profile'">Trạng thái: <span>{{postData.enable ? 'Hoạt động' : 'Ngừng hoạt động'}}</span></label>
+            <label>Lượt cho/nhận: <span>{{postData.exchanges.length}}</span></label>
+          </div>
+          <edit-post-modal
+              v-if="isShowEditPostModal"
+              @close="isShowEditPostModal = false"
+              :post="postData"/>
+        </div>
+
+        <div class="post-footer">
+          <button class="post-footer-btn-left post-footer-btn" @click="onBtnCmtClicked"><span>Bình luận</span></button>
+          <button :id="`contact-btn-${postId}`" class="post-footer-btn-right post-footer-btn"><span>Liên hệ</span></button>
+        </div>
+
+        <!-- contact popover -->
+        <contact-popover
+          :target="`contact-btn-${postId}`"
+          :container="postId"
+          :contact="poster.phoneNumber ? 'Số điện thoại: ' + poster.phoneNumber : 'Không có liên hệ'" />
+
+      </div>
+
+      <!-- comment box -->
+      <div class="comment-box" v-show="isShowCommentBox">
+        <div class="comment-list">
+          <div v-for="comment in postData.comments" :key="comment._id">
+            <comment :comment="comment"/>
+          </div>
+        </div>
+
+        <div class="add-comment">
+          <div class="commenter-avatar">
+            <img :src="config.serverHost + user.avatar" />
+          </div>
+          <div class="comment-textarea">
+            <auto-size-textarea
+              :ID="'comment'+postData._id"
+              placeholderValue="Viết bình luận"
+              :onComment="onComment"/>
+          </div>
+          <div class="clear-both"></div>
+        </div>
+
+      </div>
+    </div>
+    <!-- shorthand post -->
+    <div v-show="isShorthandState" class="shorthand-post-wrapper" @click="isShorthandState = false">
+      <router-link v-bind:to="''" class="shorthand-post-item">
+        <label>
+          {{post_data.postCategory.name === 'Cung Cấp' ? 'Cung cấp: ' : 'Cần tìm: '}}
+        </label>
+        <span class="shorthane-post-content">
+          {{post_data.content}}
         </span>
         <br>
-
-        <span v-if="postData.postCategory.name === 'Cung Cấp'" class="post-exchange-condition">
-          Điều kiện trao đổi: &nbsp;
+        <span v-if="postData.postCategory.name === 'Cung Cấp'" class="shorthand-post-exchange-condition">
+          <label> Điều kiện trao đổi:</label>
           {{post_data.exchangeCondition ? post_data.exchangeCondition : 'Không có điều kiện trao đổi'}}
         </span>
-        <div v-if="postData.fileNames.length > 0">
-          <div class="file-post-container">
-            <span v-for="fileName in postData.fileNames" :key="fileName" >
-              <a
-                class="file-post"
-                :href="config.serverHost + fileName"
-                download
-                target="_blank"
-                v-if="(/\.(gif|jpg|jpeg|tiff|png|mp4)$/i).test(fileName) === false" >
-                <p>{{fileName}}</p>
-              </a>
-            </span>
-          </div>
-          <div class="image-post-container">
-            <span v-for="fileName in postData.fileNames" :key="fileName" >
-              <img
-                class="image-post"
-                @click="showImageModal"
-                v-if="(/\.(gif|jpg|jpeg|tiff|png)$/i).test(fileName)"
-                :src="config.serverHost + fileName"/>
-            </span>
-          </div>
-          <div class="video-post-container">
-            <span v-for="fileName in postData.fileNames" :key="fileName" >
-              <video
-                class="video-post"
-                controls
-                v-if="(/\.(mp4)$/i).test(fileName)" >
-                <source :src="config.serverHost + fileName" type="video/mp4">
-              </video>
-            </span>
-          </div>
-          <image-modal
-            :imgSrc="imgSrc"
-            v-if="isShowImageModal"
-            @close="isShowImageModal = false"/>
-        </div>
-        <div class="post-statistics">
-          <label>Lượt bình luận: <span>{{postData.comments.length}}</span></label>
-          <label v-if="$route.path === '/profile'">Trạng thái: <span>{{postData.enable ? 'Hoạt động' : 'Ngừng hoạt động'}}</span></label>
-          <label>Lượt cho/nhận: <span>{{postData.exchanges.length}}</span></label>
-        </div>
-        <edit-post-modal
-            v-if="isShowEditPostModal"
-            @close="isShowEditPostModal = false"
-            :post="postData"/>
-      </div>
-
-      <div class="post-footer">
-        <button class="post-footer-btn-left post-footer-btn" @click="onBtnCmtClicked"><span>Bình luận</span></button>
-        <button :id="`contact-btn-${postId}`" class="post-footer-btn-right post-footer-btn"><span>Liên hệ</span></button>
-      </div>
-
-      <!-- contact popover -->
-      <contact-popover
-        :target="`contact-btn-${postId}`"
-        :container="postId"
-        :contact="poster.phoneNumber ? 'Số điện thoại: ' + poster.phoneNumber : 'Không có liên hệ'" />
-
-    </div>
-
-    <!-- comment box -->
-    <div class="comment-box" v-show="isShowCommentBox">
-      <div class="comment-list">
-        <div v-for="comment in postData.comments" :key="comment._id">
-          <comment :comment="comment"/>
-        </div>
-      </div>
-
-      <div class="add-comment">
-        <div class="commenter-avatar">
-          <img :src="config.serverHost + user.avatar" />
-        </div>
-        <div class="comment-textarea">
-          <auto-size-textarea
-            :ID="'comment'+postData._id"
-            placeholderValue="Viết bình luận"
-            :onComment="onComment"/>
-        </div>
-        <div class="clear-both"></div>
-      </div>
-
+      </router-link>
     </div>
   </div>
 </template>
@@ -161,7 +183,8 @@ export default {
     EditPostModal
   },
   props: [
-    'post_data'
+    'post_data',
+    'isShorthand'
   ],
   data () {
     return {
@@ -169,6 +192,7 @@ export default {
       contactPopoverShow: false,
       poster: {},
       postData: {},
+      isShorthandState: false,
       config: config,
       imgSrc: '',
       isShowImageModal: false,
@@ -192,6 +216,7 @@ export default {
     this.postData = this.post_data
     let userRes = await UserService.getMyUserInfo()
     this.user = userRes.data.user
+    this.isShorthandState = this.isShorthand
   },
   async mounted () {
     // BusService.$on('comment' + this.postData._id, async (text) => {
@@ -346,7 +371,7 @@ export default {
   width: 500px;
   background-color: #fff;
   margin: auto;
-  border: solid rgba(196, 190, 190, 0.377) 1px;
+  border: solid rgba(90, 88, 88, 0.377) 1px;
 }
 .post-container {
   /* background-color: blue; */
@@ -562,7 +587,7 @@ export default {
 }
 .option-icon {
   float: left;
-  margin-left: 200px;
+  margin-left: 10px;
 }
 .option-icon img {
   border-radius: 50%;
@@ -594,5 +619,41 @@ export default {
   width: 100%;
 }
 .post-slot {
+}
+.shorthand-post {
+  text-align: left;
+  background-color: rgba(228, 235, 240, 0.959);
+}
+.shorthand-post:hover {
+  background-color: rgb(106, 153, 255);
+}
+.shorthand-post-wrapper {
+  margin-left: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 0.9rem;
+  padding-top: 10px;
+}
+.shorthand-post-wrapper label {
+color: rgb(82, 82, 224);
+}
+.shorthane-post-content, .shorthand-post-exchange-condition {
+  color: rgb(8, 6, 95);
+}
+.shorthand-post-exchange-condition {
+  font-size: 11px;
+}
+.shorthand-post-item:link {
+  text-decoration: none;
+}
+.collapse-post {
+  padding: 0.1rem 0.2rem;
+  font-size: 0.7rem;
+  line-height: 0.7rem;
+  border-radius: 0.2rem;
+  width: 65px;
+  margin-left: 140px;
 }
 </style>

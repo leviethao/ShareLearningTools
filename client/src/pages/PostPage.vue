@@ -1,19 +1,19 @@
 <template>
-  <div id="home-page">
+  <div id="post-page">
     <div class="header-bar-component">
       <header-bar v-bind:onSearch="onSearch"/>
     </div>
 
     <div class="global-container body-wrapper">
-      <div id="home-left-hand-side">
+      <div id="post-left-hand-side">
       </div>
-      <div id="home-center">
+      <div id="post-center">
         <div class="post-component">
           <post :post_data="post"
           v-if="post"/>
         </div>
       </div>
-      <div id="home-right-hand-side">
+      <div id="post-right-hand-side">
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ import PostService from '../services/PostService'
 import SearchService from '../services/SearchService'
 
 export default {
-  name: 'HomePage',
+  name: 'PostPage',
   components: {
     HeaderBar,
     Catalog,
@@ -78,7 +78,7 @@ export default {
 </script>
 
 <style>
-#home-page {
+#post-page {
   display: flow-root;
 }
 .global-container {
@@ -86,23 +86,23 @@ export default {
 div.body-wrapper {
   margin-top: 52px;
 }
-#home-left-hand-side {
+#post-left-hand-side {
   float: left;
   width: 250px;
   min-height: 500px;
   margin-top: 10px;
 }
-#home-center {
+#post-center {
   float: left;
   margin-top: 10px;
 }
-#home-right-hand-side {
+#post-right-hand-side {
   float: left;
   margin-top: 10px;
 }
 .header-bar-component {
 }
-.post-component, .create-post-component {
+#post-page .post-component, #post-page .create-post-component {
   margin-bottom: 12px;
 }
 </style>

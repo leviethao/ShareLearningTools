@@ -147,7 +147,7 @@ div.body-wrapper {
   float: left;
   margin: 180px 0px 0px 10px;
 }
-.post-component {
+#profile .post-component {
   margin-bottom: 12px;
 }
 </style>

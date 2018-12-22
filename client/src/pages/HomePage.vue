@@ -35,7 +35,7 @@
         </div>
         <div v-for="post in posts" :key="post._id">
           <div class="post-component">
-            <post :post_data="post"/>
+            <post :post_data="post" isShorthand="true"/>
           </div>
         </div>
       </div>
@@ -151,7 +151,10 @@ div.body-wrapper {
 .header-bar-component {
 }
 .post-component, .create-post-component {
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
+}
+.create-post-component {
+  margin-bottom: 10px;
 }
 .left-panel-ads {
   max-width: 250px;
