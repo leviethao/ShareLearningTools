@@ -2,7 +2,7 @@
   <div>
     <div id='loggedout-menubar-container'>
       <div class='float-left' style='padding-top: 5px;'>
-          <span id='logo-text'>Trao Đổi Dụng Cụ Học Tập</span>
+          <span id='logo-text'>Diễn Đàn Trao Đổi Dụng Cụ Học Tập</span>
       </div>
       <div id='login-form'>
           <table>
@@ -18,7 +18,11 @@
 
     <div id='content'>
       <div class='float-left'>
-
+        <img class="bannerLogin" src="../assets/images/bannerLogin.png" />
+        <div class="slogan">
+          <h2>Hãy chung tay cùng chúng tôi!</h2>
+          <h2>Cộng đồng trao đổi dụng cụ, tài liệu học tập.</h2>
+        </div>
       </div>
       <div id='create-account-form'>
         <h2>Tạo tài khoản mới</h2>
@@ -160,10 +164,9 @@ export default {
   width: 100%;
   height: 90px;
   padding-top: 17px;
-  padding-right: 130px;
-  padding-left: 130px;
+  padding-right: 90px;
+  padding-left: 90px;
 }
-
 #logo-text {
   color: #ffffff;
   font-size: 30px;
@@ -179,17 +182,25 @@ export default {
   border-spacing: 10px;
 }
 
+.bannerLogin {
+  width: 400px;
+  margin-top:80px;
+}
+
 .caption {
   text-align: center
 }
 #content {
-  width: 80%;
+  width: 85%;
   height: 400px;
   margin: auto;
 }
 #create-account-form {
-  width: 44%;
+  width: 35%;
   float: right;
   margin-top: 60px;
+}
+.slogan {
+  margin-top: 80px;
 }
 </style>
