@@ -1,5 +1,5 @@
 <template>
-  <div :id="postId" :class="isShorthandState ? 'post shorthand-post' : 'post full-post'" v-if="postData && isShow">
+  <div :id="postId" :class="(isShorthandState ? 'post shorthand-post' : 'post full-post') + (isShorthand?' shorthand':'')" v-if="postData && isShow">
     <!-- full post -->
     <div v-show="!isShorthandState">
       <slot class="post-slot"></slot>
@@ -13,7 +13,7 @@
             <br>
             <span class="post-time">{{`${new Date(postData.created).toLocaleTimeString()} - ${new Date(postData.created).getDate()}/${new Date(postData.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
           </div>
-          <button class="collapse-post btn-primary btn-sm" @click="isShorthandState = true">
+          <button class="collapse-post btn-primary btn-sm" @click="isShorthandState = true" v-show="isShorthand">
             Thu gọn
           </button>
           <router-link
@@ -586,6 +586,10 @@ export default {
 
 }
 .option-icon {
+  float: left;
+  margin-left: 210px;
+}
+.shorthand .option-icon {
   float: left;
   margin-left: 10px;
 }
