@@ -47,7 +47,7 @@ module.exports = (app) => {
   app.get(PREFIX + '/post/count/providedPosts', isAuthenticated, PostController.countProvidedPosts)
   app.get(PREFIX + '/post/count/nonProvidedPosts', isAuthenticated, PostController.countNonProvidedPosts)
   app.get(PREFIX + '/post/count/receivePosts', isAuthenticated, PostController.countReceivePosts)
-  app.get(PREFIX + '/post/count/countNonReceivedPosts', isAuthenticated, PostController.countNonReceivedPosts)
+  app.get(PREFIX + '/post/count/nonReceivedPosts', isAuthenticated, PostController.countNonReceivedPosts)
 
   app.get(PREFIX + '/user/:id', UserController.getUserInfo)
   app.post(PREFIX + '/comment/create', isAuthenticated, CommentController.createComment)
