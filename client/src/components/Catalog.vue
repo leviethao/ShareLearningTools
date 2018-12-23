@@ -24,7 +24,7 @@
         <span class="catalog-item-text">Thông báo sự kiện</span>
       </div>
     </router-link> -->
-    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(2)" >
+    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(3)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/QuangCao.png" width="24px" height="24px" />
         <span class="catalog-item-text">Xử lý báo cáo tin</span>

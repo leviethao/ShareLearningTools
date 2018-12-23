@@ -6,5 +6,8 @@ export default {
   },
   async updateReport (id, content) {
     return await Api().put(`report/update/${id}`, {content})
+  },
+  async getAllReports () {
+    return await Api().get('/reports')
   }
 }

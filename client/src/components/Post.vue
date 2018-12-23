@@ -1,5 +1,5 @@
 <template>
-  <div :id="postId" :class="(isShorthandState ? 'post shorthand-post' : 'post full-post') + (isShorthand?' shorthand':'') + (isBrowse?' browse':'')" v-if="postData && isShow">
+  <div :id="postId" :class="(isShorthandState ? 'post shorthand-post' : 'post full-post') + (isShorthand?' shorthand':'') + (isBrowse?' browse':'') + (isReport?' report-post':'')" v-if="postData && isShow">
     <!-- full post -->
     <div v-show="!isShorthandState">
       <div class="post-container">
@@ -12,6 +12,9 @@
             <span class="post-time">{{`${new Date(postData.created).toLocaleTimeString()} - ${new Date(postData.created).getDate()}/${new Date(postData.created).getMonth() + 1}/${new Date(postData.created).getFullYear()}`}}</span>
           </div>
           <button class="collapse-post btn-primary btn-sm" @click="isShorthandState = true" v-show="isShorthand">
+            Thu gọn
+          </button>
+          <button class="collapse-post btn-primary btn-sm" @click="$emit('hide')" v-show="isReport">
             Thu gọn
           </button>
           <button class="browse-post btn-primary btn-sm" @click="browsePost" v-show="isBrowse && !postData.allow">
@@ -196,7 +199,8 @@ export default {
   props: [
     'post_data',
     'isShorthand',
-    'isBrowse'
+    'isBrowse',
+    'isReport'
   ],
   data () {
     return {
@@ -622,7 +626,7 @@ export default {
   float: left;
   margin-left: 210px;
 }
-.shorthand .option-icon, .browse .option-icon {
+.shorthand .option-icon, .browse .option-icon, .report-post .option-icon {
   float: left;
   margin-left: 10px;
 }

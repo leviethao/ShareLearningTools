@@ -72,6 +72,7 @@ module.exports = (app) => {
 
   app.post(PREFIX + '/report/create', isAuthenticated, ReportController.createReport)
   app.put(PREFIX + '/report/update/:id', isAuthenticated, ReportController.updateReport)
+  app.get(PREFIX + '/reports', isAuthenticated, ReportController.getAllReports)
 
   // app.post('/register',
   //   AuthenticationControllerPolicy.register,

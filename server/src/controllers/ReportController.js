@@ -40,5 +40,26 @@ module.exports = {
       return
     }
     res.send({report: updatedReport})
+  },
+  async getAllReports (req, res) {
+    let reports = await Report.find()
+      .populate('reporter')
+      .populate(
+        {
+          path: 'post',
+          populate: [
+            {path: 'postCategory'},
+            {path: 'toolCategory'},
+            {path: 'comments'},
+            {path: 'reports'}
+          ]
+        }
+      )
+      .exec()
+    if (!reports) {
+      res.send({reports: null})
+      return
+    }
+    res.send({reports: reports})
   }
 }

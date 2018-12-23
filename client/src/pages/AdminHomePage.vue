@@ -10,6 +10,7 @@
       <div class="column-2">
         <analysis v-show="catalogIndex === 0" />
         <browse-post v-show="catalogIndex === 1" />
+        <handle-report v-show="catalogIndex === 3" />
       </div>
       <div class="column-3">
       </div>
@@ -23,13 +24,15 @@ import HeaderBar from '../components/HeaderBar'
 import Catalog from '../components/Catalog'
 import Analysis from '../components/Analysis'
 import BrowsePost from '../components/BrowsePost'
+import HandleReport from '../components/HandleReport'
 
 export default {
   components: {
     HeaderBar,
     Catalog,
     Analysis,
-    BrowsePost
+    BrowsePost,
+    HandleReport
   },
   data () {
     return {

@@ -92,7 +92,7 @@ export default {
   background-color: azure;
   padding: 15px 10px;
 }
-.report-item {
+#analysis .report-item {
   width: 200px;
   height: 120px;
   float: left;
@@ -102,16 +102,16 @@ export default {
   padding: 10px 8px;
   background-color: rgba(218, 227, 242, 0.6);
 }
-.report-item label {
+#analysis .report-item label {
   width: 100%;
   font-size: 15px;
   word-break: keep-all;
 }
-.report-item span {
+#analysis .report-item span {
   font-size: 22px;
   color: red;
 }
-.analysis-row {
+#analysis .analysis-row {
   margin: 15px 10px;
 }
 </style>
