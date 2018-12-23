@@ -13,7 +13,7 @@ var PostSchema = new Schema({
   enable: {type: Boolean, default: false},
   allow: {type: Boolean, default: false},
   exchanges: [{type: Schema.Types.ObjectId, ref: 'Exchange'}],
-  report: {type: String, max: 10000, default: ''}
+  reports: [{type: Schema.Types.ObjectId, ref: 'Report'}]
 })
 
 PostSchema.virtual('url').get(function () {

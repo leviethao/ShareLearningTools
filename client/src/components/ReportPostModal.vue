@@ -14,7 +14,7 @@
                 <h2>Báo cáo tin xấu</h2>
                 <p>Hãy cho chúng tôi biết tin này có điều gì không ổn.</p>
                 <div class="report-textarea">
-                  <textarea ref="textarea" rows="4" cols="42" :value="post.report"/>
+                  <textarea ref="textarea" rows="4" cols="42" :value="report ? report.content : ''"/>
                 </div>
                 <div class="send-report">
                   <button class="btn-send-report btn-primary" @click="sendReport">Gửi báo cáo</button>
@@ -30,7 +30,9 @@
 
 <script>
 import AutoSizeTextarea from './AutoSizeTextarea'
-import PostService from '../services/PostService'
+// import PostService from '../services/PostService'
+import UserService from '../services/UserService'
+import ReportService from '../services/ReportService'
 
 export default {
   components: {
@@ -41,18 +43,42 @@ export default {
   ],
   data () {
     return {
-      postState: null
+      postState: null,
+      user: null,
+      report: null
     }
   },
-  mounted () {
+  async created () {
+
+  },
+  async mounted () {
     this.postState = this.post
+    let userRes = await UserService.getMyUserInfo()
+    this.user = userRes.data.user
+
+    // find report
+    for (let report of this.postState.reports) {
+      if (this.user._id === report.reporter && this.postState._id === report.post) {
+        this.report = report
+        break
+      }
+    }
   },
   methods: {
     async sendReport () {
-      let postRes = await PostService.updateReport(this.postState._id, this.$refs.textarea.value)
-      if (postRes.data.post) {
-        this.postState = postRes.data.post
-        this.$emit('close')
+      if (this.report) {
+        let reportRes = await ReportService.updateReport(this.report._id, this.$refs.textarea.value)
+        if (reportRes.data.report) {
+          this.report = reportRes.data.report
+          this.$emit('close')
+        }
+      } else {
+        let reportRes = await ReportService.createReport(this.postState._id, this.$refs.textarea.value)
+        if (reportRes.data.report) {
+          this.postState.reports.push(reportRes.data.report)
+          this.report = reportRes.data.report
+          this.$emit('close')
+        }
       }
     }
   }

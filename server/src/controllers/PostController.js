@@ -26,6 +26,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec()
 
     if (!newPostDetail) {
@@ -58,6 +59,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec((err, posts) => {
         if (err) throw err
 
@@ -75,6 +77,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec((err, post) => {
         if (err) throw err
         res.send({post: post})
@@ -138,6 +141,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec((err, posts) => {
         if (err) throw err
 
@@ -156,6 +160,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec((err, posts) => {
         if (err) throw err
 
@@ -174,6 +179,7 @@ module.exports = {
       .populate('postCategory')
       .populate('toolCategory')
       .populate('comments')
+      .populate('reports')
       .exec((err, posts) => {
         if (err) throw err
 
@@ -218,15 +224,5 @@ module.exports = {
     let categories = await PostCategory.find().exec()
     let count = await Post.count({postCategory: categories[1], enable: true})
     res.send({count: count})
-  },
-  async updateReport (req, res) {
-    let post = await Post.findById(req.params.id)
-    if (post) {
-      post.report = req.body.report
-      let updatedPost = await post.save()
-      res.send({post: updatedPost})
-      return
-    }
-    res.send({post: null})
   }
 }
