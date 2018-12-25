@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     isShow () {
-      return this.comment.commenter._id === this.user._id || this.post.poster === this.user._id
+      return this.comment.commenter._id === this.user._id || this.post.poster === this.user._id || this.user.power === 'admin'
     },
     async saveEdit (content) {
       let cmtRes = await CommentService.updateComment(this.commentState._id, content)
@@ -177,8 +177,8 @@ export default {
             }
           }
         ]
-      } else if (me._id === this.post.poster) {
-        // poster can delete any comment of other commenter
+      } else if (me._id === this.post.poster || me.power === 'admin') {
+        // poster and admin can delete any comment of other commenter
         if (this.options.find(option => option.name === 'Xóa') === undefined) {
           this.options.push(
             {
