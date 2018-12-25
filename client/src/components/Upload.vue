@@ -110,6 +110,7 @@
           this.files = []
           this.$refs.files.value = ''
         } else {
+          alert('upload success with no file')
           BusService.$emit('uploadSuccess', [])
           this.files = []
           this.$refs.files.value = ''
