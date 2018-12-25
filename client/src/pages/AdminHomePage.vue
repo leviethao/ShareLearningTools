@@ -5,12 +5,12 @@
     </div>
     <div class="global-container body-wrapper">
       <div class="column-1">
-        <catalog :onSelectedIndex="handleSelectedCatalog"/>
+        <catalog @selectedIndexChange="onSelectedIndexChange"/>
       </div>
       <div class="column-2">
-        <analysis v-show="catalogIndex === 0" />
-        <browse-post v-show="catalogIndex === 1" />
-        <handle-report v-show="catalogIndex === 3" />
+        <analysis v-show="selectedIndex === 0" />
+        <browse-post v-show="selectedIndex === 1" />
+        <handle-report v-show="selectedIndex === 3" />
       </div>
       <div class="column-3">
       </div>
@@ -36,14 +36,16 @@ export default {
   },
   data () {
     return {
-      catalogIndex: 0
+      selectedIndex: 0
     }
   },
   async mounted () {
   },
+  computed: {
+  },
   methods: {
-    handleSelectedCatalog (index) {
-      this.catalogIndex = index
+    onSelectedIndexChange (index) {
+      this.selectedIndex = index
     }
   }
 }

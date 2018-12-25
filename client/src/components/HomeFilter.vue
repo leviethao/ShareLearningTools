@@ -69,11 +69,12 @@ export default {
 <style>
   #home-filter {
     position: fixed;
-    background-color: rebeccapurple;
+    background-color: rgb(208, 193, 226);
+    border: 1px rgba(160, 158, 158, 0.377) solid;
   }
   .home-filter-title {
     font-weight: bold;
-    color: aliceblue;
+    color: #000;
   }
   .tool-category-filter {
     float: left;
@@ -85,7 +86,7 @@ export default {
   }
   .home-filter-row {
     margin-left: 20px;
-    color:aliceblue;
+    color:#000;
     text-align: left;
   }
 </style>

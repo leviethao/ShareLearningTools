@@ -84,13 +84,14 @@ export default {
 
 <style>
   #profile-filter {
+    border: 1px rgba(160, 158, 158, 0.377) solid;
+    background-color: rgb(208, 193, 226);
     position: relative;
-    background-color: rebeccapurple;
     width: 250px;
   }
   .profile-filter-title {
     font-weight: bold;
-    color: aliceblue;
+    color: #000;
   }
   .tool-category-filter, .post-category-filter, .post-status-filter {
     float: left;
@@ -98,7 +99,7 @@ export default {
   }
   .profile-filter-row {
     margin-left: 20px;
-    color:aliceblue;
+    color:#000;
     text-align: left;
   }
   .clear-both {

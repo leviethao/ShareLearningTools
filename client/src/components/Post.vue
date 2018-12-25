@@ -620,17 +620,17 @@ export default {
   width: 230px;
   height: 30px;
   padding: 5px 10px;
-  background-color: rgb(238, 212, 245);
+  background-color: rgb(222, 205, 243);
   border-bottom: solid 1px rgb(203, 199, 206);
 }
 .option-item:link {
   text-decoration: none;
 }
 .option-item:hover {
-  background-color: rgb(224, 190, 231);
+  background-color: rgb(234, 228, 241);
 }
 .option-item:active {
-  background-color: #A33BBA;
+  background-color: rgb(178, 144, 219);
 }
 .option-content {
   height: 100%;

@@ -143,12 +143,14 @@ div.body-wrapper {
 }
 .common-info {
   margin-top: 200px;
-  width: 250px;
+  width: 252px;
   min-height: 420px;
 }
 .home-center {
   float: left;
   margin-top: 10px;
+  border: 1px rgba(160, 158, 158, 0.377) solid;
+  background-color: rgb(208, 193, 226);
 }
 .home-right-hand-side {
   width: 230px;

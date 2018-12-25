@@ -55,15 +55,16 @@ export default {
 <style>
   #common-info {
     position: fixed;
-    background-color: rebeccapurple;
-    padding: 0px 10px;
+    padding: 0px 21px;
+    background-color: rgb(208, 193, 226);
+    border: 1px rgba(160, 158, 158, 0.377) solid;
   }
   .common-info-title {
     font-weight: bold;
-    color: aliceblue;
+    color: #000;
   }
   .common-info-row {
-    color:aliceblue;
+    color: #000;
     text-align: left;
   }
 </style>

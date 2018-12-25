@@ -140,10 +140,13 @@ div.body-wrapper {
   float: left;
   width: 500px;
   margin-top: 180px;
+  border: 1px rgba(160, 158, 158, 0.377) solid;
+  background-color: rgb(208, 193, 226);
+  min-height: 285px;
 }
 .column-3 {
   width: 230px;
-  background-color: rebeccapurple;
+  /* background-color: rebeccapurple; */
   float: left;
   margin: 180px 0px 0px 10px;
 }

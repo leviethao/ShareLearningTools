@@ -1,18 +1,18 @@
 <template>
   <div id="catalog-container">
-    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(0)" >
+    <router-link v-bind:to="''" :class="'catalog-item' + (selectedIndex === 0?' active':'')" @click.native="onSelectedIndexChange(0)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/TongQuan.png" width="24px" height="24px" />
         <span class="catalog-item-text">Tổng quan</span>
       </div>
     </router-link>
-    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(1)" >
+    <router-link v-bind:to="''" :class="'catalog-item' + (selectedIndex === 1?' active':'')" @click.native="onSelectedIndexChange(1)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/KiemDuyet.png" width="24px" height="24px" />
         <span class="catalog-item-text">Kiểm duyệt bài đăng</span>
       </div>
     </router-link>
-    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(2)" >
+    <router-link v-bind:to="''" :class="'catalog-item' + (selectedIndex === 2?' active':'')" @click.native="onSelectedIndexChange(2)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/QuangCao.png" width="24px" height="24px" />
         <span class="catalog-item-text">Quản lý quảng cáo</span>
@@ -24,7 +24,7 @@
         <span class="catalog-item-text">Thông báo sự kiện</span>
       </div>
     </router-link> -->
-    <router-link v-bind:to="''" class="catalog-item" @click.native="onSelectedIndex(3)" >
+    <router-link v-bind:to="''" :class="'catalog-item' + (selectedIndex === 3?' active':'')" @click.native="onSelectedIndexChange(3)" >
       <div class="catalog-item-content">
         <img class="catalog-item-icon" src="../assets/images/catalog/QuangCao.png" width="24px" height="24px" />
         <span class="catalog-item-text">Xử lý báo cáo tin</span>
@@ -36,10 +36,16 @@
 <script>
 export default {
   props: [
-    'onSelectedIndex'
   ],
   data () {
     return {
+      selectedIndex: 0
+    }
+  },
+  methods: {
+    onSelectedIndexChange (index) {
+      this.selectedIndex = index
+      this.$emit('selectedIndexChange', index)
     }
   }
 }
@@ -50,7 +56,7 @@ export default {
   display: block;
   width: 250px;
   min-height: 500px;
-  background-color: rgb(140, 137, 145);
+  background-color: rgb(191, 188, 196);
   margin: auto;
 }
 .catalog-item {
@@ -63,7 +69,7 @@ export default {
   margin-bottom: 1px;
   border-radius: 5px;
 }
-.catalog-item:hover {
+.catalog-item:hover, .active {
   background-color: rgb(240, 237, 245);
   transition-duration: 300ms;
   color: #000;

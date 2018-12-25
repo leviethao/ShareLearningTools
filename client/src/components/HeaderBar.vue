@@ -257,6 +257,7 @@ export default {
 #notify-list,
 #setting-list {
   display: block;
+  background-color: rgb(222, 205, 243);
 }
 .notify-item,
 .setting-item{
@@ -264,8 +265,9 @@ export default {
   width: 500px;
   height: 70px;
   padding: 5px 10px;
-  background-color: rgb(238, 212, 245);
+  background-color: rgb(222, 205, 243);
   border-bottom: solid 1px rgb(203, 199, 206);
+  color: #000;
 }
 .notify-item:link,
 .setting-item:link {
@@ -273,11 +275,11 @@ export default {
 }
 .notify-item:hover,
 .setting-item:hover {
-  background-color: rgb(224, 190, 231);
+  background-color: rgb(234, 228, 241);
 }
 .notify-item:active,
 .setting-item:active {
-  background-color: #A33BBA;
+  background-color: rgb(178, 144, 219);
 }
 .notify-content,
 .setting-content {
@@ -297,7 +299,7 @@ export default {
   font-size: 12px;
 }
 .notify-not-watched {
-  background-color: rgb(193, 100, 219);
+  background-color: rgb(193, 172, 218);
 }
 .notifies-counter {
   min-width: 15px;

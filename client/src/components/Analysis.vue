@@ -89,7 +89,7 @@ export default {
 #analysis {
   width: 700px;
   height: 500px;
-  background-color: azure;
+  background-color: rgb(208, 193, 226);
   padding: 15px 10px;
 }
 #analysis .report-item {
