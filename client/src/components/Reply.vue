@@ -59,11 +59,14 @@ export default {
   data () {
     return {
       config: config,
-      replyState: this.reply,
+      replyState: null,
       replyOptionButtonShow: true,
       post: null,
       options: []
     }
+  },
+  created () {
+    this.replyState = this.reply
   },
   async mounted () {
     let commentRes = await CommentService.getCommentById(this.replyState.comment)
@@ -99,7 +102,7 @@ export default {
             }
           }
         ]
-      } else if (me._id === this.post.poster) {
+      } else if (me._id === this.post.poster || me.power === 'admin') {
         // poster can delete any reply of other replyer
         if (this.options.find(option => option.name === 'Xóa') === undefined) {
           this.options.push(
