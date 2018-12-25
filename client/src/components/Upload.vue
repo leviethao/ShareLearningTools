@@ -72,6 +72,7 @@
         Submits files to the server
       */
       async submitFiles () {
+        alert('Call me')
         /*
           Initialize the form data
         */
