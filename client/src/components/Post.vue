@@ -398,6 +398,25 @@ export default {
           }
         }
       )
+
+      if (me.power === 'admin') {
+        if (this.options.find((op) => { return op.name === 'Xóa' })) {
+        } else {
+          this.options.push(
+            {
+              name: 'Xóa',
+              method: async () => {
+                let response = await PostService.deletePost(this.postData._id)
+                if (response.data.post._id) {
+                  this.postData = null
+                } else {
+                  alert('Không thể xóa bài đăng')
+                }
+              }
+            }
+          )
+        }
+      }
     }
   }
 }
