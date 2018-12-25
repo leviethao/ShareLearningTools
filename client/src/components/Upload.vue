@@ -72,7 +72,6 @@
         Submits files to the server
       */
       async submitFiles () {
-        alert('Call me')
         /*
           Initialize the form data
         */
@@ -106,13 +105,11 @@
         //   console.log('FAILURE!!')
         // })
         let response = await CommonService.uploadFile(formData)
-        alert('isSuccess: ' + response.data.isSuccess)
         if (response.data.isSuccess && response.data.fileNames.length > 0) {
           BusService.$emit('uploadSuccess', response.data.fileNames)
           this.files = []
           this.$refs.files.value = ''
         } else {
-          alert('upload success with no file')
           BusService.$emit('uploadSuccess', [])
           this.files = []
           this.$refs.files.value = ''

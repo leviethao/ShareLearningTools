@@ -131,7 +131,7 @@ export default {
   async mounted () {
     const userResponse = await UserService.getMyUserInfo()
     this.user = userResponse.data.user
-    // setInterval(this.getMyNotifies, 3000)
+    setInterval(this.getMyNotifies, 3000)
   },
   methods: {
     // on popover close
