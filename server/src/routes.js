@@ -58,6 +58,8 @@ module.exports = (app) => {
 
   app.post(PREFIX + '/reply/create', isAuthenticated, ReplyController.createReply)
   app.delete(PREFIX + '/reply/delete/:id', isAuthenticated, ReplyController.deleteReply)
+  app.put(PREFIX + '/reply/update/:id', isAuthenticated, ReplyController.updateReply)
+
   app.post(PREFIX + '/user/update', isAuthenticated, UserController.updateUserInfo)
   app.post(PREFIX + '/upload', CommonController.uploadFile)
 

@@ -68,5 +68,21 @@ module.exports = {
       }
       res.send({reply: rep})
     })
+  },
+  async updateReply (req, res) {
+    let rep = await Reply.findById(req.params.id)
+    if (!rep) {
+      res.send({reply: null})
+      return
+    }
+
+    rep.content = req.body.content
+    rep.created = Date.now()
+    let updatedRep = await rep.save()
+    if (!updatedRep) {
+      res.send({reply: null})
+      return
+    }
+    res.send({reply: updatedRep})
   }
 }

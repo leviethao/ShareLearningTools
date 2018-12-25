@@ -1,5 +1,5 @@
 <template>
-  <textarea @input="onInput" @keyup="onKeyUp" class="textarea" ref="textarea" :value="content" rows='1' :placeholder='placeholderValue'></textarea>
+  <textarea @input="onInput" @keyup="onKeyDown" class="textarea" ref="textarea" :value="content" rows='1' :placeholder='placeholderValue'></textarea>
 </template>
 
 <script>
@@ -53,12 +53,12 @@ export default {
         this.onPostCondition(this.$refs.textarea.value)
       }
     },
-    onKeyUp (e) {
+    onKeyDown (e) {
       if (this.ID.indexOf('comment') >= 0) {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
           // BusService.$emit(this.ID, this.text)
-          this.onComment(this.$refs.textarea.value)
+          this.onComment(this.$refs.textarea.value.trim())
           this.$refs.textarea.value = ''
         }
         return
@@ -68,7 +68,7 @@ export default {
         let code = (e.keyCode ? e.keyCode : e.which)
         if (code === 13) { // enter keycode
           // BusService.$emit(this.ID, this.text, this.commentId)
-          this.onReply(this.$refs.textarea.value, this.commentId)
+          this.onReply(this.$refs.textarea.value.trim(), this.commentId)
           this.$refs.textarea.value = ''
         }
         return

@@ -4,10 +4,17 @@
     <div class="commenter-avatar">
       <img :src="config.serverHost + replyState.replyer.avatar" />
     </div>
-    <div class="comment-container">
-      <a href="" class="commenter">{{replyState.replyer.name}}</a>
-      &nbsp;
-      <span class="comment-content">{{replyState.content}}</span>
+    <div :class="isEdit ? 'comment-container edit-cmt' : 'comment-container'">
+      <a href="" class="commenter" v-show="!isEdit">{{replyState.replyer.name}}</a>
+      <span class="comment-content" v-show="!isEdit">{{replyState.content}}</span>
+      <div class="comment-edit" v-show="isEdit">
+        <auto-size-textarea
+          ref="editBox"
+          :ID="'reply'+replyState._id"
+          :content="replyState.content"
+          :onReply="saveEdit"/>
+      </div>
+      <div style="clear: both;"></div>
     </div>
     <router-link
       class="reply-option-icon"
@@ -16,7 +23,7 @@
       <img src="../assets/images/post/optionIcon.png" class="icon" />
     </router-link>
     <div class="clear-both"></div>
-    <div class="comment-footer">
+    <div class="comment-footer" v-show="!isEdit">
       <span class="comment-time">{{`${new Date(replyState.created).toLocaleTimeString()} - ${new Date(replyState.created).getDate()}/${new Date(replyState.created).getMonth() + 1}/${new Date(replyState.created).getFullYear()}`}}</span>
     </div>
     <div class="clear-both"></div>
@@ -51,8 +58,12 @@ import ReplyService from '../services/ReplyService'
 import CommentService from '../services/CommentService'
 import PostService from '../services/PostService'
 import config from '../config'
+import AutoSizeTextarea from './AutoSizeTextarea'
 
 export default {
+  components: {
+    AutoSizeTextarea
+  },
   props: [
     'reply'
   ],
@@ -62,7 +73,8 @@ export default {
       replyState: null,
       replyOptionButtonShow: true,
       post: null,
-      options: []
+      options: [],
+      isEdit: false
     }
   },
   created () {
@@ -80,6 +92,13 @@ export default {
     this.initOptions()
   },
   methods: {
+    async saveEdit (content, commentId) {
+      let repRes = await ReplyService.updateReply(this.replyState._id, content, commentId)
+      if (repRes.data.reply) {
+        this.replyState = repRes.data.reply
+        this.isEdit = false
+      }
+    },
     async initOptions () {
       let meResponse = await UserService.getMyUserInfo()
       let me = meResponse.data.user
@@ -88,7 +107,9 @@ export default {
         this.options = [
           {
             name: 'Chỉnh sửa',
-            method: null
+            method: () => {
+              this.isEdit = true
+            }
           },
           {
             name: 'Xóa',

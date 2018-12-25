@@ -7,5 +7,8 @@ export default {
   },
   async deleteReply (id) {
     return await Api().delete(`reply/delete/${id}`)
+  },
+  async updateReply (id, content, commentId) {
+    return await Api().put(`reply/update/${id}`, {content, commentId})
   }
 }
